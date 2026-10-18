@@ -1,0 +1,156 @@
+{
+  "palette": [
+    "#0072B2",
+    "#D55E00",
+    "#009E73",
+    "#CC79A7",
+    "#E69F00",
+    "#56B4E9",
+    "#6B4C9A"
+  ],
+  "colors": {
+    "text": "#243447",
+    "muted": "#536478",
+    "subtle": "#68788B",
+    "background": "#FFFFFF",
+    "page": "#F5F7FA",
+    "border": "#DCE3EB",
+    "grid": "#E2E7EC",
+    "zero": "#C5CED8",
+    "axis": "#475569",
+    "control_border": "#BCC8D6",
+    "accent": "#0072B2",
+    "missing": "#E5E7EB",
+    "ground": "#B8BEC6",
+    "sensor": "#202B38",
+    "obstacle": "#e6550d",
+    "free_path": "#31a354",
+    "ground_points": "#6baed6",
+    "pale_ground": "#9ecae1",
+    "camera_fov": "gold",
+    "heading": "yellow",
+    "goal_direction": "#00c000",
+    "range_circle": "purple",
+    "speed": "#3182bd",
+    "collision": "red",
+    "black": "black",
+    "white": "white",
+    "object_fill": "0.35",
+    "object_line": "#333",
+    "object_fill_web": "rgba(80,80,80,0.85)",
+    "free_path_web": "rgba(49,163,84,0.55)",
+    "overlay": "rgba(0,0,0,0.5)",
+    "planner_clearance": "orange",
+    "figure_grid": "#E6E8EB",
+    "figure_text": "#222222",
+    "figure_axis": "#666666",
+    "figure_tick": "#444444",
+    "figure_muted": "#555555",
+    "figure_sensor": "#111111",
+    "angular_background": "#F1F4F7",
+    "empty_text": "#64748B",
+    "color_d55e00": "#D55E00",
+    "color_009e73": "#009E73",
+    "color_cc79a7": "#CC79A7",
+    "color_e69f00": "#E69F00",
+    "color_56b4e9": "#56B4E9",
+    "color_6b4c9a": "#6B4C9A",
+    "color_1f77b4": "#1f77b4",
+    "color_2ca02c": "#2ca02c",
+    "color_d62728": "#d62728"
+  },
+  "scenario_colors": {
+    "clear": "#1f77b4",
+    "heavy_rain": "#2ca02c",
+    "dense_fog": "#d62728"
+  },
+  "colormaps": {
+    "range": "cividis",
+    "reflectivity": "viridis",
+    "intensity": "viridis",
+    "snr": "plasma",
+    "incidence": "cividis",
+    "occupancy": "RdYlGn_r",
+    "camera_returns": "turbo"
+  },
+  "matplotlib": {
+    "font.family": "DejaVu Sans",
+    "font.size": 11,
+    "axes.titlesize": 12,
+    "axes.labelsize": 11,
+    "xtick.labelsize": 11,
+    "ytick.labelsize": 11,
+    "legend.fontsize": 11,
+    "axes.spines.top": false,
+    "axes.spines.right": false,
+    "axes.edgecolor": "#666666",
+    "axes.labelcolor": "#222222",
+    "text.color": "#222222",
+    "xtick.color": "#444444",
+    "ytick.color": "#444444",
+    "figure.facecolor": "white",
+    "axes.facecolor": "white",
+    "savefig.facecolor": "white",
+    "pdf.fonttype": 42,
+    "ps.fonttype": 42
+  },
+  "web": {
+    "font_family": "Arial, Helvetica, sans-serif",
+    "live_font_family": "system-ui, sans-serif",
+    "font_size": 12
+  },
+  "camera": {
+    "sky": [
+      0.62,
+      0.78,
+      0.95
+    ],
+    "fog": [
+      0.8,
+      0.82,
+      0.85
+    ],
+    "albedo": {
+      "asphalt": [
+        0.3,
+        0.3,
+        0.32
+      ],
+      "concrete": [
+        0.66,
+        0.64,
+        0.6
+      ],
+      "brick": [
+        0.62,
+        0.32,
+        0.25
+      ],
+      "wood": [
+        0.6,
+        0.42,
+        0.24
+      ],
+      "aluminium": [
+        0.8,
+        0.82,
+        0.88
+      ],
+      "white_paint": [
+        0.95,
+        0.95,
+        0.95
+      ],
+      "car_paint_black": [
+        0.07,
+        0.07,
+        0.09
+      ],
+      "retroreflector": [
+        0.95,
+        0.78,
+        0.1
+      ]
+    }
+  }
+}

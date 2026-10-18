@@ -1,0 +1,4 @@
+id,label,description,run_directory,runs,goals,collisions,timeouts,mean_elapsed_s,mean_path_length_m,worst_surface_gap_m,mean_observed_fraction
+open,Open scene,One known wall and one obstacle omitted from the planning map.,runs/open/seed_1,3,3,0,0,15.800000000000002,18.860584341251002,0.2961150080662599,0.8321070234113712
+cluttered,Cluttered scene,"Twelve varied-height boxes, pillars, a sphere and held-out obstacles create more occlusion and local detours.",runs/cluttered/seed_1,3,3,0,0,17.0,19.343461727299395,0.3116010677767538,0.7338238573021182
+narrow,Narrow passage,Tall corridor walls and alternating barriers restrict the route and occlude two held-out obstacles.,runs/narrow/seed_1,3,3,0,0,16.266666666666666,18.511258537645457,0.26616240946843817,0.4488294314381271

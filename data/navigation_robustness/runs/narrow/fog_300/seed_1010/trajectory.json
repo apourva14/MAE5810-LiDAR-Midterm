@@ -1,0 +1,423 @@
+{
+  "name": "fog_300",
+  "status": "goal",
+  "seed": 1010,
+  "history_recorded": false,
+  "config": {
+    "base_config": "sensor.jsonc",
+    "sensor_overrides": {
+      "n_channels": 8,
+      "measurements_per_cycle": 360,
+      "n_beam_samples": 1,
+      "vfov_lower_deg": -20.0,
+      "vfov_upper_deg": 10.0,
+      "air_extinction_per_m": 0.0002,
+      "rain_mm_per_h": 0.0
+    },
+    "mount_height_m": 0.6,
+    "lidar_enabled": true,
+    "robot": {
+      "start": [
+        0.0,
+        0.0
+      ],
+      "goal": [
+        18.0,
+        0.0
+      ],
+      "start_heading_deg": 0.0,
+      "goal_tolerance_m": 0.35,
+      "radius_m": 0.35,
+      "height_m": 1.0,
+      "v_max": 1.2,
+      "omega_max_deg_s": 90.0,
+      "dt": 0.2,
+      "max_steps": 180
+    },
+    "planner": {
+      "resolution_m": 0.25,
+      "extent": [
+        -2.0,
+        21.0,
+        -6.0,
+        7.0
+      ],
+      "safety_margin_m": 0.25,
+      "corner_buffer_m": 0.3,
+      "reference_speed_mps": 0.8,
+      "resample_spacing_m": 0.15
+    },
+    "controller": {
+      "n_headings": 72,
+      "route_lookahead_m": 1.8,
+      "avoidance_lookahead_m": 5.5,
+      "lookahead_m": 6.0,
+      "safety_margin_m": 0.25,
+      "d_stop_m": 0.15,
+      "d_slow_m": 2.2,
+      "w_tracking": 1.0,
+      "w_turn": 0.25,
+      "w_free": 1.5,
+      "k_omega": 2.5,
+      "z_ground_m": 0.12
+    },
+    "world": {
+      "known_objects": [
+        {
+          "type": "box",
+          "label": "north_corridor_wall",
+          "center": [
+            9,
+            2.35,
+            1.25
+          ],
+          "size": [
+            16,
+            0.3,
+            2.5
+          ],
+          "yaw_deg": 0,
+          "material": "concrete"
+        },
+        {
+          "type": "box",
+          "label": "south_corridor_wall",
+          "center": [
+            9,
+            -2.35,
+            1.25
+          ],
+          "size": [
+            16,
+            0.3,
+            2.5
+          ],
+          "yaw_deg": 0,
+          "material": "concrete"
+        },
+        {
+          "type": "box",
+          "label": "north_chicane",
+          "center": [
+            6,
+            1.15,
+            1.1
+          ],
+          "size": [
+            0.5,
+            2.1,
+            2.2
+          ],
+          "yaw_deg": 0,
+          "material": "concrete"
+        },
+        {
+          "type": "box",
+          "label": "south_chicane",
+          "center": [
+            12,
+            -1.15,
+            1.1
+          ],
+          "size": [
+            0.5,
+            2.1,
+            2.2
+          ],
+          "yaw_deg": 0,
+          "material": "concrete"
+        }
+      ],
+      "unexpected_objects": [
+        {
+          "type": "cylinder",
+          "label": "hidden_cylinder",
+          "base": [
+            9,
+            -0.1,
+            0
+          ],
+          "radius": 0.35,
+          "height": 0.8,
+          "material": "concrete"
+        },
+        {
+          "type": "box",
+          "label": "hidden_crate",
+          "center": [
+            15.5,
+            -0.5,
+            0.45
+          ],
+          "size": [
+            0.7,
+            0.7,
+            0.9
+          ],
+          "yaw_deg": 0,
+          "material": "wood"
+        }
+      ]
+    },
+    "scenarios": [
+      {
+        "name": "narrow"
+      }
+    ],
+    "_sensor_base_snapshot": {
+      "n_channels": 32,
+      "vfov_lower_deg": -25.0,
+      "vfov_upper_deg": 15.0,
+      "measurements_per_cycle": 1800,
+      "hfov_start_deg": -180.0,
+      "hfov_end_deg": 180.0,
+      "rotations_per_s": 10.0,
+      "min_range_m": 0.5,
+      "max_range_m": 200.0,
+      "peak_power_w": 75.0,
+      "beam_divergence_mrad": 2.0,
+      "n_beam_samples": 12,
+      "pulse_fwhm_ns": 5.0,
+      "pulse_rise_ns": 1.0,
+      "aperture_diam_m": 0.025,
+      "optical_efficiency": 0.5,
+      "noise_rms_w": 4e-09,
+      "snr_threshold": 10.0,
+      "saturation_power_w": 5e-05,
+      "range_floor_sigma_m": 0.01,
+      "noise_enabled": true,
+      "air_extinction_per_m": 0.0002,
+      "rain_mm_per_h": 0.0,
+      "rain_a": 0.01,
+      "rain_b": 0.6,
+      "return_mode": "strongest"
+    },
+    "_source": "/Users/lianxuyi/Desktop/Cornell/MAE5810_robot_perception/midterm/LIDAR_model/configs/trajectory.jsonc",
+    "sensor_mount": {
+      "offset_xy_m": [
+        0.0,
+        0.0
+      ],
+      "roll_deg": 0.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0
+    },
+    "_effective_sensor": {
+      "n_channels": 8,
+      "vfov_lower_deg": -20.0,
+      "vfov_upper_deg": 10.0,
+      "measurements_per_cycle": 360,
+      "hfov_start_deg": -180.0,
+      "hfov_end_deg": 180.0,
+      "rotations_per_s": 10.0,
+      "min_range_m": 0.5,
+      "max_range_m": 200.0,
+      "peak_power_w": 75.0,
+      "beam_divergence_mrad": 2.0,
+      "n_beam_samples": 1,
+      "pulse_fwhm_ns": 5.0,
+      "pulse_rise_ns": 1.0,
+      "aperture_diam_m": 0.025,
+      "optical_efficiency": 0.5,
+      "noise_rms_w": 4e-09,
+      "snr_threshold": 10.0,
+      "saturation_power_w": 5e-05,
+      "range_floor_sigma_m": 0.01,
+      "noise_enabled": true,
+      "air_extinction_per_m": 3.0,
+      "rain_mm_per_h": 0.0,
+      "rain_a": 0.01,
+      "rain_b": 0.6,
+      "return_mode": "strongest"
+    }
+  },
+  "sensor": {
+    "n_channels": 8,
+    "vfov_lower_deg": -20.0,
+    "vfov_upper_deg": 10.0,
+    "measurements_per_cycle": 360,
+    "hfov_start_deg": -180.0,
+    "hfov_end_deg": 180.0,
+    "rotations_per_s": 10.0,
+    "min_range_m": 0.5,
+    "max_range_m": 200.0,
+    "peak_power_w": 75.0,
+    "beam_divergence_mrad": 2.0,
+    "n_beam_samples": 1,
+    "pulse_fwhm_ns": 5.0,
+    "pulse_rise_ns": 1.0,
+    "aperture_diam_m": 0.025,
+    "optical_efficiency": 0.5,
+    "noise_rms_w": 4e-09,
+    "snr_threshold": 10.0,
+    "saturation_power_w": 5e-05,
+    "range_floor_sigma_m": 0.01,
+    "noise_enabled": true,
+    "air_extinction_per_m": 3.0,
+    "rain_mm_per_h": 0.0,
+    "rain_a": 0.01,
+    "rain_b": 0.6,
+    "return_mode": "strongest"
+  },
+  "world_objects": [
+    {
+      "type": "plane",
+      "label": "ground",
+      "point": [
+        0,
+        0,
+        0
+      ],
+      "normal": [
+        0,
+        0,
+        1
+      ],
+      "material": "asphalt"
+    },
+    {
+      "type": "box",
+      "label": "north_corridor_wall",
+      "center": [
+        9,
+        2.35,
+        1.25
+      ],
+      "size": [
+        16,
+        0.3,
+        2.5
+      ],
+      "yaw_deg": 0,
+      "material": "concrete"
+    },
+    {
+      "type": "box",
+      "label": "south_corridor_wall",
+      "center": [
+        9,
+        -2.35,
+        1.25
+      ],
+      "size": [
+        16,
+        0.3,
+        2.5
+      ],
+      "yaw_deg": 0,
+      "material": "concrete"
+    },
+    {
+      "type": "box",
+      "label": "north_chicane",
+      "center": [
+        6,
+        1.15,
+        1.1
+      ],
+      "size": [
+        0.5,
+        2.1,
+        2.2
+      ],
+      "yaw_deg": 0,
+      "material": "concrete"
+    },
+    {
+      "type": "box",
+      "label": "south_chicane",
+      "center": [
+        12,
+        -1.15,
+        1.1
+      ],
+      "size": [
+        0.5,
+        2.1,
+        2.2
+      ],
+      "yaw_deg": 0,
+      "material": "concrete"
+    },
+    {
+      "type": "cylinder",
+      "label": "hidden_cylinder",
+      "base": [
+        9,
+        -0.1,
+        0
+      ],
+      "radius": 0.35,
+      "height": 0.8,
+      "material": "concrete"
+    },
+    {
+      "type": "box",
+      "label": "hidden_crate",
+      "center": [
+        15.5,
+        -0.5,
+        0.45
+      ],
+      "size": [
+        0.7,
+        0.7,
+        0.9
+      ],
+      "yaw_deg": 0,
+      "material": "wood"
+    }
+  ],
+  "assumptions": [
+    "Known exact robot pose; snapshot scans at each control state, with within-sweep motion disabled.",
+    "Incomplete known map generates the reference; withheld obstacles enter only LiDAR sensing and scoring.",
+    "Local heading/speed control uses obstacle return coordinates, never ground-truth obstacle geometry or labels.",
+    "Reference time is nominal cruise timing and does not guarantee turn-rate feasibility at corners.",
+    "States contain initial/final poses; state v/omega store the command applied during the preceding interval.",
+    "Recorded raw scans contain all detected world-coordinate returns and intensity at K control snapshots; the final state has no additional scan.",
+    "Swept gap is path-to-filled-footprint distance minus disc radius; negative values indicate overlap, not penetration depth."
+  ],
+  "format_version": 2,
+  "scans_available": false,
+  "reference_metadata": {
+    "inflation_m": 0.8999999999999999,
+    "known_obstacle_labels": [
+      "north_corridor_wall",
+      "south_corridor_wall",
+      "north_chicane",
+      "south_chicane"
+    ],
+    "timing": "Nominal t=s/cruise_speed; geometric corners are not dynamically time-scaled"
+  },
+  "state_fields": [
+    "t",
+    "xy",
+    "theta",
+    "v",
+    "omega",
+    "tracking_error",
+    "time_tracking_error",
+    "progress_s",
+    "surface_gap"
+  ],
+  "control_fields": [
+    "t",
+    "v",
+    "omega",
+    "target_xy",
+    "selected_heading",
+    "n_returns",
+    "n_obstacle_points",
+    "perceived_clearance",
+    "swept_surface_gap",
+    "route_progress_s"
+  ],
+  "reference_fields": [
+    "xy",
+    "s",
+    "t",
+    "speed",
+    "heading",
+    "raw_xy"
+  ]
+}

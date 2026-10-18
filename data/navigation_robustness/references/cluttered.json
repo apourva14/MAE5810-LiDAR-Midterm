@@ -1,0 +1,15 @@
+{
+  "inflation_m": 0.8999999999999999,
+  "known_obstacle_labels": [
+    "known_wall",
+    "crate_south",
+    "stack_east",
+    "pallet_north",
+    "pillar_west",
+    "pillar_midnorth",
+    "pillar_eastnorth",
+    "rack_southwest",
+    "metal_sphere"
+  ],
+  "timing": "Nominal t=s/cruise_speed; geometric corners are not dynamically time-scaled"
+}

@@ -1,0 +1,8 @@
+{
+  "seed": 1001,
+  "run_directory": "runs/narrow/mount_high/seed_1001",
+  "observed_fraction": 0.3146488294314381,
+  "observed_area_m2": 94.08000000000001,
+  "map_voxels": 11863,
+  "status": "collision"
+}

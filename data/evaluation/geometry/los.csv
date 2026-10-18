@@ -1,0 +1,4 @@
+case,occluder,target_returns,reference_target_eligible,model_target_eligible,blocked_target_beams,nominal_center_inside
+los_clear,none,184,184,184,0,1
+los_opaque,occluder,0,0,0,184,1
+los_below_min,near_occluder,0,0,0,184,1

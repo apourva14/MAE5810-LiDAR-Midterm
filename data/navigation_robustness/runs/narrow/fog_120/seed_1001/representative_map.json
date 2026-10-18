@@ -1,0 +1,8 @@
+{
+  "seed": 1001,
+  "run_directory": "runs/narrow/fog_120/seed_1001",
+  "observed_fraction": 0.31411371237458197,
+  "observed_area_m2": 93.92000000000002,
+  "map_voxels": 14250,
+  "status": "goal"
+}

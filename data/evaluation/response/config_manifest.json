@@ -1,0 +1,367 @@
+{
+  "experiment": "Controlled 3D pulsed-LiDAR response verification",
+  "seed_base": 20261017000000,
+  "deterministic": {
+    "sensor": {
+      "n_channels": 1,
+      "vfov_lower_deg": 0.0,
+      "vfov_upper_deg": 0.0,
+      "measurements_per_cycle": 1,
+      "hfov_start_deg": 0.0,
+      "hfov_end_deg": 0.01,
+      "rotations_per_s": 10.0,
+      "min_range_m": 0.5,
+      "max_range_m": 200.0,
+      "peak_power_w": 75.0,
+      "beam_divergence_mrad": 2.0,
+      "n_beam_samples": 1,
+      "pulse_fwhm_ns": 5.0,
+      "pulse_rise_ns": 1.0,
+      "aperture_diam_m": 0.025,
+      "optical_efficiency": 0.5,
+      "noise_rms_w": 4e-09,
+      "snr_threshold": 1e-30,
+      "saturation_power_w": 5e-05,
+      "range_floor_sigma_m": 0.01,
+      "noise_enabled": false,
+      "air_extinction_per_m": 0.0002,
+      "rain_mm_per_h": 0.0,
+      "rain_a": 0.01,
+      "rain_b": 0.6,
+      "return_mode": "strongest"
+    },
+    "note": "K=1, one on-axis beam, noise disabled; threshold 1e-30 retains weak returns solely for optical-power inspection.",
+    "distance_m": [
+      5,
+      10,
+      15,
+      20,
+      30,
+      40,
+      60,
+      80,
+      100,
+      125,
+      150
+    ],
+    "rho_values": [
+      0.05,
+      0.3,
+      0.85
+    ],
+    "incidence_deg": [
+      0,
+      15,
+      30,
+      45,
+      60,
+      75
+    ]
+  },
+  "monte_carlo": {
+    "sensor": {
+      "n_channels": 1,
+      "vfov_lower_deg": 0.0,
+      "vfov_upper_deg": 0.0,
+      "measurements_per_cycle": 1,
+      "hfov_start_deg": 0.0,
+      "hfov_end_deg": 0.01,
+      "rotations_per_s": 10.0,
+      "min_range_m": 0.5,
+      "max_range_m": 200.0,
+      "peak_power_w": 75.0,
+      "beam_divergence_mrad": 2.0,
+      "n_beam_samples": 1,
+      "pulse_fwhm_ns": 5.0,
+      "pulse_rise_ns": 1.0,
+      "aperture_diam_m": 0.025,
+      "optical_efficiency": 0.5,
+      "noise_rms_w": 4e-09,
+      "snr_threshold": 10.0,
+      "saturation_power_w": 5e-05,
+      "range_floor_sigma_m": 0.01,
+      "noise_enabled": true,
+      "air_extinction_per_m": 0.0002,
+      "rain_mm_per_h": 0.0,
+      "rain_a": 0.01,
+      "rain_b": 0.6,
+      "return_mode": "strongest"
+    },
+    "rho_values": [
+      0.05,
+      0.1
+    ],
+    "ratios": [
+      0.9,
+      0.925,
+      0.9500000000000001,
+      0.9750000000000001,
+      1.0,
+      1.0250000000000001,
+      1.05,
+      1.0750000000000002,
+      1.1
+    ],
+    "trials_per_bin": 1000,
+    "snr_threshold": 10.0,
+    "range_gate_m": [
+      0.5,
+      200.0
+    ],
+    "seed_scheme": "seed_base + case_id*1000000 + bin_id*10000 + trial_id; all trial seeds unique",
+    "detection_reference": "Phi(P_reference/noise_rms - snr_threshold); one eligible echo per trial",
+    "uncertainty_reference": "sigma^2 = floor^2 + (c*t_rise/2)^2/(2*measured_power/noise_rms), conditional on detection"
+  },
+  "fixed_scene": {
+    "base_configuration": {
+      "simulation": {
+        "seed": 1
+      },
+      "sensor": {
+        "n_channels": 32,
+        "vfov_lower_deg": -25.0,
+        "vfov_upper_deg": 15.0,
+        "measurements_per_cycle": 1800,
+        "hfov_start_deg": -180.0,
+        "hfov_end_deg": 180.0,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 12,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": true,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0.0,
+          0.0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "plane",
+            "label": "ground",
+            "point": [
+              0,
+              0,
+              0
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "material": "asphalt"
+          },
+          {
+            "type": "box",
+            "label": "wall_concrete",
+            "center": [
+              22,
+              -12,
+              3.0
+            ],
+            "size": [
+              12,
+              0.6,
+              6.0
+            ],
+            "yaw_deg": 20,
+            "material": "concrete"
+          },
+          {
+            "type": "box",
+            "label": "car",
+            "center": [
+              -9,
+              4,
+              0.75
+            ],
+            "size": [
+              4.4,
+              1.8,
+              1.5
+            ],
+            "yaw_deg": 30,
+            "material": "car_paint_black"
+          },
+          {
+            "type": "box",
+            "label": "wall_white",
+            "center": [
+              30,
+              12,
+              2.0
+            ],
+            "size": [
+              0.5,
+              14,
+              4.0
+            ],
+            "yaw_deg": 0,
+            "material": "white_paint"
+          },
+          {
+            "type": "sphere",
+            "label": "sphere",
+            "center": [
+              8,
+              3,
+              1.0
+            ],
+            "radius": 1.0,
+            "material": "aluminium"
+          },
+          {
+            "type": "cylinder",
+            "label": "pole",
+            "base": [
+              6,
+              -3,
+              0
+            ],
+            "radius": 0.15,
+            "height": 4.0,
+            "material": "wood"
+          },
+          {
+            "type": "box",
+            "label": "retro_box",
+            "center": [
+              4,
+              6,
+              0.4
+            ],
+            "size": [
+              1.0,
+              1.0,
+              0.8
+            ],
+            "yaw_deg": 15,
+            "material": "retroreflector"
+          }
+        ]
+      },
+      "output": {
+        "directory": "../data/scan",
+        "save": [
+          "npz",
+          "csv",
+          "ply"
+        ],
+        "static_png": false,
+        "interactive_html": false,
+        "open_browser": false,
+        "title": null
+      }
+    },
+    "sensor": {
+      "n_channels": 16,
+      "vfov_lower_deg": -15.0,
+      "vfov_upper_deg": 15.0,
+      "measurements_per_cycle": 720,
+      "hfov_start_deg": -180.0,
+      "hfov_end_deg": 180.0,
+      "rotations_per_s": 10.0,
+      "min_range_m": 0.5,
+      "max_range_m": 200.0,
+      "peak_power_w": 75.0,
+      "beam_divergence_mrad": 2.0,
+      "n_beam_samples": 3,
+      "pulse_fwhm_ns": 5.0,
+      "pulse_rise_ns": 1.0,
+      "aperture_diam_m": 0.025,
+      "optical_efficiency": 0.5,
+      "noise_rms_w": 4e-09,
+      "snr_threshold": 10.0,
+      "saturation_power_w": 5e-05,
+      "range_floor_sigma_m": 0.01,
+      "noise_enabled": true,
+      "air_extinction_per_m": 0.0002,
+      "rain_mm_per_h": 0.0,
+      "rain_a": 0.01,
+      "rain_b": 0.6,
+      "return_mode": "strongest"
+    },
+    "pose": {
+      "position": [
+        0.0,
+        0.0,
+        1.8
+      ],
+      "roll_deg": 0.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "velocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "yaw_rate_deg_s": 0.0
+    },
+    "seeds": [
+      4101,
+      4102,
+      4103
+    ],
+    "note": "Same static scene and pose; only atmospheric loss and independent noise seeds change."
+  },
+  "weather": [
+    {
+      "name": "clear",
+      "overrides": {
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0
+      }
+    },
+    {
+      "name": "heavy_rain",
+      "overrides": {
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 50.0
+      }
+    },
+    {
+      "name": "dense_fog",
+      "overrides": {
+        "air_extinction_per_m": 0.6,
+        "rain_mm_per_h": 0.0
+      }
+    }
+  ],
+  "limitations": [
+    "Verification of an implemented model against its stated equations, not physical validation.",
+    "Diffuse weights are illustrative model inputs, not calibrated real material reflectances.",
+    "Weather changes attenuation only; there are no droplet returns, fog backscatter or refraction.",
+    "Detection conditions on one known, visible, beam-filling target inside sensing gates.",
+    "Range uncertainty conditions on detected noisy power, so the detected-power distribution is truncated.",
+    "Fixed-scene raw return yield is not target-conditioned detection probability.",
+    "Wilson intervals are pointwise 95% intervals, not simultaneous coverage of all bins."
+  ]
+}

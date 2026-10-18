@@ -1,0 +1,8 @@
+{
+  "seed": 1001,
+  "run_directory": "runs/cluttered/fov_side/seed_1001",
+  "observed_fraction": 0.2062876254180602,
+  "observed_area_m2": 61.680000000000014,
+  "map_voxels": 6670,
+  "status": "collision"
+}

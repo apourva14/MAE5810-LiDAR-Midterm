@@ -1,0 +1,246 @@
+{
+  "study": "trajectory_one_factor",
+  "runs": 21,
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "case_count": 7,
+  "reference_length_m": 18.73844027533895,
+  "reference_duration_s": 23.423050344173674,
+  "elapsed_wall_time_s": 3.33443575000274,
+  "cases": [
+    {
+      "case_id": "baseline",
+      "factor": "baseline",
+      "description": "8 channels, 360 azimuths, one sub-ray; clear air, 0.6 m mount, 1.2 m/s speed limit, 0.25 m local margin",
+      "overrides": {},
+      "runs": 3,
+      "goals": 3,
+      "collisions": 0,
+      "timeouts": 0,
+      "statuses": {
+        "goal": 3
+      },
+      "goal_fraction": 1.0,
+      "mean_termination_time_s_all_runs": 15.800000000000002,
+      "termination_time_range_s": [
+        15.8,
+        15.8
+      ],
+      "mean_path_length_m": 18.860584341251002,
+      "min_surface_gap_m": 0.2961150080662599,
+      "surface_gap_range_m": [
+        0.2961150080662599,
+        0.2961150080662599
+      ],
+      "mean_spatial_route_rmse_m": 0.4557028319936725,
+      "max_spatial_route_error_m": 1.1229167436082614,
+      "mean_time_reference_rmse_m": 3.4865540705164357,
+      "mean_angular_rate_total_variation_rad_s": 4.86834808354413,
+      "mean_returns_per_control_step": 1973.0759493670887
+    },
+    {
+      "case_id": "dense_fog",
+      "factor": "extinction",
+      "description": "Air extinction coefficient 0.6 per m; all other settings unchanged",
+      "overrides": {
+        "sensor": {
+          "air_extinction_per_m": 0.6
+        }
+      },
+      "runs": 3,
+      "goals": 3,
+      "collisions": 0,
+      "timeouts": 0,
+      "statuses": {
+        "goal": 3
+      },
+      "goal_fraction": 1.0,
+      "mean_termination_time_s_all_runs": 15.800000000000002,
+      "termination_time_range_s": [
+        15.8,
+        15.8
+      ],
+      "mean_path_length_m": 18.858635278439323,
+      "min_surface_gap_m": 0.2902796308089054,
+      "surface_gap_range_m": [
+        0.2902796308089054,
+        0.2902796308089056
+      ],
+      "mean_spatial_route_rmse_m": 0.45397097572384154,
+      "max_spatial_route_error_m": 1.131738875911119,
+      "mean_time_reference_rmse_m": 3.485901393223615,
+      "mean_angular_rate_total_variation_rad_s": 4.885431932184813,
+      "mean_returns_per_control_step": 1363.2025316455697
+    },
+    {
+      "case_id": "sparse_sampling",
+      "factor": "azimuth_density",
+      "description": "90 azimuths per revolution instead of 360",
+      "overrides": {
+        "sensor": {
+          "measurements_per_cycle": 90
+        }
+      },
+      "runs": 3,
+      "goals": 3,
+      "collisions": 0,
+      "timeouts": 0,
+      "statuses": {
+        "goal": 3
+      },
+      "goal_fraction": 1.0,
+      "mean_termination_time_s_all_runs": 15.800000000000002,
+      "termination_time_range_s": [
+        15.8,
+        15.8
+      ],
+      "mean_path_length_m": 18.862916288229528,
+      "min_surface_gap_m": 0.2912699254875105,
+      "surface_gap_range_m": [
+        0.2912699254875105,
+        0.2961150080662599
+      ],
+      "mean_spatial_route_rmse_m": 0.4528783721262255,
+      "max_spatial_route_error_m": 1.1229167436082614,
+      "mean_time_reference_rmse_m": 3.4900081352428614,
+      "mean_angular_rate_total_variation_rad_s": 4.974931580424159,
+      "mean_returns_per_control_step": 493.3080168776371
+    },
+    {
+      "case_id": "high_mount",
+      "factor": "mount_height",
+      "description": "Mounting height 1.6 m instead of 0.6 m",
+      "overrides": {
+        "mount_height_m": 1.6
+      },
+      "runs": 3,
+      "goals": 0,
+      "collisions": 3,
+      "timeouts": 0,
+      "statuses": {
+        "collision": 3
+      },
+      "goal_fraction": 0.0,
+      "mean_termination_time_s_all_runs": 9.4,
+      "termination_time_range_s": [
+        9.4,
+        9.4
+      ],
+      "mean_path_length_m": 11.181494282885168,
+      "min_surface_gap_m": -0.10582651435382517,
+      "surface_gap_range_m": [
+        -0.10582651435382517,
+        -0.10582651435382517
+      ],
+      "mean_spatial_route_rmse_m": 0.34500015010984203,
+      "max_spatial_route_error_m": 0.7952626813641794,
+      "mean_time_reference_rmse_m": 2.140353796472688,
+      "mean_angular_rate_total_variation_rad_s": 4.789607101842918,
+      "mean_returns_per_control_step": 1444.113475177305
+    },
+    {
+      "case_id": "faster_speed",
+      "factor": "speed_limit",
+      "description": "Speed limit 2.0 m/s instead of 1.2 m/s",
+      "overrides": {
+        "robot": {
+          "v_max": 2.0
+        }
+      },
+      "runs": 3,
+      "goals": 3,
+      "collisions": 0,
+      "timeouts": 0,
+      "statuses": {
+        "goal": 3
+      },
+      "goal_fraction": 1.0,
+      "mean_termination_time_s_all_runs": 9.600000000000001,
+      "termination_time_range_s": [
+        9.600000000000001,
+        9.600000000000001
+      ],
+      "mean_path_length_m": 19.026390114128887,
+      "min_surface_gap_m": 0.33423524646445235,
+      "surface_gap_range_m": [
+        0.33423524646445235,
+        0.33423524646445235
+      ],
+      "mean_spatial_route_rmse_m": 0.5154206817818143,
+      "max_spatial_route_error_m": 1.1301400722879378,
+      "mean_time_reference_rmse_m": 6.400359478082874,
+      "mean_angular_rate_total_variation_rad_s": 5.821189834559977,
+      "mean_returns_per_control_step": 1968.2291666666667
+    },
+    {
+      "case_id": "smaller_margin",
+      "factor": "local_safety_margin",
+      "description": "Local controller margin 0.05 m instead of 0.25 m; planned route unchanged",
+      "overrides": {
+        "controller": {
+          "safety_margin_m": 0.05
+        }
+      },
+      "runs": 3,
+      "goals": 3,
+      "collisions": 0,
+      "timeouts": 0,
+      "statuses": {
+        "goal": 3
+      },
+      "goal_fraction": 1.0,
+      "mean_termination_time_s_all_runs": 15.600000000000001,
+      "termination_time_range_s": [
+        15.600000000000001,
+        15.600000000000001
+      ],
+      "mean_path_length_m": 18.64455885432073,
+      "min_surface_gap_m": 0.10005742199086021,
+      "surface_gap_range_m": [
+        0.10005742199086021,
+        0.11049203525185736
+      ],
+      "mean_spatial_route_rmse_m": 0.3823601780536159,
+      "max_spatial_route_error_m": 0.8956515862293435,
+      "mean_time_reference_rmse_m": 3.4988866492088824,
+      "mean_angular_rate_total_variation_rad_s": 5.043914446046092,
+      "mean_returns_per_control_step": 1969.2350427350427
+    },
+    {
+      "case_id": "lidar_disabled",
+      "factor": "sensor_enabled",
+      "description": "LiDAR disabled; retain the same route planned from the known reference map",
+      "overrides": {
+        "lidar_enabled": false
+      },
+      "runs": 3,
+      "goals": 0,
+      "collisions": 3,
+      "timeouts": 0,
+      "statuses": {
+        "collision": 3
+      },
+      "goal_fraction": 0.0,
+      "mean_termination_time_s_all_runs": 8.8,
+      "termination_time_range_s": [
+        8.8,
+        8.8
+      ],
+      "mean_path_length_m": 10.517600975390259,
+      "min_surface_gap_m": -0.08766205419451845,
+      "surface_gap_range_m": [
+        -0.08766205419451845,
+        -0.08766205419451845
+      ],
+      "mean_spatial_route_rmse_m": 0.07797155954130568,
+      "max_spatial_route_error_m": 0.20264762659482277,
+      "mean_time_reference_rmse_m": 2.0154874450294145,
+      "mean_angular_rate_total_variation_rad_s": 1.677028324291726,
+      "mean_returns_per_control_step": 0.0
+    }
+  ],
+  "interpretation": "Descriptive paired simulations of an illustrative sensor/controller, including all failures; not safety certification or physical validation."
+}

@@ -1,0 +1,13 @@
+case_id,label,factor,comparison_baseline,overrides_json
+baseline,Baseline,baseline,baseline,{}
+fog_010,Extinction 0.1 /m,optical_stress,baseline,"{""sensor"": {""air_extinction_per_m"": 0.1}}"
+fog_030,Extinction 0.3 /m,optical_stress,baseline,"{""sensor"": {""air_extinction_per_m"": 0.3}}"
+fog_060,Extinction 0.6 /m,optical_stress,baseline,"{""sensor"": {""air_extinction_per_m"": 0.6}}"
+fog_120,Extinction 1.2 /m,optical_stress,baseline,"{""sensor"": {""air_extinction_per_m"": 1.2}}"
+fog_300,Extinction 3 /m,optical_stress,baseline,"{""sensor"": {""air_extinction_per_m"": 3.0}}"
+fog_1000,Extinction 10 /m,optical_stress,baseline,"{""sensor"": {""air_extinction_per_m"": 10.0}}"
+mount_high,Mount 1.6 m,sensor_position,baseline,"{""mount_height_m"": 1.6}"
+sampling_sparse,90 azimuth samples,sampling,baseline,"{""sensor"": {""measurements_per_cycle"": 90}}"
+fov_front,Front 120-degree FOV,field_of_view,baseline,"{""sensor"": {""hfov_end_deg"": 60.0, ""hfov_start_deg"": -60.0}}"
+fov_side,Side 120-degree FOV,sensor_orientation,fov_front,"{""sensor"": {""hfov_end_deg"": 60.0, ""hfov_start_deg"": -60.0}, ""sensor_mount"": {""yaw_deg"": 90.0}}"
+lidar_disabled,LiDAR disabled,sensor_ablation,baseline,"{""lidar_enabled"": false}"

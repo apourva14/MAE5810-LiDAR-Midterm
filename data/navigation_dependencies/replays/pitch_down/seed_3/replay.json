@@ -1,0 +1,69 @@
+{
+  "case_id": "pitch_down",
+  "seed": 3,
+  "snapshots": [
+    {
+      "step": 0,
+      "t": 0.0,
+      "path": "snapshots/step_0000.npz"
+    },
+    {
+      "step": 45,
+      "t": 9.0,
+      "path": "snapshots/step_0045.npz"
+    },
+    {
+      "step": 89,
+      "t": 17.8,
+      "path": "snapshots/step_0089.npz"
+    }
+  ],
+  "metrics": {
+    "total_beams": 259200,
+    "target_opportunities": 13377,
+    "full_fov_opportunities": 13377,
+    "visible_target_echoes": 13302,
+    "blocked_target_echoes": 75,
+    "eligible_echoes": 13302,
+    "detected_returns": 13302,
+    "expected_detections": 13302.0,
+    "expected_detection_variance": 0.0,
+    "eligible_range_sum_m": 24075.639460208633,
+    "eligible_power_sum_w": 10.364744169773981,
+    "eligible_incidence_sum_deg": 400341.0166353115,
+    "target_controller_points": 11595,
+    "all_detected_returns": 186462,
+    "power_sum_w": 10.364744504383076,
+    "snr_sum": 2591186126.095769,
+    "range_sum_m": 24075.639460208633,
+    "incidence_sum_deg": 400341.01663531136,
+    "range_error_sum_m": -0.22473872198824218,
+    "range_error_sq_sum_m2": 1.3387806902154302,
+    "predicted_variance_sum_m2": 1.3322669643610643,
+    "normalized_error_sq_sum": 13367.007327693336,
+    "snapshots": 90,
+    "pose_count": 90,
+    "sensor_enabled": 1,
+    "observed_detection_probability": 1.0,
+    "expected_detection_probability": 1.0,
+    "mean_eligible_power_w": 0.0007791869019526373,
+    "mean_eligible_range_m": 1.8099262862884253,
+    "mean_eligible_incidence_deg": 30.096302558661215,
+    "mean_power_w": 0.0007791869271074331,
+    "mean_snr": 194796.73177685827,
+    "mean_target_range_m": 1.8099262862884253,
+    "mean_incidence_deg": 30.096302558661204,
+    "range_bias_m": -1.68951076521006e-05,
+    "range_rmse_m": 0.01003220153681105,
+    "predicted_range_rmse_m": 0.010007766358567522,
+    "normalized_rmse": 1.002440538938421,
+    "case_id": "pitch_down",
+    "seed": 3
+  },
+  "poses": "../../../reference_poses_seed_3.npz",
+  "target_label": "study_target",
+  "assumptions": [
+    "Same baseline control-snapshot poses for every case; no feedback or trajectory changes in replay.",
+    "Snapshot point clouds are immutable saved measurements at first, middle and last replay poses."
+  ]
+}

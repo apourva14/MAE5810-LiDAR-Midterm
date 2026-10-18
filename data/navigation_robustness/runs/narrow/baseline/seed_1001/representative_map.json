@@ -1,0 +1,8 @@
+{
+  "seed": 1001,
+  "run_directory": "runs/narrow/baseline/seed_1001",
+  "observed_fraction": 0.44749163879598663,
+  "observed_area_m2": 133.80000000000004,
+  "map_voxels": 21117,
+  "status": "goal"
+}

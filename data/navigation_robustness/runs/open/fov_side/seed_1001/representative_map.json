@@ -1,0 +1,8 @@
+{
+  "seed": 1001,
+  "run_directory": "runs/open/fov_side/seed_1001",
+  "observed_fraction": 0.2193979933110368,
+  "observed_area_m2": 65.60000000000001,
+  "map_voxels": 6660,
+  "status": "collision"
+}

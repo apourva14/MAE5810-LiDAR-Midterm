@@ -1,0 +1,8 @@
+{
+  "seed": 1001,
+  "run_directory": "runs/open/fov_front/seed_1001",
+  "observed_fraction": 0.5929096989966555,
+  "observed_area_m2": 177.28000000000003,
+  "map_voxels": 16292,
+  "status": "goal"
+}

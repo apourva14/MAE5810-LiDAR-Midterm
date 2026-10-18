@@ -1,0 +1,11 @@
+:root{font-family:Arial,Helvetica,sans-serif;color:#243447;background:#F5F7FA;color-scheme:light}
+*{box-sizing:border-box}body{margin:0}main{max-width:1460px;margin:0 auto;padding:24px}
+h1{font-size:24px;margin:0 0 10px;line-height:1.3}h2{font-size:16px;margin:0;padding:16px 18px 0}
+.intro{max-width:1100px;font-size:14px;line-height:1.65;color:#536478;margin:0}.run-info{font-size:13px;color:#536478;margin:8px 0 0}
+.controls,.panel{background:white;border:1px solid #DCE3EB;border-radius:5px}.controls{padding:14px 16px;margin:18px 0 16px}.transport{display:flex;align-items:center;flex-wrap:wrap;gap:12px 18px}
+button,select{font:13px Arial,sans-serif;color:#243447;background:white;border:1px solid #BCC8D6;border-radius:3px;min-height:34px;padding:5px 10px}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #0072B2;outline-offset:2px}
+.transport label{font-size:13px;display:inline-flex;gap:6px;align-items:center}input[type=checkbox]{accent-color:#0072B2;width:15px;height:15px}.speed select{min-width:60px}
+.scrubber{display:flex;gap:12px;align-items:center;margin-top:13px;font-size:13px}.scrubber input{flex:1;accent-color:#0072B2}.scrubber output{min-width:110px;font-variant-numeric:tabular-nums;text-align:right}.status{font-size:12px;line-height:1.6;margin:10px 0 0;font-variant-numeric:tabular-nums;color:#475569}
+.panels{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(290px,1fr);gap:16px}.panel{overflow:hidden}#map,#commands{width:100%;height:420px}.helper{font-size:12px;line-height:1.55;margin:0;padding:0 18px 16px;color:#68788B}footer{font-size:12px;line-height:1.65;color:#68788B;margin:16px 1px 0}
+@media(max-width:900px){.panels{grid-template-columns:1fr}#commands{height:320px}#map{height:380px}}
+@media(max-width:540px){main{padding:16px 10px}h1{font-size:21px}.intro{font-size:13px}.transport{gap:10px 12px}.controls{padding:12px}.transport label{font-size:12px}.scrubber{gap:6px}.scrubber output{min-width:95px;font-size:12px}#map{height:330px}h2{padding:14px 12px 0}.helper{padding:0 12px 12px;font-size:11px}}

@@ -1,0 +1,103 @@
+{
+  "experiment": "response",
+  "output_directory": "/Users/lianxuyi/Desktop/Cornell/MAE5810_robot_perception/midterm/LIDAR_model/data/evaluation/response",
+  "radiometry": {
+    "rows": 72,
+    "max_abs_relative_power_error": 4.3891638972039126e-16,
+    "max_abs_range_error_m": 7.105427357601002e-15
+  },
+  "detection": {
+    "cases": 6,
+    "bins": 54,
+    "independent_trials": 54000,
+    "max_abs_probability_residual": 0.03199999999999714,
+    "analytic_probability_within_wilson95": 52,
+    "r50": [
+      {
+        "case_id": 0,
+        "weather": "clear",
+        "rho": 0.05,
+        "extinction_per_m": 0.0002,
+        "r50_m": 84.15330752286732
+      },
+      {
+        "case_id": 1,
+        "weather": "clear",
+        "rho": 0.1,
+        "extinction_per_m": 0.0002,
+        "r50_m": 118.20304519307322
+      },
+      {
+        "case_id": 2,
+        "weather": "heavy_rain",
+        "rho": 0.05,
+        "extinction_per_m": 0.10476395525912732,
+        "r50_m": 16.003939344679345
+      },
+      {
+        "case_id": 3,
+        "weather": "heavy_rain",
+        "rho": 0.1,
+        "extinction_per_m": 0.10476395525912732,
+        "r50_m": 18.12440968680805
+      },
+      {
+        "case_id": 4,
+        "weather": "dense_fog",
+        "rho": 0.05,
+        "extinction_per_m": 0.6,
+        "r50_m": 4.801057723070313
+      },
+      {
+        "case_id": 5,
+        "weather": "dense_fog",
+        "rho": 0.1,
+        "extinction_per_m": 0.6,
+        "r50_m": 5.2345924707884475
+      }
+    ]
+  },
+  "uncertainty": {
+    "detected_trials": 27371,
+    "pooled_normalized_mean": 3.789509744687794e-05,
+    "pooled_normalized_std": 1.0002380992269182,
+    "pooled_range_bias_m": 3.39430620357749e-06,
+    "pooled_range_rmse_m": 0.030869174787927976,
+    "pooled_predicted_sigma_rms_m": 0.030873744306658128,
+    "normalized_fraction_within_1_96": 0.9492893938840379
+  },
+  "fixed_scene_weather": [
+    {
+      "weather": "clear",
+      "seeds": 3,
+      "n_beams": 11520,
+      "mean_returns": 4877.0,
+      "min_returns": 4877,
+      "max_returns": 4877,
+      "mean_nonground_returns": 946.0,
+      "mean_raw_return_yield": 0.42335069444444445
+    },
+    {
+      "weather": "heavy_rain",
+      "seeds": 3,
+      "n_beams": 11520,
+      "mean_returns": 3211.6666666666665,
+      "min_returns": 3211,
+      "max_returns": 3213,
+      "mean_nonground_returns": 551.6666666666666,
+      "mean_raw_return_yield": 0.27879050925925924
+    },
+    {
+      "weather": "dense_fog",
+      "seeds": 3,
+      "n_beams": 11520,
+      "mean_returns": 68.33333333333333,
+      "min_returns": 66,
+      "max_returns": 70,
+      "mean_nonground_returns": 68.33333333333333,
+      "mean_raw_return_yield": 0.005931712962962962
+    }
+  ],
+  "elapsed_seconds": 7.626005791011266,
+  "interpretation": "Implemented-assumption verification only; no physical calibration or measured-device validation claimed."
+}

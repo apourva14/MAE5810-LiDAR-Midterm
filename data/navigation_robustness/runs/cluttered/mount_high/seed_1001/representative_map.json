@@ -1,0 +1,8 @@
+{
+  "seed": 1001,
+  "run_directory": "runs/cluttered/mount_high/seed_1001",
+  "observed_fraction": 0.8679598662207357,
+  "observed_area_m2": 259.52000000000004,
+  "map_voxels": 27701,
+  "status": "goal"
+}

@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "study": "geometry",
+  "case_count": 69,
+  "analytic_cases": 65,
+  "illustration_cases": 4,
+  "eligibility_mismatch_beams": 0,
+  "deterministic_detection_mismatch_beams": 0,
+  "max_abs_range_error_m": 3.82804898890754e-13,
+  "ground_height_measured_slope": 3.8637033051562732,
+  "ground_height_analytic_slope": 3.8637033051562737,
+  "ground_pitch_ranges_m": {
+    "-10.0": 20.652683842205747,
+    "-5.0": 10.36578686965854,
+    "0.0": 6.954665949281293,
+    "5.0": 5.262847920293558,
+    "10.0": 4.259162849674498
+  },
+  "yaw_return_counts": {
+    "partial": {
+      "0": 132,
+      "20": 132,
+      "30": 132,
+      "35": 130,
+      "40": 70,
+      "45": 6,
+      "50": 0,
+      "60": 0,
+      "90": 0,
+      "180": 0
+    },
+    "full360": {
+      "0": 132,
+      "20": 132,
+      "30": 132,
+      "35": 132,
+      "40": 132,
+      "45": 132,
+      "50": 132,
+      "60": 132,
+      "90": 132,
+      "180": 132
+    }
+  },
+  "full360_yaw_count_span": 0,
+  "los_target_returns": {
+    "los_clear": 184,
+    "los_opaque": 0,
+    "los_below_min": 0
+  },
+  "los_blocked_target_beams": {
+    "los_clear": 0,
+    "los_opaque": 184,
+    "los_below_min": 184
+  },
+  "below_min_occluder_blocks_target": true,
+  "assumptions": [
+    "Analytical comparisons use opaque planes, spheres, or axis-aligned boxes; one central ray per firing; and no random noise.",
+    "Independent references use closed-form intersections and an explicit Z-Y-X rotation matrix, rather than the model's intersection/rotation helpers.",
+    "Nominal FOV membership describes point inclusion in angular/range limits, independently of occlusion, discrete sampling, and optical detection.",
+    "Eligible beams have a nearest positive opaque intersection inside the configured range gate. They are distinct from returns passing the optical threshold.",
+    "Expected deterministic detections additionally apply the diffuse optical-power law and the unchanged receiver threshold.",
+    "Surface-point fractions use deterministic samples of the complete target surface, including its back side; these fractions are not visible-surface fractions.",
+    "Full-360 yaw comparisons use level sensors and yaw increments that are integer multiples of the azimuth step; equality does not imply arbitrary finite grids are invariant to every yaw offset.",
+    "The 3-subray examples illustrate finite beam width and are excluded from pencil-ray error/count agreement metrics.",
+    "These experiments assess numerical consistency with analytical idealizations, not agreement with real LiDAR measurements."
+  ]
+}

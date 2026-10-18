@@ -1,0 +1,8 @@
+{
+  "seed": 1001,
+  "run_directory": "runs/cluttered/fog_300/seed_1001",
+  "observed_fraction": 0.010033444816053512,
+  "observed_area_m2": 3.0000000000000004,
+  "map_voxels": 923,
+  "status": "goal"
+}

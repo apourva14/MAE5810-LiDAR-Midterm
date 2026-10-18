@@ -1,0 +1,290 @@
+{
+  "format_version": 1,
+  "study": "navigation_robustness_failure_diagnostics",
+  "manifest_configuration_sha256": "11c28ee16ae4b2cb8d9c034ad206ee7b8656d0aad0e10ee799e8199ddcdd2ced",
+  "summary_sha256": "c304ac153421008aad2868b7812867d06619c0f0bacf8cfe636ad98a7ce9533c",
+  "method": "Read completed saved states and controls; deterministic nearest-hit casts at recorded poses only. No scanner calls, noise draws, replanning, controller changes or outcome reruns.",
+  "low_speed_definition": {
+    "commanded_speed_below_mps": 0.05,
+    "minimum_contiguous_control_steps": 5,
+    "intervals": "[first_control_step, stop_control_step_exclusive); end time is the resulting state timestamp"
+  },
+  "stalled_run_examples": [
+    {
+      "run_directory": "runs/open/fog_120/seed_1005",
+      "seed": 1005,
+      "layout_id": "open",
+      "case_id": "fog_120",
+      "trajectory_sha256": "07573131a89cb8fcfd31cddac02e7ac57cae5e3bb6ee15698ebfd1f7f2b4aba8",
+      "status": "timeout",
+      "elapsed_s": 36.0,
+      "final_goal_distance_m": 7.637219468842529,
+      "swept_min_surface_gap_m": 0.2697902318355051,
+      "path_length_m": 11.256205695950499,
+      "final_xy_m": [
+        10.784822782094297,
+        2.503665099305793
+      ],
+      "final_reference_progress_m": 11.16457527316217,
+      "reference_length_m": 18.73844027533894,
+      "last_ten_mean_returns": 1131.6,
+      "last_ten_mean_controller_points": 548.8,
+      "low_speed_episodes": [
+        {
+          "first_control_step": 48,
+          "stop_control_step_exclusive": 180,
+          "start_time_s": 9.600000000000001,
+          "end_time_s": 36.0,
+          "duration_s": 26.4,
+          "control_steps": 132,
+          "start_xy_m": [
+            10.784822782094297,
+            2.503665099305793
+          ],
+          "end_xy_m": [
+            10.784822782094297,
+            2.503665099305793
+          ],
+          "net_translation_m": 0.0,
+          "mean_returns": 1132.6818181818182,
+          "mean_controller_points": 550.2424242424242,
+          "mean_abs_angular_rate_rad_s": 0.6025044769696927
+        }
+      ]
+    },
+    {
+      "run_directory": "runs/open/fog_1000/seed_1001",
+      "seed": 1001,
+      "layout_id": "open",
+      "case_id": "fog_1000",
+      "trajectory_sha256": "a380a61e3b6cdb3b9d0b1241a2061fb350af933303a9778119b99499882fa139",
+      "status": "timeout",
+      "elapsed_s": 36.0,
+      "final_goal_distance_m": 8.333894406325038,
+      "swept_min_surface_gap_m": 0.1392971814559828,
+      "path_length_m": 10.277600987411425,
+      "final_xy_m": [
+        9.828930901832019,
+        1.6393369905971331
+      ],
+      "final_reference_progress_m": 10.331301389636387,
+      "reference_length_m": 18.73844027533894,
+      "last_ten_mean_returns": 285.1,
+      "last_ten_mean_controller_points": 285.1,
+      "low_speed_episodes": [
+        {
+          "first_control_step": 43,
+          "stop_control_step_exclusive": 180,
+          "start_time_s": 8.6,
+          "end_time_s": 36.0,
+          "duration_s": 27.4,
+          "control_steps": 137,
+          "start_xy_m": [
+            9.828930901832019,
+            1.6393369905971331
+          ],
+          "end_xy_m": [
+            9.828930901832019,
+            1.6393369905971331
+          ],
+          "net_translation_m": 0.0,
+          "mean_returns": 285.007299270073,
+          "mean_controller_points": 285.007299270073,
+          "mean_abs_angular_rate_rad_s": 0.10983336173697493
+        }
+      ]
+    },
+    {
+      "run_directory": "runs/narrow/baseline/seed_1012",
+      "seed": 1012,
+      "layout_id": "narrow",
+      "case_id": "baseline",
+      "trajectory_sha256": "524735f8010e93d5273f3ba56113ad2a74f273c1032c1a565784299384ff0e3e",
+      "status": "timeout",
+      "elapsed_s": 36.0,
+      "final_goal_distance_m": 1.000763737198785,
+      "swept_min_surface_gap_m": 0.2615848842512666,
+      "path_length_m": 17.776704435979667,
+      "final_xy_m": [
+        17.025814175647227,
+        0.2291070433709681
+      ],
+      "final_reference_progress_m": 17.540399205558504,
+      "reference_length_m": 18.5389951492982,
+      "last_ten_mean_returns": 2506.7,
+      "last_ten_mean_controller_points": 1216.6,
+      "low_speed_episodes": [
+        {
+          "first_control_step": 53,
+          "stop_control_step_exclusive": 155,
+          "start_time_s": 10.600000000000001,
+          "end_time_s": 31.0,
+          "duration_s": 20.4,
+          "control_steps": 102,
+          "start_xy_m": [
+            11.367393329382645,
+            0.37878061015693404
+          ],
+          "end_xy_m": [
+            11.367393329382645,
+            0.37878061015693404
+          ],
+          "net_translation_m": 0.0,
+          "mean_returns": 2742.294117647059,
+          "mean_controller_points": 1513.3431372549019,
+          "mean_abs_angular_rate_rad_s": 1.4765854520980861
+        }
+      ]
+    }
+  ],
+  "high_mount_near_field": {
+    "run_directory": "runs/open/mount_high/seed_1001",
+    "seed": 1001,
+    "layout_id": "open",
+    "case_id": "mount_high",
+    "trajectory_sha256": "c4ee3404a5a69d014e174d635f578670a2f7e27a3bf25c2dab13735ef4e80888",
+    "target_label": "unexpected_barrel",
+    "status": "collision",
+    "sensor_vertical_fov_deg": [
+      -20.0,
+      10.0
+    ],
+    "controller_point_height_band_m": [
+      0.12,
+      1.0
+    ],
+    "snapshots": [
+      {
+        "step": 43,
+        "time_s": 8.6,
+        "robot_xy_m": [
+          9.795387057352258,
+          2.4462489337487106
+        ],
+        "robot_theta_rad": -0.22063974797520114,
+        "recorded_all_returns": 1440,
+        "recorded_all_controller_points": 123,
+        "actual_high_mount": {
+          "mount_height_m": 1.6,
+          "nearest_range_eligible_barrel_rays": 152,
+          "barrel_rays_within_controller_height_band": 0,
+          "minimum_true_barrel_hit_height_m": 1.0733706848347382
+        },
+        "same_pose_baseline_mount": {
+          "mount_height_m": 0.6,
+          "nearest_range_eligible_barrel_rays": 416,
+          "barrel_rays_within_controller_height_band": 412,
+          "minimum_true_barrel_hit_height_m": 0.07337068483473808
+        }
+      },
+      {
+        "step": 44,
+        "time_s": 8.8,
+        "robot_xy_m": [
+          10.01708912373049,
+          2.396523098665776
+        ],
+        "robot_theta_rad": -0.38460786974792516,
+        "recorded_all_returns": 1440,
+        "recorded_all_controller_points": 119,
+        "actual_high_mount": {
+          "mount_height_m": 1.6,
+          "nearest_range_eligible_barrel_rays": 164,
+          "barrel_rays_within_controller_height_band": 0,
+          "minimum_true_barrel_hit_height_m": 1.1192522208049478
+        },
+        "same_pose_baseline_mount": {
+          "mount_height_m": 0.6,
+          "nearest_range_eligible_barrel_rays": 472,
+          "barrel_rays_within_controller_height_band": 471,
+          "minimum_true_barrel_hit_height_m": 0.11925222080494774
+        }
+      },
+      {
+        "step": 45,
+        "time_s": 9.0,
+        "robot_xy_m": [
+          10.23690142386269,
+          2.3075506462654287
+        ],
+        "robot_theta_rad": -0.46192732283871596,
+        "recorded_all_returns": 1440,
+        "recorded_all_controller_points": 115,
+        "actual_high_mount": {
+          "mount_height_m": 1.6,
+          "nearest_range_eligible_barrel_rays": 173,
+          "barrel_rays_within_controller_height_band": 0,
+          "minimum_true_barrel_hit_height_m": 1.2
+        },
+        "same_pose_baseline_mount": {
+          "mount_height_m": 0.6,
+          "nearest_range_eligible_barrel_rays": 544,
+          "barrel_rays_within_controller_height_band": 544,
+          "minimum_true_barrel_hit_height_m": 0.20405811583079303
+        }
+      },
+      {
+        "step": 46,
+        "time_s": 9.200000000000001,
+        "robot_xy_m": [
+          10.451487473810932,
+          2.200718661950553
+        ],
+        "robot_theta_rad": -0.4865659849389199,
+        "recorded_all_returns": 1440,
+        "recorded_all_controller_points": 109,
+        "actual_high_mount": {
+          "mount_height_m": 1.6,
+          "nearest_range_eligible_barrel_rays": 168,
+          "barrel_rays_within_controller_height_band": 0,
+          "minimum_true_barrel_hit_height_m": 1.2
+        },
+        "same_pose_baseline_mount": {
+          "mount_height_m": 0.6,
+          "nearest_range_eligible_barrel_rays": 286,
+          "barrel_rays_within_controller_height_band": 286,
+          "minimum_true_barrel_hit_height_m": 0.2860941800802778
+        }
+      }
+    ],
+    "interpretation": "The sensor can geometrically hit the barrel while all those hits lie above the controller's height band. The lower-mount counterfactual uses identical recorded XY/yaw poses and deterministic geometry, not simulated noisy returns or a new navigation trial."
+  },
+  "cluttered_high_mount": {
+    "goals": 19,
+    "runs": 20,
+    "collisions": 1,
+    "all_run_gap_statistics": {
+      "n": 20,
+      "mean": -0.002932338432223769,
+      "median": 0.0017845428360355742,
+      "q25": 0.0017845428360355742,
+      "q75": 0.0017845428360355742,
+      "min": -0.09255308252915129,
+      "max": 0.0017845428360355742
+    },
+    "successful_run_gap_statistics": {
+      "n": 19,
+      "mean": 0.0017845428360355742,
+      "median": 0.0017845428360355742,
+      "q25": 0.0017845428360355742,
+      "q75": 0.0017845428360355742,
+      "min": 0.0017845428360355742,
+      "max": 0.0017845428360355742
+    },
+    "baseline_gap_statistics": {
+      "n": 20,
+      "mean": 0.31423123932531283,
+      "median": 0.3124003549952227,
+      "q25": 0.3120574509164431,
+      "q75": 0.3174417854482422,
+      "min": 0.3109473688953611,
+      "max": 0.31859609829974744
+    }
+  },
+  "limitations": [
+    "Examples were selected after inspecting outcomes to explain failures; they do not supply new independent test trials or causal success-rate estimates.",
+    "Low commanded speed and heading oscillation support controller stagnation; recorded logs do not prove a unique internal cause for every turn choice.",
+    "Geometric height-band counts omit receiver noise. They explain the sensing/filter mechanism, while stored trial outcomes remain the primary navigation evidence.",
+    "The nonmonotonic 19/20 versus 20/20 completion examples have strongly overlapping pointwise intervals and do not establish that increased attenuation improves reliability."
+  ]
+}

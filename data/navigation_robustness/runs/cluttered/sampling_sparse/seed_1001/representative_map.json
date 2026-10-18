@@ -1,0 +1,8 @@
+{
+  "seed": 1001,
+  "run_directory": "runs/cluttered/sampling_sparse/seed_1001",
+  "observed_fraction": 0.6468227424749163,
+  "observed_area_m2": 193.40000000000003,
+  "map_voxels": 17092,
+  "status": "goal"
+}

@@ -1,0 +1,8 @@
+{
+  "seed": 1001,
+  "run_directory": "runs/narrow/lidar_disabled/seed_1001",
+  "observed_fraction": 0.0,
+  "observed_area_m2": 0.0,
+  "map_voxels": 0,
+  "status": "collision"
+}

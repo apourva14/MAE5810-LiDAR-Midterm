@@ -1,0 +1,904 @@
+{
+  "format_version": 1,
+  "study": "navigation_robustness",
+  "seeds": [
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006,
+    1007,
+    1008,
+    1009,
+    1010,
+    1011,
+    1012,
+    1013,
+    1014,
+    1015,
+    1016,
+    1017,
+    1018,
+    1019,
+    1020
+  ],
+  "cases": [
+    {
+      "id": "baseline",
+      "label": "Baseline",
+      "factor": "baseline",
+      "overrides": {},
+      "comparison_baseline": "baseline"
+    },
+    {
+      "id": "fog_010",
+      "label": "Extinction 0.1 /m",
+      "factor": "optical_stress",
+      "overrides": {
+        "sensor": {
+          "air_extinction_per_m": 0.1
+        }
+      },
+      "comparison_baseline": "baseline"
+    },
+    {
+      "id": "fog_030",
+      "label": "Extinction 0.3 /m",
+      "factor": "optical_stress",
+      "overrides": {
+        "sensor": {
+          "air_extinction_per_m": 0.3
+        }
+      },
+      "comparison_baseline": "baseline"
+    },
+    {
+      "id": "fog_060",
+      "label": "Extinction 0.6 /m",
+      "factor": "optical_stress",
+      "overrides": {
+        "sensor": {
+          "air_extinction_per_m": 0.6
+        }
+      },
+      "comparison_baseline": "baseline"
+    },
+    {
+      "id": "fog_120",
+      "label": "Extinction 1.2 /m",
+      "factor": "optical_stress",
+      "overrides": {
+        "sensor": {
+          "air_extinction_per_m": 1.2
+        }
+      },
+      "comparison_baseline": "baseline"
+    },
+    {
+      "id": "fog_300",
+      "label": "Extinction 3 /m",
+      "factor": "optical_stress",
+      "overrides": {
+        "sensor": {
+          "air_extinction_per_m": 3.0
+        }
+      },
+      "comparison_baseline": "baseline"
+    },
+    {
+      "id": "fog_1000",
+      "label": "Extinction 10 /m",
+      "factor": "optical_stress",
+      "overrides": {
+        "sensor": {
+          "air_extinction_per_m": 10.0
+        }
+      },
+      "comparison_baseline": "baseline"
+    },
+    {
+      "id": "mount_high",
+      "label": "Mount 1.6 m",
+      "factor": "sensor_position",
+      "overrides": {
+        "mount_height_m": 1.6
+      },
+      "comparison_baseline": "baseline"
+    },
+    {
+      "id": "sampling_sparse",
+      "label": "90 azimuth samples",
+      "factor": "sampling",
+      "overrides": {
+        "sensor": {
+          "measurements_per_cycle": 90
+        }
+      },
+      "comparison_baseline": "baseline"
+    },
+    {
+      "id": "fov_front",
+      "label": "Front 120-degree FOV",
+      "factor": "field_of_view",
+      "overrides": {
+        "sensor": {
+          "hfov_start_deg": -60.0,
+          "hfov_end_deg": 60.0
+        }
+      },
+      "comparison_baseline": "baseline"
+    },
+    {
+      "id": "fov_side",
+      "label": "Side 120-degree FOV",
+      "factor": "sensor_orientation",
+      "overrides": {
+        "sensor": {
+          "hfov_start_deg": -60.0,
+          "hfov_end_deg": 60.0
+        },
+        "sensor_mount": {
+          "yaw_deg": 90.0
+        }
+      },
+      "comparison_baseline": "fov_front"
+    },
+    {
+      "id": "lidar_disabled",
+      "label": "LiDAR disabled",
+      "factor": "sensor_ablation",
+      "overrides": {
+        "lidar_enabled": false
+      },
+      "comparison_baseline": "baseline"
+    }
+  ],
+  "representative_seed": 1001,
+  "supplied_config": {
+    "base_config": "sensor.jsonc",
+    "sensor_overrides": {
+      "n_channels": 8,
+      "measurements_per_cycle": 360,
+      "n_beam_samples": 1,
+      "vfov_lower_deg": -20.0,
+      "vfov_upper_deg": 10.0
+    },
+    "mount_height_m": 0.6,
+    "lidar_enabled": true,
+    "robot": {
+      "start": [
+        0.0,
+        0.0
+      ],
+      "goal": [
+        18.0,
+        0.0
+      ],
+      "start_heading_deg": 0.0,
+      "goal_tolerance_m": 0.35,
+      "radius_m": 0.35,
+      "height_m": 1.0,
+      "v_max": 1.2,
+      "omega_max_deg_s": 90.0,
+      "dt": 0.2,
+      "max_steps": 320
+    },
+    "planner": {
+      "resolution_m": 0.25,
+      "extent": [
+        -2.0,
+        21.0,
+        -6.0,
+        7.0
+      ],
+      "safety_margin_m": 0.25,
+      "corner_buffer_m": 0.3,
+      "reference_speed_mps": 0.8,
+      "resample_spacing_m": 0.15
+    },
+    "controller": {
+      "n_headings": 72,
+      "route_lookahead_m": 1.8,
+      "avoidance_lookahead_m": 5.5,
+      "lookahead_m": 6.0,
+      "safety_margin_m": 0.25,
+      "d_stop_m": 0.15,
+      "d_slow_m": 2.2,
+      "w_tracking": 1.0,
+      "w_turn": 0.25,
+      "w_free": 1.5,
+      "k_omega": 2.5,
+      "z_ground_m": 0.12
+    },
+    "world": {
+      "known_objects": [
+        {
+          "type": "box",
+          "label": "known_wall",
+          "center": [
+            6.0,
+            -0.8,
+            0.6
+          ],
+          "size": [
+            2.0,
+            3.8,
+            1.2
+          ],
+          "yaw_deg": 0,
+          "material": "concrete"
+        }
+      ],
+      "unexpected_objects": [
+        {
+          "type": "cylinder",
+          "label": "unexpected_barrel",
+          "base": [
+            11.0,
+            1.1,
+            0.0
+          ],
+          "radius": 0.8,
+          "height": 1.2,
+          "material": "concrete"
+        }
+      ]
+    },
+    "scenarios": [
+      {
+        "name": "baseline",
+        "sensor": {}
+      }
+    ],
+    "_sensor_base_snapshot": {
+      "n_channels": 32,
+      "vfov_lower_deg": -25.0,
+      "vfov_upper_deg": 15.0,
+      "measurements_per_cycle": 1800,
+      "hfov_start_deg": -180.0,
+      "hfov_end_deg": 180.0,
+      "rotations_per_s": 10.0,
+      "min_range_m": 0.5,
+      "max_range_m": 200.0,
+      "peak_power_w": 75.0,
+      "beam_divergence_mrad": 2.0,
+      "n_beam_samples": 12,
+      "pulse_fwhm_ns": 5.0,
+      "pulse_rise_ns": 1.0,
+      "aperture_diam_m": 0.025,
+      "optical_efficiency": 0.5,
+      "noise_rms_w": 4e-09,
+      "snr_threshold": 10.0,
+      "saturation_power_w": 5e-05,
+      "range_floor_sigma_m": 0.01,
+      "noise_enabled": true,
+      "air_extinction_per_m": 0.0002,
+      "rain_mm_per_h": 0.0,
+      "rain_a": 0.01,
+      "rain_b": 0.6,
+      "return_mode": "strongest"
+    },
+    "_source": "/Users/lianxuyi/Desktop/Cornell/MAE5810_robot_perception/midterm/LIDAR_model/configs/trajectory.jsonc"
+  },
+  "layouts": [
+    {
+      "id": "open",
+      "label": "Open scene",
+      "description": "One known wall and one obstacle omitted from the planning map.",
+      "config": {
+        "base_config": "sensor.jsonc",
+        "sensor_overrides": {
+          "n_channels": 8,
+          "measurements_per_cycle": 360,
+          "n_beam_samples": 1,
+          "vfov_lower_deg": -20.0,
+          "vfov_upper_deg": 10.0,
+          "air_extinction_per_m": 0.0002,
+          "rain_mm_per_h": 0.0
+        },
+        "mount_height_m": 0.6,
+        "lidar_enabled": true,
+        "robot": {
+          "start": [
+            0.0,
+            0.0
+          ],
+          "goal": [
+            18.0,
+            0.0
+          ],
+          "start_heading_deg": 0.0,
+          "goal_tolerance_m": 0.35,
+          "radius_m": 0.35,
+          "height_m": 1.0,
+          "v_max": 1.2,
+          "omega_max_deg_s": 90.0,
+          "dt": 0.2,
+          "max_steps": 180
+        },
+        "planner": {
+          "resolution_m": 0.25,
+          "extent": [
+            -2.0,
+            21.0,
+            -6.0,
+            7.0
+          ],
+          "safety_margin_m": 0.25,
+          "corner_buffer_m": 0.3,
+          "reference_speed_mps": 0.8,
+          "resample_spacing_m": 0.15
+        },
+        "controller": {
+          "n_headings": 72,
+          "route_lookahead_m": 1.8,
+          "avoidance_lookahead_m": 5.5,
+          "lookahead_m": 6.0,
+          "safety_margin_m": 0.25,
+          "d_stop_m": 0.15,
+          "d_slow_m": 2.2,
+          "w_tracking": 1.0,
+          "w_turn": 0.25,
+          "w_free": 1.5,
+          "k_omega": 2.5,
+          "z_ground_m": 0.12
+        },
+        "world": {
+          "known_objects": [
+            {
+              "type": "box",
+              "label": "known_wall",
+              "center": [
+                6,
+                -0.8,
+                0.6
+              ],
+              "size": [
+                2,
+                3.8,
+                1.2
+              ],
+              "yaw_deg": 0,
+              "material": "concrete"
+            }
+          ],
+          "unexpected_objects": [
+            {
+              "type": "cylinder",
+              "label": "unexpected_barrel",
+              "base": [
+                11,
+                1.1,
+                0
+              ],
+              "radius": 0.8,
+              "height": 1.2,
+              "material": "concrete"
+            }
+          ]
+        },
+        "scenarios": [
+          {
+            "name": "open"
+          }
+        ],
+        "_sensor_base_snapshot": {
+          "n_channels": 32,
+          "vfov_lower_deg": -25.0,
+          "vfov_upper_deg": 15.0,
+          "measurements_per_cycle": 1800,
+          "hfov_start_deg": -180.0,
+          "hfov_end_deg": 180.0,
+          "rotations_per_s": 10.0,
+          "min_range_m": 0.5,
+          "max_range_m": 200.0,
+          "peak_power_w": 75.0,
+          "beam_divergence_mrad": 2.0,
+          "n_beam_samples": 12,
+          "pulse_fwhm_ns": 5.0,
+          "pulse_rise_ns": 1.0,
+          "aperture_diam_m": 0.025,
+          "optical_efficiency": 0.5,
+          "noise_rms_w": 4e-09,
+          "snr_threshold": 10.0,
+          "saturation_power_w": 5e-05,
+          "range_floor_sigma_m": 0.01,
+          "noise_enabled": true,
+          "air_extinction_per_m": 0.0002,
+          "rain_mm_per_h": 0.0,
+          "rain_a": 0.01,
+          "rain_b": 0.6,
+          "return_mode": "strongest"
+        },
+        "_source": "/Users/lianxuyi/Desktop/Cornell/MAE5810_robot_perception/midterm/LIDAR_model/configs/trajectory.jsonc"
+      }
+    },
+    {
+      "id": "cluttered",
+      "label": "Cluttered scene",
+      "description": "Twelve varied-height boxes, pillars, a sphere and held-out obstacles create more occlusion and local detours.",
+      "config": {
+        "base_config": "sensor.jsonc",
+        "sensor_overrides": {
+          "n_channels": 8,
+          "measurements_per_cycle": 360,
+          "n_beam_samples": 1,
+          "vfov_lower_deg": -20.0,
+          "vfov_upper_deg": 10.0,
+          "air_extinction_per_m": 0.0002,
+          "rain_mm_per_h": 0.0
+        },
+        "mount_height_m": 0.6,
+        "lidar_enabled": true,
+        "robot": {
+          "start": [
+            0.0,
+            0.0
+          ],
+          "goal": [
+            18.0,
+            0.0
+          ],
+          "start_heading_deg": 0.0,
+          "goal_tolerance_m": 0.35,
+          "radius_m": 0.35,
+          "height_m": 1.0,
+          "v_max": 1.2,
+          "omega_max_deg_s": 90.0,
+          "dt": 0.2,
+          "max_steps": 180
+        },
+        "planner": {
+          "resolution_m": 0.25,
+          "extent": [
+            -2.0,
+            21.0,
+            -6.0,
+            7.0
+          ],
+          "safety_margin_m": 0.25,
+          "corner_buffer_m": 0.3,
+          "reference_speed_mps": 0.8,
+          "resample_spacing_m": 0.15
+        },
+        "controller": {
+          "n_headings": 72,
+          "route_lookahead_m": 1.8,
+          "avoidance_lookahead_m": 5.5,
+          "lookahead_m": 6.0,
+          "safety_margin_m": 0.25,
+          "d_stop_m": 0.15,
+          "d_slow_m": 2.2,
+          "w_tracking": 1.0,
+          "w_turn": 0.25,
+          "w_free": 1.5,
+          "k_omega": 2.5,
+          "z_ground_m": 0.12
+        },
+        "world": {
+          "known_objects": [
+            {
+              "type": "box",
+              "label": "known_wall",
+              "center": [
+                6,
+                -0.8,
+                0.6
+              ],
+              "size": [
+                2,
+                3.8,
+                1.2
+              ],
+              "yaw_deg": 0,
+              "material": "concrete"
+            },
+            {
+              "type": "box",
+              "label": "crate_south",
+              "center": [
+                10,
+                -2.3,
+                0.7
+              ],
+              "size": [
+                1.6,
+                1.4,
+                1.4
+              ],
+              "yaw_deg": 0,
+              "material": "wood"
+            },
+            {
+              "type": "box",
+              "label": "stack_east",
+              "center": [
+                15,
+                -0.8,
+                0.8
+              ],
+              "size": [
+                1.1,
+                2.2,
+                1.6
+              ],
+              "yaw_deg": 0,
+              "material": "concrete"
+            },
+            {
+              "type": "box",
+              "label": "pallet_north",
+              "center": [
+                14.5,
+                4.3,
+                0.3
+              ],
+              "size": [
+                2.2,
+                1.0,
+                0.6
+              ],
+              "yaw_deg": -15,
+              "material": "wood"
+            },
+            {
+              "type": "cylinder",
+              "label": "pillar_west",
+              "base": [
+                3,
+                3.5,
+                0
+              ],
+              "radius": 0.3,
+              "height": 2.6,
+              "material": "wood"
+            },
+            {
+              "type": "cylinder",
+              "label": "pillar_midnorth",
+              "base": [
+                8.8,
+                4.1,
+                0
+              ],
+              "radius": 0.4,
+              "height": 2.2,
+              "material": "wood"
+            },
+            {
+              "type": "cylinder",
+              "label": "pillar_eastnorth",
+              "base": [
+                17.2,
+                3.4,
+                0
+              ],
+              "radius": 0.3,
+              "height": 2.5,
+              "material": "wood"
+            },
+            {
+              "type": "box",
+              "label": "rack_southwest",
+              "center": [
+                4,
+                -4,
+                1.0
+              ],
+              "size": [
+                2.8,
+                1,
+                2.0
+              ],
+              "yaw_deg": 0,
+              "material": "concrete"
+            },
+            {
+              "type": "sphere",
+              "label": "metal_sphere",
+              "center": [
+                10,
+                5,
+                0.6
+              ],
+              "radius": 0.6,
+              "material": "aluminium"
+            }
+          ],
+          "unexpected_objects": [
+            {
+              "type": "cylinder",
+              "label": "unexpected_barrel",
+              "base": [
+                11,
+                1.1,
+                0
+              ],
+              "radius": 0.8,
+              "height": 1.2,
+              "material": "concrete"
+            },
+            {
+              "type": "box",
+              "label": "unexpected_bin",
+              "center": [
+                13.2,
+                2.9,
+                0.375
+              ],
+              "size": [
+                0.7,
+                0.8,
+                0.75
+              ],
+              "yaw_deg": 0,
+              "material": "car_paint_black"
+            },
+            {
+              "type": "cylinder",
+              "label": "unexpected_low_barrel",
+              "base": [
+                8.7,
+                -0.7,
+                0
+              ],
+              "radius": 0.4,
+              "height": 0.9,
+              "material": "wood"
+            }
+          ]
+        },
+        "scenarios": [
+          {
+            "name": "cluttered"
+          }
+        ],
+        "_sensor_base_snapshot": {
+          "n_channels": 32,
+          "vfov_lower_deg": -25.0,
+          "vfov_upper_deg": 15.0,
+          "measurements_per_cycle": 1800,
+          "hfov_start_deg": -180.0,
+          "hfov_end_deg": 180.0,
+          "rotations_per_s": 10.0,
+          "min_range_m": 0.5,
+          "max_range_m": 200.0,
+          "peak_power_w": 75.0,
+          "beam_divergence_mrad": 2.0,
+          "n_beam_samples": 12,
+          "pulse_fwhm_ns": 5.0,
+          "pulse_rise_ns": 1.0,
+          "aperture_diam_m": 0.025,
+          "optical_efficiency": 0.5,
+          "noise_rms_w": 4e-09,
+          "snr_threshold": 10.0,
+          "saturation_power_w": 5e-05,
+          "range_floor_sigma_m": 0.01,
+          "noise_enabled": true,
+          "air_extinction_per_m": 0.0002,
+          "rain_mm_per_h": 0.0,
+          "rain_a": 0.01,
+          "rain_b": 0.6,
+          "return_mode": "strongest"
+        },
+        "_source": "/Users/lianxuyi/Desktop/Cornell/MAE5810_robot_perception/midterm/LIDAR_model/configs/trajectory.jsonc"
+      }
+    },
+    {
+      "id": "narrow",
+      "label": "Narrow passage",
+      "description": "Tall corridor walls and alternating barriers restrict the route and occlude two held-out obstacles.",
+      "config": {
+        "base_config": "sensor.jsonc",
+        "sensor_overrides": {
+          "n_channels": 8,
+          "measurements_per_cycle": 360,
+          "n_beam_samples": 1,
+          "vfov_lower_deg": -20.0,
+          "vfov_upper_deg": 10.0,
+          "air_extinction_per_m": 0.0002,
+          "rain_mm_per_h": 0.0
+        },
+        "mount_height_m": 0.6,
+        "lidar_enabled": true,
+        "robot": {
+          "start": [
+            0.0,
+            0.0
+          ],
+          "goal": [
+            18.0,
+            0.0
+          ],
+          "start_heading_deg": 0.0,
+          "goal_tolerance_m": 0.35,
+          "radius_m": 0.35,
+          "height_m": 1.0,
+          "v_max": 1.2,
+          "omega_max_deg_s": 90.0,
+          "dt": 0.2,
+          "max_steps": 180
+        },
+        "planner": {
+          "resolution_m": 0.25,
+          "extent": [
+            -2.0,
+            21.0,
+            -6.0,
+            7.0
+          ],
+          "safety_margin_m": 0.25,
+          "corner_buffer_m": 0.3,
+          "reference_speed_mps": 0.8,
+          "resample_spacing_m": 0.15
+        },
+        "controller": {
+          "n_headings": 72,
+          "route_lookahead_m": 1.8,
+          "avoidance_lookahead_m": 5.5,
+          "lookahead_m": 6.0,
+          "safety_margin_m": 0.25,
+          "d_stop_m": 0.15,
+          "d_slow_m": 2.2,
+          "w_tracking": 1.0,
+          "w_turn": 0.25,
+          "w_free": 1.5,
+          "k_omega": 2.5,
+          "z_ground_m": 0.12
+        },
+        "world": {
+          "known_objects": [
+            {
+              "type": "box",
+              "label": "north_corridor_wall",
+              "center": [
+                9,
+                2.35,
+                1.25
+              ],
+              "size": [
+                16,
+                0.3,
+                2.5
+              ],
+              "yaw_deg": 0,
+              "material": "concrete"
+            },
+            {
+              "type": "box",
+              "label": "south_corridor_wall",
+              "center": [
+                9,
+                -2.35,
+                1.25
+              ],
+              "size": [
+                16,
+                0.3,
+                2.5
+              ],
+              "yaw_deg": 0,
+              "material": "concrete"
+            },
+            {
+              "type": "box",
+              "label": "north_chicane",
+              "center": [
+                6,
+                1.15,
+                1.1
+              ],
+              "size": [
+                0.5,
+                2.1,
+                2.2
+              ],
+              "yaw_deg": 0,
+              "material": "concrete"
+            },
+            {
+              "type": "box",
+              "label": "south_chicane",
+              "center": [
+                12,
+                -1.15,
+                1.1
+              ],
+              "size": [
+                0.5,
+                2.1,
+                2.2
+              ],
+              "yaw_deg": 0,
+              "material": "concrete"
+            }
+          ],
+          "unexpected_objects": [
+            {
+              "type": "cylinder",
+              "label": "hidden_cylinder",
+              "base": [
+                9,
+                -0.1,
+                0
+              ],
+              "radius": 0.35,
+              "height": 0.8,
+              "material": "concrete"
+            },
+            {
+              "type": "box",
+              "label": "hidden_crate",
+              "center": [
+                15.5,
+                -0.5,
+                0.45
+              ],
+              "size": [
+                0.7,
+                0.7,
+                0.9
+              ],
+              "yaw_deg": 0,
+              "material": "wood"
+            }
+          ]
+        },
+        "scenarios": [
+          {
+            "name": "narrow"
+          }
+        ],
+        "_sensor_base_snapshot": {
+          "n_channels": 32,
+          "vfov_lower_deg": -25.0,
+          "vfov_upper_deg": 15.0,
+          "measurements_per_cycle": 1800,
+          "hfov_start_deg": -180.0,
+          "hfov_end_deg": 180.0,
+          "rotations_per_s": 10.0,
+          "min_range_m": 0.5,
+          "max_range_m": 200.0,
+          "peak_power_w": 75.0,
+          "beam_divergence_mrad": 2.0,
+          "n_beam_samples": 12,
+          "pulse_fwhm_ns": 5.0,
+          "pulse_rise_ns": 1.0,
+          "aperture_diam_m": 0.025,
+          "optical_efficiency": 0.5,
+          "noise_rms_w": 4e-09,
+          "snr_threshold": 10.0,
+          "saturation_power_w": 5e-05,
+          "range_floor_sigma_m": 0.01,
+          "noise_enabled": true,
+          "air_extinction_per_m": 0.0002,
+          "rain_mm_per_h": 0.0,
+          "rain_a": 0.01,
+          "rain_b": 0.6,
+          "return_mode": "strongest"
+        },
+        "_source": "/Users/lianxuyi/Desktop/Cornell/MAE5810_robot_perception/midterm/LIDAR_model/configs/trajectory.jsonc"
+      }
+    }
+  ],
+  "pairing": "Noise-seed labels are paired within layouts. Geometry and beam-count changes alter RNG consumption; paired labels are not identical per-ray perturbations.",
+  "definitions": {
+    "independent_unit": "One complete closed-loop run. Success intervals use run counts, never rays or time steps.",
+    "success": "Engine goal termination: within configured goal tolerance, without prior collision, before configured step budget.",
+    "wilson": "Per-layout per-condition two-sided Wilson 95% binomial score interval with z=1.959963984540054. Intervals are pointwise and conditional on the fixed scene and model.",
+    "clearance": "Minimum exact swept-disc surface gap over initial state and every integration segment; negative means overlap.",
+    "all_run_prefix": "Each failed run contributes its complete observed prefix. A short prefix is not an efficient completed route.",
+    "successful_runs": "Time/path summaries condition on goal completion; undefined if no successful runs.",
+    "pairing": "Differences are case minus the stated matched baseline at the same layout and noise-seed label. Time/path interpretation uses both-success pairs.",
+    "representative_map": "Only the first seed of each case retains full measured scans and a 0.12 m voxel/0.2 m endpoint-cell map. Observed fraction is an illustrative measured-endpoint statistic, not map accuracy or free space."
+  },
+  "limitations": [
+    "Three existing layouts are fixed test scenarios, not randomized environments or a statistically sampled scene population.",
+    "Robot pose is exact; static objects, snapshot scans, and a planar unicycle/disc model are assumed.",
+    "Sensor coefficients and extinction values are illustrative; no physical calibration or atmospheric backscatter is modeled.",
+    "Controller, robot, planner and per-layout partial-map reference are frozen across conditions. No scene was adjusted to force a failure.",
+    "Intervals and comparisons are exploratory and pointwise; no familywise error control or real-world safety claim is made."
+  ],
+  "configuration_sha256": "11c28ee16ae4b2cb8d9c034ad206ee7b8656d0aad0e10ee799e8199ddcdd2ced"
+}

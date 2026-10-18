@@ -1,0 +1,342 @@
+{
+  "study": "trajectory_one_factor",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "baseline_config": {
+    "base_config": "sensor.jsonc",
+    "sensor_overrides": {
+      "n_channels": 8,
+      "measurements_per_cycle": 360,
+      "n_beam_samples": 1,
+      "vfov_lower_deg": -20.0,
+      "vfov_upper_deg": 10.0,
+      "air_extinction_per_m": 0.0002,
+      "rain_mm_per_h": 0.0
+    },
+    "mount_height_m": 0.6,
+    "lidar_enabled": true,
+    "robot": {
+      "start": [
+        0.0,
+        0.0
+      ],
+      "goal": [
+        18.0,
+        0.0
+      ],
+      "start_heading_deg": 0.0,
+      "goal_tolerance_m": 0.35,
+      "radius_m": 0.35,
+      "height_m": 1.0,
+      "v_max": 1.2,
+      "omega_max_deg_s": 90.0,
+      "dt": 0.2,
+      "max_steps": 320
+    },
+    "planner": {
+      "resolution_m": 0.25,
+      "extent": [
+        -2.0,
+        21.0,
+        -6.0,
+        7.0
+      ],
+      "safety_margin_m": 0.25,
+      "corner_buffer_m": 0.3,
+      "reference_speed_mps": 0.8,
+      "resample_spacing_m": 0.15
+    },
+    "controller": {
+      "n_headings": 72,
+      "route_lookahead_m": 1.8,
+      "avoidance_lookahead_m": 5.5,
+      "lookahead_m": 6.0,
+      "safety_margin_m": 0.25,
+      "d_stop_m": 0.15,
+      "d_slow_m": 2.2,
+      "w_tracking": 1.0,
+      "w_turn": 0.25,
+      "w_free": 1.5,
+      "k_omega": 2.5,
+      "z_ground_m": 0.12
+    },
+    "world": {
+      "known_objects": [
+        {
+          "type": "box",
+          "label": "known_wall",
+          "center": [
+            6.0,
+            -0.8,
+            0.6
+          ],
+          "size": [
+            2.0,
+            3.8,
+            1.2
+          ],
+          "yaw_deg": 0,
+          "material": "concrete"
+        }
+      ],
+      "unexpected_objects": [
+        {
+          "type": "cylinder",
+          "label": "unexpected_barrel",
+          "base": [
+            11.0,
+            1.1,
+            0.0
+          ],
+          "radius": 0.8,
+          "height": 1.2,
+          "material": "concrete"
+        }
+      ]
+    },
+    "scenarios": [
+      {
+        "name": "baseline",
+        "sensor": {}
+      }
+    ],
+    "_sensor_base_snapshot": {
+      "n_channels": 32,
+      "vfov_lower_deg": -25.0,
+      "vfov_upper_deg": 15.0,
+      "measurements_per_cycle": 1800,
+      "hfov_start_deg": -180.0,
+      "hfov_end_deg": 180.0,
+      "rotations_per_s": 10.0,
+      "min_range_m": 0.5,
+      "max_range_m": 200.0,
+      "peak_power_w": 75.0,
+      "beam_divergence_mrad": 2.0,
+      "n_beam_samples": 12,
+      "pulse_fwhm_ns": 5.0,
+      "pulse_rise_ns": 1.0,
+      "aperture_diam_m": 0.025,
+      "optical_efficiency": 0.5,
+      "noise_rms_w": 4e-09,
+      "snr_threshold": 10.0,
+      "saturation_power_w": 5e-05,
+      "range_floor_sigma_m": 0.01,
+      "noise_enabled": true,
+      "air_extinction_per_m": 0.0002,
+      "rain_mm_per_h": 0.0,
+      "rain_a": 0.01,
+      "rain_b": 0.6,
+      "return_mode": "strongest"
+    },
+    "_source": "/Users/lianxuyi/Desktop/Cornell/MAE5810_robot_perception/midterm/LIDAR_model/configs/trajectory.jsonc"
+  },
+  "supplied_config": {
+    "base_config": "sensor.jsonc",
+    "sensor_overrides": {
+      "n_channels": 8,
+      "measurements_per_cycle": 360,
+      "n_beam_samples": 1,
+      "vfov_lower_deg": -20.0,
+      "vfov_upper_deg": 10.0
+    },
+    "mount_height_m": 0.6,
+    "lidar_enabled": true,
+    "robot": {
+      "start": [
+        0.0,
+        0.0
+      ],
+      "goal": [
+        18.0,
+        0.0
+      ],
+      "start_heading_deg": 0.0,
+      "goal_tolerance_m": 0.35,
+      "radius_m": 0.35,
+      "height_m": 1.0,
+      "v_max": 1.2,
+      "omega_max_deg_s": 90.0,
+      "dt": 0.2,
+      "max_steps": 320
+    },
+    "planner": {
+      "resolution_m": 0.25,
+      "extent": [
+        -2.0,
+        21.0,
+        -6.0,
+        7.0
+      ],
+      "safety_margin_m": 0.25,
+      "corner_buffer_m": 0.3,
+      "reference_speed_mps": 0.8,
+      "resample_spacing_m": 0.15
+    },
+    "controller": {
+      "n_headings": 72,
+      "route_lookahead_m": 1.8,
+      "avoidance_lookahead_m": 5.5,
+      "lookahead_m": 6.0,
+      "safety_margin_m": 0.25,
+      "d_stop_m": 0.15,
+      "d_slow_m": 2.2,
+      "w_tracking": 1.0,
+      "w_turn": 0.25,
+      "w_free": 1.5,
+      "k_omega": 2.5,
+      "z_ground_m": 0.12
+    },
+    "world": {
+      "known_objects": [
+        {
+          "type": "box",
+          "label": "known_wall",
+          "center": [
+            6.0,
+            -0.8,
+            0.6
+          ],
+          "size": [
+            2.0,
+            3.8,
+            1.2
+          ],
+          "yaw_deg": 0,
+          "material": "concrete"
+        }
+      ],
+      "unexpected_objects": [
+        {
+          "type": "cylinder",
+          "label": "unexpected_barrel",
+          "base": [
+            11.0,
+            1.1,
+            0.0
+          ],
+          "radius": 0.8,
+          "height": 1.2,
+          "material": "concrete"
+        }
+      ]
+    },
+    "scenarios": [
+      {
+        "name": "baseline",
+        "sensor": {}
+      }
+    ],
+    "_sensor_base_snapshot": {
+      "n_channels": 32,
+      "vfov_lower_deg": -25.0,
+      "vfov_upper_deg": 15.0,
+      "measurements_per_cycle": 1800,
+      "hfov_start_deg": -180.0,
+      "hfov_end_deg": 180.0,
+      "rotations_per_s": 10.0,
+      "min_range_m": 0.5,
+      "max_range_m": 200.0,
+      "peak_power_w": 75.0,
+      "beam_divergence_mrad": 2.0,
+      "n_beam_samples": 12,
+      "pulse_fwhm_ns": 5.0,
+      "pulse_rise_ns": 1.0,
+      "aperture_diam_m": 0.025,
+      "optical_efficiency": 0.5,
+      "noise_rms_w": 4e-09,
+      "snr_threshold": 10.0,
+      "saturation_power_w": 5e-05,
+      "range_floor_sigma_m": 0.01,
+      "noise_enabled": true,
+      "air_extinction_per_m": 0.0002,
+      "rain_mm_per_h": 0.0,
+      "rain_a": 0.01,
+      "rain_b": 0.6,
+      "return_mode": "strongest"
+    },
+    "_source": "/Users/lianxuyi/Desktop/Cornell/MAE5810_robot_perception/midterm/LIDAR_model/configs/trajectory.jsonc"
+  },
+  "factors": [
+    {
+      "case_id": "baseline",
+      "factor": "baseline",
+      "description": "8 channels, 360 azimuths, one sub-ray; clear air, 0.6 m mount, 1.2 m/s speed limit, 0.25 m local margin",
+      "overrides": {}
+    },
+    {
+      "case_id": "dense_fog",
+      "factor": "extinction",
+      "description": "Air extinction coefficient 0.6 per m; all other settings unchanged",
+      "overrides": {
+        "sensor": {
+          "air_extinction_per_m": 0.6
+        }
+      }
+    },
+    {
+      "case_id": "sparse_sampling",
+      "factor": "azimuth_density",
+      "description": "90 azimuths per revolution instead of 360",
+      "overrides": {
+        "sensor": {
+          "measurements_per_cycle": 90
+        }
+      }
+    },
+    {
+      "case_id": "high_mount",
+      "factor": "mount_height",
+      "description": "Mounting height 1.6 m instead of 0.6 m",
+      "overrides": {
+        "mount_height_m": 1.6
+      }
+    },
+    {
+      "case_id": "faster_speed",
+      "factor": "speed_limit",
+      "description": "Speed limit 2.0 m/s instead of 1.2 m/s",
+      "overrides": {
+        "robot": {
+          "v_max": 2.0
+        }
+      }
+    },
+    {
+      "case_id": "smaller_margin",
+      "factor": "local_safety_margin",
+      "description": "Local controller margin 0.05 m instead of 0.25 m; planned route unchanged",
+      "overrides": {
+        "controller": {
+          "safety_margin_m": 0.05
+        }
+      }
+    },
+    {
+      "case_id": "lidar_disabled",
+      "factor": "sensor_enabled",
+      "description": "LiDAR disabled; retain the same route planned from the known reference map",
+      "overrides": {
+        "lidar_enabled": false
+      }
+    }
+  ],
+  "pairing": "The same seed labels are paired across cases. Changing beam counts, ray geometry or echo groups can change random-number consumption; perturbations are not assumed identical per ray.",
+  "definitions": {
+    "denominators": "All runs, including failures, enter each case summary. Every run has K controls and K+1 states; final states enter time, path and tracking metrics.",
+    "spatial_route_rmse_m": "Unweighted RMS over all recorded states of distance to the geometric reference polyline, irrespective of clock time.",
+    "time_reference_rmse_m": "Unweighted RMS over all recorded states of distance to the reference position at that state's clock time; reference position is held at the end after its schedule finishes. The controller follows spatial progress; this cruise-time schedule is diagnostic, not a tracked clock setpoint or a turn-feasibility guarantee.",
+    "swept_min_surface_gap_m": "Minimum over the initial pose and every swept straight integration segment of robot-centre-to-filled-obstacle-footprint distance minus robot radius; only obstacles intersecting the robot's vertical interval are considered. Negative values indicate overlap, not exact penetration depth.",
+    "angular_rate_total_variation_rad_s": "Sum of absolute differences between successive commanded angular rates, in rad/s. Start/stop bookends are not added; this is not a physical smoothness or jerk metric.",
+    "mean_returns_per_control_step": "Arithmetic mean of recorded full 3D return counts (including ground) over the K control updates; zero for a disabled sensor. Obstacle-only counts are a separate controller input. This is not target-conditioned detection probability.",
+    "failure_prefix": "Path and tracking metrics for failures describe only the observed prefix; short termination time or low prefix error does not imply successful tracking."
+  },
+  "limitations": [
+    "3 seed labels are descriptive examples, not a population-level reliability estimate.",
+    "All sensor, material and environmental coefficients are illustrative, not calibrated.",
+    "A reference route planned using the known map can already avoid known obstacles; LiDAR-disabled ablation distinguishes that contribution from sensed obstacle avoidance.",
+    "Collision clearance uses a planar disc and static obstacle footprints with vertical overlap. The study does not certify real robot safety."
+  ]
+}

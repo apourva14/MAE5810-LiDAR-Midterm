@@ -1,0 +1,187 @@
+{
+  "format_version": 1,
+  "started_utc": "2026-10-18T00:05:09.628126+00:00",
+  "python_version": "3.12.14",
+  "numpy_version": "2.3.5",
+  "studies": {
+    "geometry": {
+      "summary": {
+        "schema_version": 1,
+        "study": "geometry",
+        "case_count": 69,
+        "analytic_cases": 65,
+        "illustration_cases": 4,
+        "eligibility_mismatch_beams": 0,
+        "deterministic_detection_mismatch_beams": 0,
+        "max_abs_range_error_m": 3.82804898890754e-13,
+        "ground_height_measured_slope": 3.8637033051562732,
+        "ground_height_analytic_slope": 3.8637033051562737,
+        "ground_pitch_ranges_m": {
+          "-10.0": 20.652683842205747,
+          "-5.0": 10.36578686965854,
+          "0.0": 6.954665949281293,
+          "5.0": 5.262847920293558,
+          "10.0": 4.259162849674498
+        },
+        "yaw_return_counts": {
+          "partial": {
+            "0": 132,
+            "20": 132,
+            "30": 132,
+            "35": 130,
+            "40": 70,
+            "45": 6,
+            "50": 0,
+            "60": 0,
+            "90": 0,
+            "180": 0
+          },
+          "full360": {
+            "0": 132,
+            "20": 132,
+            "30": 132,
+            "35": 132,
+            "40": 132,
+            "45": 132,
+            "50": 132,
+            "60": 132,
+            "90": 132,
+            "180": 132
+          }
+        },
+        "full360_yaw_count_span": 0,
+        "los_target_returns": {
+          "los_clear": 184,
+          "los_opaque": 0,
+          "los_below_min": 0
+        },
+        "los_blocked_target_beams": {
+          "los_clear": 0,
+          "los_opaque": 184,
+          "los_below_min": 184
+        },
+        "below_min_occluder_blocks_target": true,
+        "assumptions": [
+          "Analytical comparisons use opaque planes, spheres, or axis-aligned boxes; one central ray per firing; and no random noise.",
+          "Independent references use closed-form intersections and an explicit Z-Y-X rotation matrix, rather than the model's intersection/rotation helpers.",
+          "Nominal FOV membership describes point inclusion in angular/range limits, independently of occlusion, discrete sampling, and optical detection.",
+          "Eligible beams have a nearest positive opaque intersection inside the configured range gate. They are distinct from returns passing the optical threshold.",
+          "Expected deterministic detections additionally apply the diffuse optical-power law and the unchanged receiver threshold.",
+          "Surface-point fractions use deterministic samples of the complete target surface, including its back side; these fractions are not visible-surface fractions.",
+          "Full-360 yaw comparisons use level sensors and yaw increments that are integer multiples of the azimuth step; equality does not imply arbitrary finite grids are invariant to every yaw offset.",
+          "The 3-subray examples illustrate finite beam width and are excluded from pencil-ray error/count agreement metrics.",
+          "These experiments assess numerical consistency with analytical idealizations, not agreement with real LiDAR measurements."
+        ]
+      },
+      "elapsed_s": 0.47487345899571665
+    },
+    "response": {
+      "summary": {
+        "experiment": "response",
+        "output_directory": "/Users/lianxuyi/Desktop/Cornell/MAE5810_robot_perception/midterm/LIDAR_model/data/evaluation/response",
+        "radiometry": {
+          "rows": 72,
+          "max_abs_relative_power_error": 4.3891638972039126e-16,
+          "max_abs_range_error_m": 7.105427357601002e-15
+        },
+        "detection": {
+          "cases": 6,
+          "bins": 54,
+          "independent_trials": 54000,
+          "max_abs_probability_residual": 0.03199999999999714,
+          "analytic_probability_within_wilson95": 52,
+          "r50": [
+            {
+              "case_id": 0,
+              "weather": "clear",
+              "rho": 0.05,
+              "extinction_per_m": 0.0002,
+              "r50_m": 84.15330752286732
+            },
+            {
+              "case_id": 1,
+              "weather": "clear",
+              "rho": 0.1,
+              "extinction_per_m": 0.0002,
+              "r50_m": 118.20304519307322
+            },
+            {
+              "case_id": 2,
+              "weather": "heavy_rain",
+              "rho": 0.05,
+              "extinction_per_m": 0.10476395525912732,
+              "r50_m": 16.003939344679345
+            },
+            {
+              "case_id": 3,
+              "weather": "heavy_rain",
+              "rho": 0.1,
+              "extinction_per_m": 0.10476395525912732,
+              "r50_m": 18.12440968680805
+            },
+            {
+              "case_id": 4,
+              "weather": "dense_fog",
+              "rho": 0.05,
+              "extinction_per_m": 0.6,
+              "r50_m": 4.801057723070313
+            },
+            {
+              "case_id": 5,
+              "weather": "dense_fog",
+              "rho": 0.1,
+              "extinction_per_m": 0.6,
+              "r50_m": 5.2345924707884475
+            }
+          ]
+        },
+        "uncertainty": {
+          "detected_trials": 27371,
+          "pooled_normalized_mean": 3.789509744687794e-05,
+          "pooled_normalized_std": 1.0002380992269182,
+          "pooled_range_bias_m": 3.39430620357749e-06,
+          "pooled_range_rmse_m": 0.030869174787927976,
+          "pooled_predicted_sigma_rms_m": 0.030873744306658128,
+          "normalized_fraction_within_1_96": 0.9492893938840379
+        },
+        "fixed_scene_weather": [
+          {
+            "weather": "clear",
+            "seeds": 3,
+            "n_beams": 11520,
+            "mean_returns": 4877.0,
+            "min_returns": 4877,
+            "max_returns": 4877,
+            "mean_nonground_returns": 946.0,
+            "mean_raw_return_yield": 0.42335069444444445
+          },
+          {
+            "weather": "heavy_rain",
+            "seeds": 3,
+            "n_beams": 11520,
+            "mean_returns": 3211.6666666666665,
+            "min_returns": 3211,
+            "max_returns": 3213,
+            "mean_nonground_returns": 551.6666666666666,
+            "mean_raw_return_yield": 0.27879050925925924
+          },
+          {
+            "weather": "dense_fog",
+            "seeds": 3,
+            "n_beams": 11520,
+            "mean_returns": 68.33333333333333,
+            "min_returns": 66,
+            "max_returns": 70,
+            "mean_nonground_returns": 68.33333333333333,
+            "mean_raw_return_yield": 0.005931712962962962
+          }
+        ],
+        "elapsed_seconds": 7.626005791011266,
+        "interpretation": "Implemented-assumption verification only; no physical calibration or measured-device validation claimed."
+      },
+      "elapsed_s": 7.626453166012652
+    }
+  },
+  "interpretation": "Consistency of a virtual sensor with analytical model assumptions; not physical sensor calibration.",
+  "finished_utc": "2026-10-18T00:05:17.735479+00:00"
+}

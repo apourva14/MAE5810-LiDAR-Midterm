@@ -1,0 +1,5361 @@
+{
+  "schema_version": 1,
+  "study": "geometry",
+  "assumptions": [
+    "Analytical comparisons use opaque planes, spheres, or axis-aligned boxes; one central ray per firing; and no random noise.",
+    "Independent references use closed-form intersections and an explicit Z-Y-X rotation matrix, rather than the model's intersection/rotation helpers.",
+    "Nominal FOV membership describes point inclusion in angular/range limits, independently of occlusion, discrete sampling, and optical detection.",
+    "Eligible beams have a nearest positive opaque intersection inside the configured range gate. They are distinct from returns passing the optical threshold.",
+    "Expected deterministic detections additionally apply the diffuse optical-power law and the unchanged receiver threshold.",
+    "Surface-point fractions use deterministic samples of the complete target surface, including its back side; these fractions are not visible-surface fractions.",
+    "Full-360 yaw comparisons use level sensors and yaw increments that are integer multiples of the azimuth step; equality does not imply arbitrary finite grids are invariant to every yaw offset.",
+    "The 3-subray examples illustrate finite beam width and are excluded from pencil-ray error/count agreement metrics.",
+    "These experiments assess numerical consistency with analytical idealizations, not agreement with real LiDAR measurements."
+  ],
+  "cases": {
+    "ground_height_0": {
+      "kind": "analytic",
+      "group": "ground_height",
+      "variable": "height_m",
+      "value": 0.6,
+      "config": {
+        "n_channels": 1,
+        "vfov_lower_deg": -15,
+        "vfov_upper_deg": -15,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": 0,
+        "hfov_end_deg": 0.1,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          0.6
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "plane",
+            "label": "ground",
+            "point": [
+              0,
+              0,
+              0
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/ground_height_0.npz",
+        "reference": "references/ground_height_0.npz"
+      }
+    },
+    "ground_height_1": {
+      "kind": "analytic",
+      "group": "ground_height",
+      "variable": "height_m",
+      "value": 1.2,
+      "config": {
+        "n_channels": 1,
+        "vfov_lower_deg": -15,
+        "vfov_upper_deg": -15,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": 0,
+        "hfov_end_deg": 0.1,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.2
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "plane",
+            "label": "ground",
+            "point": [
+              0,
+              0,
+              0
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/ground_height_1.npz",
+        "reference": "references/ground_height_1.npz"
+      }
+    },
+    "ground_height_2": {
+      "kind": "analytic",
+      "group": "ground_height",
+      "variable": "height_m",
+      "value": 1.8,
+      "config": {
+        "n_channels": 1,
+        "vfov_lower_deg": -15,
+        "vfov_upper_deg": -15,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": 0,
+        "hfov_end_deg": 0.1,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "plane",
+            "label": "ground",
+            "point": [
+              0,
+              0,
+              0
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/ground_height_2.npz",
+        "reference": "references/ground_height_2.npz"
+      }
+    },
+    "ground_height_3": {
+      "kind": "analytic",
+      "group": "ground_height",
+      "variable": "height_m",
+      "value": 2.4,
+      "config": {
+        "n_channels": 1,
+        "vfov_lower_deg": -15,
+        "vfov_upper_deg": -15,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": 0,
+        "hfov_end_deg": 0.1,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          2.4
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "plane",
+            "label": "ground",
+            "point": [
+              0,
+              0,
+              0
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/ground_height_3.npz",
+        "reference": "references/ground_height_3.npz"
+      }
+    },
+    "ground_height_4": {
+      "kind": "analytic",
+      "group": "ground_height",
+      "variable": "height_m",
+      "value": 3.0,
+      "config": {
+        "n_channels": 1,
+        "vfov_lower_deg": -15,
+        "vfov_upper_deg": -15,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": 0,
+        "hfov_end_deg": 0.1,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          3.0
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "plane",
+            "label": "ground",
+            "point": [
+              0,
+              0,
+              0
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/ground_height_4.npz",
+        "reference": "references/ground_height_4.npz"
+      }
+    },
+    "ground_pitch_0": {
+      "kind": "analytic",
+      "group": "ground_pitch",
+      "variable": "pitch_deg",
+      "value": -10.0,
+      "config": {
+        "n_channels": 1,
+        "vfov_lower_deg": -15,
+        "vfov_upper_deg": -15,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": 0,
+        "hfov_end_deg": 0.1,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": -10,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "plane",
+            "label": "ground",
+            "point": [
+              0,
+              0,
+              0
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/ground_pitch_0.npz",
+        "reference": "references/ground_pitch_0.npz"
+      }
+    },
+    "ground_pitch_1": {
+      "kind": "analytic",
+      "group": "ground_pitch",
+      "variable": "pitch_deg",
+      "value": -5.0,
+      "config": {
+        "n_channels": 1,
+        "vfov_lower_deg": -15,
+        "vfov_upper_deg": -15,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": 0,
+        "hfov_end_deg": 0.1,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": -5,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "plane",
+            "label": "ground",
+            "point": [
+              0,
+              0,
+              0
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/ground_pitch_1.npz",
+        "reference": "references/ground_pitch_1.npz"
+      }
+    },
+    "ground_pitch_2": {
+      "kind": "analytic",
+      "group": "ground_pitch",
+      "variable": "pitch_deg",
+      "value": 0.0,
+      "config": {
+        "n_channels": 1,
+        "vfov_lower_deg": -15,
+        "vfov_upper_deg": -15,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": 0,
+        "hfov_end_deg": 0.1,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "plane",
+            "label": "ground",
+            "point": [
+              0,
+              0,
+              0
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/ground_pitch_2.npz",
+        "reference": "references/ground_pitch_2.npz"
+      }
+    },
+    "ground_pitch_3": {
+      "kind": "analytic",
+      "group": "ground_pitch",
+      "variable": "pitch_deg",
+      "value": 5.0,
+      "config": {
+        "n_channels": 1,
+        "vfov_lower_deg": -15,
+        "vfov_upper_deg": -15,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": 0,
+        "hfov_end_deg": 0.1,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 5,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "plane",
+            "label": "ground",
+            "point": [
+              0,
+              0,
+              0
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/ground_pitch_3.npz",
+        "reference": "references/ground_pitch_3.npz"
+      }
+    },
+    "ground_pitch_4": {
+      "kind": "analytic",
+      "group": "ground_pitch",
+      "variable": "pitch_deg",
+      "value": 10.0,
+      "config": {
+        "n_channels": 1,
+        "vfov_lower_deg": -15,
+        "vfov_upper_deg": -15,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": 0,
+        "hfov_end_deg": 0.1,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 10,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "plane",
+            "label": "ground",
+            "point": [
+              0,
+              0,
+              0
+            ],
+            "normal": [
+              0,
+              0,
+              1
+            ],
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/ground_pitch_4.npz",
+        "reference": "references/ground_pitch_4.npz"
+      }
+    },
+    "plane_position_0": {
+      "kind": "analytic",
+      "group": "plane_position",
+      "variable": "x_m",
+      "value": -2.0,
+      "config": {
+        "n_channels": 1,
+        "vfov_lower_deg": -4,
+        "vfov_upper_deg": -4,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": 5,
+        "hfov_end_deg": 5.1,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          -2,
+          1,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "plane",
+            "label": "reference_wall",
+            "point": [
+              12,
+              0,
+              0
+            ],
+            "normal": [
+              -1,
+              0,
+              0
+            ],
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/plane_position_0.npz",
+        "reference": "references/plane_position_0.npz"
+      }
+    },
+    "plane_position_1": {
+      "kind": "analytic",
+      "group": "plane_position",
+      "variable": "x_m",
+      "value": 0.0,
+      "config": {
+        "n_channels": 1,
+        "vfov_lower_deg": -4,
+        "vfov_upper_deg": -4,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": 5,
+        "hfov_end_deg": 5.1,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          1,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "plane",
+            "label": "reference_wall",
+            "point": [
+              12,
+              0,
+              0
+            ],
+            "normal": [
+              -1,
+              0,
+              0
+            ],
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/plane_position_1.npz",
+        "reference": "references/plane_position_1.npz"
+      }
+    },
+    "plane_position_2": {
+      "kind": "analytic",
+      "group": "plane_position",
+      "variable": "x_m",
+      "value": 2.0,
+      "config": {
+        "n_channels": 1,
+        "vfov_lower_deg": -4,
+        "vfov_upper_deg": -4,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": 5,
+        "hfov_end_deg": 5.1,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          2,
+          1,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "plane",
+            "label": "reference_wall",
+            "point": [
+              12,
+              0,
+              0
+            ],
+            "normal": [
+              -1,
+              0,
+              0
+            ],
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/plane_position_2.npz",
+        "reference": "references/plane_position_2.npz"
+      }
+    },
+    "plane_yaw_0": {
+      "kind": "analytic",
+      "group": "plane_yaw",
+      "variable": "yaw_deg",
+      "value": -15.0,
+      "config": {
+        "n_channels": 1,
+        "vfov_lower_deg": -4,
+        "vfov_upper_deg": -4,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": 5,
+        "hfov_end_deg": 5.1,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          1,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": -15,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "plane",
+            "label": "reference_wall",
+            "point": [
+              12,
+              0,
+              0
+            ],
+            "normal": [
+              -1,
+              0,
+              0
+            ],
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/plane_yaw_0.npz",
+        "reference": "references/plane_yaw_0.npz"
+      }
+    },
+    "plane_yaw_1": {
+      "kind": "analytic",
+      "group": "plane_yaw",
+      "variable": "yaw_deg",
+      "value": 0.0,
+      "config": {
+        "n_channels": 1,
+        "vfov_lower_deg": -4,
+        "vfov_upper_deg": -4,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": 5,
+        "hfov_end_deg": 5.1,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          1,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "plane",
+            "label": "reference_wall",
+            "point": [
+              12,
+              0,
+              0
+            ],
+            "normal": [
+              -1,
+              0,
+              0
+            ],
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/plane_yaw_1.npz",
+        "reference": "references/plane_yaw_1.npz"
+      }
+    },
+    "plane_yaw_2": {
+      "kind": "analytic",
+      "group": "plane_yaw",
+      "variable": "yaw_deg",
+      "value": 15.0,
+      "config": {
+        "n_channels": 1,
+        "vfov_lower_deg": -4,
+        "vfov_upper_deg": -4,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": 5,
+        "hfov_end_deg": 5.1,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          1,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 15,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "plane",
+            "label": "reference_wall",
+            "point": [
+              12,
+              0,
+              0
+            ],
+            "normal": [
+              -1,
+              0,
+              0
+            ],
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/plane_yaw_2.npz",
+        "reference": "references/plane_yaw_2.npz"
+      }
+    },
+    "plane_pitch_0": {
+      "kind": "analytic",
+      "group": "plane_pitch",
+      "variable": "pitch_deg",
+      "value": -10.0,
+      "config": {
+        "n_channels": 1,
+        "vfov_lower_deg": -4,
+        "vfov_upper_deg": -4,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": 5,
+        "hfov_end_deg": 5.1,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          1,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": -10,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "plane",
+            "label": "reference_wall",
+            "point": [
+              12,
+              0,
+              0
+            ],
+            "normal": [
+              -1,
+              0,
+              0
+            ],
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/plane_pitch_0.npz",
+        "reference": "references/plane_pitch_0.npz"
+      }
+    },
+    "plane_pitch_1": {
+      "kind": "analytic",
+      "group": "plane_pitch",
+      "variable": "pitch_deg",
+      "value": 0.0,
+      "config": {
+        "n_channels": 1,
+        "vfov_lower_deg": -4,
+        "vfov_upper_deg": -4,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": 5,
+        "hfov_end_deg": 5.1,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          1,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "plane",
+            "label": "reference_wall",
+            "point": [
+              12,
+              0,
+              0
+            ],
+            "normal": [
+              -1,
+              0,
+              0
+            ],
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/plane_pitch_1.npz",
+        "reference": "references/plane_pitch_1.npz"
+      }
+    },
+    "plane_pitch_2": {
+      "kind": "analytic",
+      "group": "plane_pitch",
+      "variable": "pitch_deg",
+      "value": 10.0,
+      "config": {
+        "n_channels": 1,
+        "vfov_lower_deg": -4,
+        "vfov_upper_deg": -4,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": 5,
+        "hfov_end_deg": 5.1,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          1,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 10,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "plane",
+            "label": "reference_wall",
+            "point": [
+              12,
+              0,
+              0
+            ],
+            "normal": [
+              -1,
+              0,
+              0
+            ],
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/plane_pitch_2.npz",
+        "reference": "references/plane_pitch_2.npz"
+      }
+    },
+    "fov_partial_yaw_0": {
+      "kind": "analytic",
+      "group": "fov_yaw",
+      "variable": "yaw_deg",
+      "value": 0.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_partial_yaw_0.npz",
+        "reference": "references/fov_partial_yaw_0.npz"
+      }
+    },
+    "fov_partial_yaw_1": {
+      "kind": "analytic",
+      "group": "fov_yaw",
+      "variable": "yaw_deg",
+      "value": 20.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 20,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_partial_yaw_1.npz",
+        "reference": "references/fov_partial_yaw_1.npz"
+      }
+    },
+    "fov_partial_yaw_2": {
+      "kind": "analytic",
+      "group": "fov_yaw",
+      "variable": "yaw_deg",
+      "value": 30.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 30,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_partial_yaw_2.npz",
+        "reference": "references/fov_partial_yaw_2.npz"
+      }
+    },
+    "fov_partial_yaw_3": {
+      "kind": "analytic",
+      "group": "fov_yaw",
+      "variable": "yaw_deg",
+      "value": 35.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 35,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_partial_yaw_3.npz",
+        "reference": "references/fov_partial_yaw_3.npz"
+      }
+    },
+    "fov_partial_yaw_4": {
+      "kind": "analytic",
+      "group": "fov_yaw",
+      "variable": "yaw_deg",
+      "value": 40.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 40,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_partial_yaw_4.npz",
+        "reference": "references/fov_partial_yaw_4.npz"
+      }
+    },
+    "fov_partial_yaw_5": {
+      "kind": "analytic",
+      "group": "fov_yaw",
+      "variable": "yaw_deg",
+      "value": 45.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 45,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_partial_yaw_5.npz",
+        "reference": "references/fov_partial_yaw_5.npz"
+      }
+    },
+    "fov_partial_yaw_6": {
+      "kind": "analytic",
+      "group": "fov_yaw",
+      "variable": "yaw_deg",
+      "value": 50.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 50,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_partial_yaw_6.npz",
+        "reference": "references/fov_partial_yaw_6.npz"
+      }
+    },
+    "fov_partial_yaw_7": {
+      "kind": "analytic",
+      "group": "fov_yaw",
+      "variable": "yaw_deg",
+      "value": 60.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 60,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_partial_yaw_7.npz",
+        "reference": "references/fov_partial_yaw_7.npz"
+      }
+    },
+    "fov_partial_yaw_8": {
+      "kind": "analytic",
+      "group": "fov_yaw",
+      "variable": "yaw_deg",
+      "value": 90.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 90,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_partial_yaw_8.npz",
+        "reference": "references/fov_partial_yaw_8.npz"
+      }
+    },
+    "fov_partial_yaw_9": {
+      "kind": "analytic",
+      "group": "fov_yaw",
+      "variable": "yaw_deg",
+      "value": 180.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 180,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_partial_yaw_9.npz",
+        "reference": "references/fov_partial_yaw_9.npz"
+      }
+    },
+    "fov_partial_pitch_0": {
+      "kind": "analytic",
+      "group": "fov_pitch",
+      "variable": "pitch_deg",
+      "value": -20.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": -20,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_partial_pitch_0.npz",
+        "reference": "references/fov_partial_pitch_0.npz"
+      }
+    },
+    "fov_partial_pitch_1": {
+      "kind": "analytic",
+      "group": "fov_pitch",
+      "variable": "pitch_deg",
+      "value": -15.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": -15,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_partial_pitch_1.npz",
+        "reference": "references/fov_partial_pitch_1.npz"
+      }
+    },
+    "fov_partial_pitch_2": {
+      "kind": "analytic",
+      "group": "fov_pitch",
+      "variable": "pitch_deg",
+      "value": -12.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": -12,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_partial_pitch_2.npz",
+        "reference": "references/fov_partial_pitch_2.npz"
+      }
+    },
+    "fov_partial_pitch_3": {
+      "kind": "analytic",
+      "group": "fov_pitch",
+      "variable": "pitch_deg",
+      "value": -10.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": -10,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_partial_pitch_3.npz",
+        "reference": "references/fov_partial_pitch_3.npz"
+      }
+    },
+    "fov_partial_pitch_4": {
+      "kind": "analytic",
+      "group": "fov_pitch",
+      "variable": "pitch_deg",
+      "value": 0.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_partial_pitch_4.npz",
+        "reference": "references/fov_partial_pitch_4.npz"
+      }
+    },
+    "fov_partial_pitch_5": {
+      "kind": "analytic",
+      "group": "fov_pitch",
+      "variable": "pitch_deg",
+      "value": 10.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 10,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_partial_pitch_5.npz",
+        "reference": "references/fov_partial_pitch_5.npz"
+      }
+    },
+    "fov_partial_pitch_6": {
+      "kind": "analytic",
+      "group": "fov_pitch",
+      "variable": "pitch_deg",
+      "value": 12.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 12,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_partial_pitch_6.npz",
+        "reference": "references/fov_partial_pitch_6.npz"
+      }
+    },
+    "fov_partial_pitch_7": {
+      "kind": "analytic",
+      "group": "fov_pitch",
+      "variable": "pitch_deg",
+      "value": 15.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 15,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_partial_pitch_7.npz",
+        "reference": "references/fov_partial_pitch_7.npz"
+      }
+    },
+    "fov_partial_pitch_8": {
+      "kind": "analytic",
+      "group": "fov_pitch",
+      "variable": "pitch_deg",
+      "value": 20.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 20,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_partial_pitch_8.npz",
+        "reference": "references/fov_partial_pitch_8.npz"
+      }
+    },
+    "fov_full360_yaw_0": {
+      "kind": "analytic",
+      "group": "fov_yaw",
+      "variable": "yaw_deg",
+      "value": 0.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -180,
+        "hfov_end_deg": 180,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_full360_yaw_0.npz",
+        "reference": "references/fov_full360_yaw_0.npz"
+      }
+    },
+    "fov_full360_yaw_1": {
+      "kind": "analytic",
+      "group": "fov_yaw",
+      "variable": "yaw_deg",
+      "value": 20.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -180,
+        "hfov_end_deg": 180,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 20,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_full360_yaw_1.npz",
+        "reference": "references/fov_full360_yaw_1.npz"
+      }
+    },
+    "fov_full360_yaw_2": {
+      "kind": "analytic",
+      "group": "fov_yaw",
+      "variable": "yaw_deg",
+      "value": 30.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -180,
+        "hfov_end_deg": 180,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 30,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_full360_yaw_2.npz",
+        "reference": "references/fov_full360_yaw_2.npz"
+      }
+    },
+    "fov_full360_yaw_3": {
+      "kind": "analytic",
+      "group": "fov_yaw",
+      "variable": "yaw_deg",
+      "value": 35.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -180,
+        "hfov_end_deg": 180,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 35,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_full360_yaw_3.npz",
+        "reference": "references/fov_full360_yaw_3.npz"
+      }
+    },
+    "fov_full360_yaw_4": {
+      "kind": "analytic",
+      "group": "fov_yaw",
+      "variable": "yaw_deg",
+      "value": 40.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -180,
+        "hfov_end_deg": 180,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 40,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_full360_yaw_4.npz",
+        "reference": "references/fov_full360_yaw_4.npz"
+      }
+    },
+    "fov_full360_yaw_5": {
+      "kind": "analytic",
+      "group": "fov_yaw",
+      "variable": "yaw_deg",
+      "value": 45.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -180,
+        "hfov_end_deg": 180,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 45,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_full360_yaw_5.npz",
+        "reference": "references/fov_full360_yaw_5.npz"
+      }
+    },
+    "fov_full360_yaw_6": {
+      "kind": "analytic",
+      "group": "fov_yaw",
+      "variable": "yaw_deg",
+      "value": 50.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -180,
+        "hfov_end_deg": 180,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 50,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_full360_yaw_6.npz",
+        "reference": "references/fov_full360_yaw_6.npz"
+      }
+    },
+    "fov_full360_yaw_7": {
+      "kind": "analytic",
+      "group": "fov_yaw",
+      "variable": "yaw_deg",
+      "value": 60.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -180,
+        "hfov_end_deg": 180,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 60,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_full360_yaw_7.npz",
+        "reference": "references/fov_full360_yaw_7.npz"
+      }
+    },
+    "fov_full360_yaw_8": {
+      "kind": "analytic",
+      "group": "fov_yaw",
+      "variable": "yaw_deg",
+      "value": 90.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -180,
+        "hfov_end_deg": 180,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 90,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_full360_yaw_8.npz",
+        "reference": "references/fov_full360_yaw_8.npz"
+      }
+    },
+    "fov_full360_yaw_9": {
+      "kind": "analytic",
+      "group": "fov_yaw",
+      "variable": "yaw_deg",
+      "value": 180.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -180,
+        "hfov_end_deg": 180,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 180,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_full360_yaw_9.npz",
+        "reference": "references/fov_full360_yaw_9.npz"
+      }
+    },
+    "fov_full360_pitch_0": {
+      "kind": "analytic",
+      "group": "fov_pitch",
+      "variable": "pitch_deg",
+      "value": -20.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -180,
+        "hfov_end_deg": 180,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": -20,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_full360_pitch_0.npz",
+        "reference": "references/fov_full360_pitch_0.npz"
+      }
+    },
+    "fov_full360_pitch_1": {
+      "kind": "analytic",
+      "group": "fov_pitch",
+      "variable": "pitch_deg",
+      "value": -15.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -180,
+        "hfov_end_deg": 180,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": -15,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_full360_pitch_1.npz",
+        "reference": "references/fov_full360_pitch_1.npz"
+      }
+    },
+    "fov_full360_pitch_2": {
+      "kind": "analytic",
+      "group": "fov_pitch",
+      "variable": "pitch_deg",
+      "value": -12.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -180,
+        "hfov_end_deg": 180,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": -12,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_full360_pitch_2.npz",
+        "reference": "references/fov_full360_pitch_2.npz"
+      }
+    },
+    "fov_full360_pitch_3": {
+      "kind": "analytic",
+      "group": "fov_pitch",
+      "variable": "pitch_deg",
+      "value": -10.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -180,
+        "hfov_end_deg": 180,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": -10,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_full360_pitch_3.npz",
+        "reference": "references/fov_full360_pitch_3.npz"
+      }
+    },
+    "fov_full360_pitch_4": {
+      "kind": "analytic",
+      "group": "fov_pitch",
+      "variable": "pitch_deg",
+      "value": 0.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -180,
+        "hfov_end_deg": 180,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_full360_pitch_4.npz",
+        "reference": "references/fov_full360_pitch_4.npz"
+      }
+    },
+    "fov_full360_pitch_5": {
+      "kind": "analytic",
+      "group": "fov_pitch",
+      "variable": "pitch_deg",
+      "value": 10.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -180,
+        "hfov_end_deg": 180,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 10,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_full360_pitch_5.npz",
+        "reference": "references/fov_full360_pitch_5.npz"
+      }
+    },
+    "fov_full360_pitch_6": {
+      "kind": "analytic",
+      "group": "fov_pitch",
+      "variable": "pitch_deg",
+      "value": 12.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -180,
+        "hfov_end_deg": 180,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 12,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_full360_pitch_6.npz",
+        "reference": "references/fov_full360_pitch_6.npz"
+      }
+    },
+    "fov_full360_pitch_7": {
+      "kind": "analytic",
+      "group": "fov_pitch",
+      "variable": "pitch_deg",
+      "value": 15.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -180,
+        "hfov_end_deg": 180,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 15,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_full360_pitch_7.npz",
+        "reference": "references/fov_full360_pitch_7.npz"
+      }
+    },
+    "fov_full360_pitch_8": {
+      "kind": "analytic",
+      "group": "fov_pitch",
+      "variable": "pitch_deg",
+      "value": 20.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -180,
+        "hfov_end_deg": 180,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 20,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fov_full360_pitch_8.npz",
+        "reference": "references/fov_full360_pitch_8.npz"
+      }
+    },
+    "fixed_scene_position_0": {
+      "kind": "analytic",
+      "group": "fixed_scene_position",
+      "variable": "position_index",
+      "value": 0.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          -2,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fixed_scene_position_0.npz",
+        "reference": "references/fixed_scene_position_0.npz"
+      }
+    },
+    "fixed_scene_position_1": {
+      "kind": "analytic",
+      "group": "fixed_scene_position",
+      "variable": "position_index",
+      "value": 1.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fixed_scene_position_1.npz",
+        "reference": "references/fixed_scene_position_1.npz"
+      }
+    },
+    "fixed_scene_position_2": {
+      "kind": "analytic",
+      "group": "fixed_scene_position",
+      "variable": "position_index",
+      "value": 2.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          2,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fixed_scene_position_2.npz",
+        "reference": "references/fixed_scene_position_2.npz"
+      }
+    },
+    "fixed_scene_position_3": {
+      "kind": "analytic",
+      "group": "fixed_scene_position",
+      "variable": "position_index",
+      "value": 3.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          -2,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fixed_scene_position_3.npz",
+        "reference": "references/fixed_scene_position_3.npz"
+      }
+    },
+    "fixed_scene_position_4": {
+      "kind": "analytic",
+      "group": "fixed_scene_position",
+      "variable": "position_index",
+      "value": 4.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          2,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/fixed_scene_position_4.npz",
+        "reference": "references/fixed_scene_position_4.npz"
+      }
+    },
+    "los_clear": {
+      "kind": "analytic",
+      "group": "los",
+      "variable": "occluder",
+      "value": 0.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -10,
+        "vfov_upper_deg": 10,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -15,
+        "hfov_end_deg": 15,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "box",
+            "label": "target",
+            "center": [
+              10,
+              0,
+              1.8
+            ],
+            "size": [
+              0.2,
+              2,
+              2
+            ],
+            "yaw_deg": 0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/los_clear.npz",
+        "reference": "references/los_clear.npz"
+      }
+    },
+    "los_opaque": {
+      "kind": "analytic",
+      "group": "los",
+      "variable": "occluder",
+      "value": 1.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -10,
+        "vfov_upper_deg": 10,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -15,
+        "hfov_end_deg": 15,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "box",
+            "label": "target",
+            "center": [
+              10,
+              0,
+              1.8
+            ],
+            "size": [
+              0.2,
+              2,
+              2
+            ],
+            "yaw_deg": 0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          },
+          {
+            "type": "box",
+            "label": "occluder",
+            "center": [
+              5,
+              0,
+              1.8
+            ],
+            "size": [
+              0.2,
+              3,
+              3
+            ],
+            "yaw_deg": 0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/los_opaque.npz",
+        "reference": "references/los_opaque.npz"
+      }
+    },
+    "los_below_min": {
+      "kind": "analytic",
+      "group": "los",
+      "variable": "occluder",
+      "value": 1.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -10,
+        "vfov_upper_deg": 10,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -15,
+        "hfov_end_deg": 15,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 1,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "box",
+            "label": "target",
+            "center": [
+              10,
+              0,
+              1.8
+            ],
+            "size": [
+              0.2,
+              2,
+              2
+            ],
+            "yaw_deg": 0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          },
+          {
+            "type": "box",
+            "label": "near_occluder",
+            "center": [
+              0.15,
+              0,
+              1.8
+            ],
+            "size": [
+              0.1,
+              1,
+              1
+            ],
+            "yaw_deg": 0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/los_below_min.npz",
+        "reference": "references/los_below_min.npz"
+      }
+    },
+    "example_partial_yaw0": {
+      "kind": "illustration",
+      "group": "finite_beam_example",
+      "variable": "",
+      "value": 0.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 3,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/example_partial_yaw0.npz",
+        "reference": "references/example_partial_yaw0.npz"
+      }
+    },
+    "example_partial_yaw60": {
+      "kind": "illustration",
+      "group": "finite_beam_example",
+      "variable": "",
+      "value": 0.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -12,
+        "vfov_upper_deg": 12,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -40,
+        "hfov_end_deg": 40,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 3,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 60,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "sphere",
+            "label": "target",
+            "center": [
+              10.0,
+              0.0,
+              1.8
+            ],
+            "radius": 1.0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/example_partial_yaw60.npz",
+        "reference": "references/example_partial_yaw60.npz"
+      }
+    },
+    "example_los_clear": {
+      "kind": "illustration",
+      "group": "finite_beam_example",
+      "variable": "",
+      "value": 0.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -10,
+        "vfov_upper_deg": 10,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -15,
+        "hfov_end_deg": 15,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 3,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "box",
+            "label": "target",
+            "center": [
+              10,
+              0,
+              1.8
+            ],
+            "size": [
+              0.2,
+              2,
+              2
+            ],
+            "yaw_deg": 0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/example_los_clear.npz",
+        "reference": "references/example_los_clear.npz"
+      }
+    },
+    "example_los_opaque": {
+      "kind": "illustration",
+      "group": "finite_beam_example",
+      "variable": "",
+      "value": 0.0,
+      "config": {
+        "n_channels": 16,
+        "vfov_lower_deg": -10,
+        "vfov_upper_deg": 10,
+        "measurements_per_cycle": 720,
+        "hfov_start_deg": -15,
+        "hfov_end_deg": 15,
+        "rotations_per_s": 10.0,
+        "min_range_m": 0.5,
+        "max_range_m": 200.0,
+        "peak_power_w": 75.0,
+        "beam_divergence_mrad": 2.0,
+        "n_beam_samples": 3,
+        "pulse_fwhm_ns": 5.0,
+        "pulse_rise_ns": 1.0,
+        "aperture_diam_m": 0.025,
+        "optical_efficiency": 0.5,
+        "noise_rms_w": 4e-09,
+        "snr_threshold": 10.0,
+        "saturation_power_w": 5e-05,
+        "range_floor_sigma_m": 0.01,
+        "noise_enabled": false,
+        "air_extinction_per_m": 0.0002,
+        "rain_mm_per_h": 0.0,
+        "rain_a": 0.01,
+        "rain_b": 0.6,
+        "return_mode": "strongest"
+      },
+      "pose": {
+        "position": [
+          0,
+          0,
+          1.8
+        ],
+        "roll_deg": 0.0,
+        "pitch_deg": 0.0,
+        "yaw_deg": 0.0,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "yaw_rate_deg_s": 0.0
+      },
+      "scene": {
+        "materials": {},
+        "objects": [
+          {
+            "type": "box",
+            "label": "target",
+            "center": [
+              10,
+              0,
+              1.8
+            ],
+            "size": [
+              0.2,
+              2,
+              2
+            ],
+            "yaw_deg": 0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          },
+          {
+            "type": "box",
+            "label": "occluder",
+            "center": [
+              5,
+              0,
+              1.8
+            ],
+            "size": [
+              0.2,
+              3,
+              3
+            ],
+            "yaw_deg": 0,
+            "material": {
+              "name": "reference_diffuse",
+              "rho_d": 0.7,
+              "rho_s": 0.0,
+              "spec_exp": 50.0
+            }
+          }
+        ]
+      },
+      "artifacts": {
+        "scan": "scans/example_los_opaque.npz",
+        "reference": "references/example_los_opaque.npz"
+      }
+    }
+  },
+  "frustum": {
+    "artifact": "frustum_geometry.npz",
+    "display_range_m": 15.0,
+    "note": "Faces index each case's local vertex slice; near/far shell sectors have curved angular boundaries."
+  }
+}

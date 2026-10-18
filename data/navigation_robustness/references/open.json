@@ -1,0 +1,7 @@
+{
+  "inflation_m": 0.8999999999999999,
+  "known_obstacle_labels": [
+    "known_wall"
+  ],
+  "timing": "Nominal t=s/cruise_speed; geometric corners are not dynamically time-scaled"
+}

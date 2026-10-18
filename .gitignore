@@ -1,0 +1,18 @@
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.pytest_cache/
+.DS_Store
+build/
+dist/
+tests/.artifacts/
+
+# Reproducible raw histories and duplicate submission packages.
+data/**/*.npz
+!data/navigation_threshold/trials/*.npz
+outputs/submission/
+outputs/*preview*.png
+outputs/*screenshot*.png
+outputs/**/*preview*.png
+outputs/**/*screenshot*.png

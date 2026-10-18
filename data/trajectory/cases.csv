@@ -1,0 +1,8 @@
+case_id,factor,description,overrides_json
+baseline,baseline,"8 channels, 360 azimuths, one sub-ray; clear air, 0.6 m mount, 1.2 m/s speed limit, 0.25 m local margin",{}
+dense_fog,extinction,Air extinction coefficient 0.6 per m; all other settings unchanged,"{""sensor"": {""air_extinction_per_m"": 0.6}}"
+sparse_sampling,azimuth_density,90 azimuths per revolution instead of 360,"{""sensor"": {""measurements_per_cycle"": 90}}"
+high_mount,mount_height,Mounting height 1.6 m instead of 0.6 m,"{""mount_height_m"": 1.6}"
+faster_speed,speed_limit,Speed limit 2.0 m/s instead of 1.2 m/s,"{""robot"": {""v_max"": 2.0}}"
+smaller_margin,local_safety_margin,Local controller margin 0.05 m instead of 0.25 m; planned route unchanged,"{""controller"": {""safety_margin_m"": 0.05}}"
+lidar_disabled,sensor_enabled,LiDAR disabled; retain the same route planned from the known reference map,"{""lidar_enabled"": false}"

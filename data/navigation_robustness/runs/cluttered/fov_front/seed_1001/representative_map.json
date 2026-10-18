@@ -1,0 +1,8 @@
+{
+  "seed": 1001,
+  "run_directory": "runs/cluttered/fov_front/seed_1001",
+  "observed_fraction": 0.4993979933110368,
+  "observed_area_m2": 149.32000000000002,
+  "map_voxels": 15797,
+  "status": "goal"
+}

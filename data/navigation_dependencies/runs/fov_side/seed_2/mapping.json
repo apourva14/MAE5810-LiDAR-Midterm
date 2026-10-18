@@ -1,0 +1,52 @@
+{
+  "format_version": 1,
+  "map_type": "cumulative measured-surface endpoints",
+  "coordinate_frame": "world",
+  "pose_assumption": "World points use the simulator's known exact pose; no SLAM or pose estimation.",
+  "voxel_size_m": 0.12,
+  "resolution_m": 0.2,
+  "roi_extent_m": [
+    -2.0,
+    21.0,
+    -6.0,
+    7.0
+  ],
+  "extent_m": [
+    -2.0,
+    21.0,
+    -6.0,
+    7.0
+  ],
+  "grid_shape": [
+    65,
+    115
+  ],
+  "ground_threshold_m": 0.12,
+  "z_limits_m": null,
+  "steps": 45,
+  "raw_return_count": 29715,
+  "finite_return_count": 29715,
+  "retained_measurement_count": 24700,
+  "map_point_count": 6695,
+  "nonfinite_intensity_count": 0,
+  "observed_cell_count": 1542,
+  "roi_cell_count": 7475,
+  "observed_cell_fraction": 0.2062876254180602,
+  "observed_cell_area_m2": 61.680000000000014,
+  "map_z_range_m": [
+    -0.010029573771780043,
+    1.3977433847456924
+  ],
+  "semantics": {
+    "voxel": "Stable first observed measured representative; later observations never change its position or intensity.",
+    "step": "Scan/control index k; no extra final-state scan. Negative one is empty; indices beyond the last scan hold the final map.",
+    "raster": {
+      "0": "Unknown: no measured endpoint in this cell.",
+      "1": "Observed low/ground-like endpoint at z<=threshold.",
+      "2": "Observed elevated-surface endpoint at z>threshold."
+    },
+    "precedence": "Elevated-surface evidence takes precedence only from its own first observed step onward; later ground observations do not erase it.",
+    "limits": "No rays mark free or traversable space. No unseen interiors or true obstacle coverage are inferred. All measured heights, including above robot body height, are retained unless an explicit z crop is requested.",
+    "area": "Observed endpoint cells divided by regular raster ROI cells; this is not traversable area or true surface coverage. For non-grid-aligned crops, the enclosing regular raster extent is recorded separately."
+  }
+}

@@ -1,0 +1,740 @@
+{
+  "schema_version": 1,
+  "source": {
+    "run": "runs/baseline/seed_1",
+    "seed": 1,
+    "step": 41,
+    "time_s": 8.200000000000001,
+    "config": "Saved cluttered navigation baseline with front-120\u00b0 sensor coverage; panel is sole scene difference"
+  },
+  "sensor": {
+    "position": [
+      9.379761924615424,
+      2.4109507077692096,
+      0.6
+    ],
+    "rotation_world_from_sensor": [
+      [
+        0.9961643388967222,
+        -0.08750205660701071,
+        0.0
+      ],
+      [
+        0.08750205660701071,
+        0.9961643388967222,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "yaw_deg": 5.019918420284271,
+    "pitch_deg": 0.0,
+    "roll_deg": 0.0
+  },
+  "hfov_deg": [
+    -60.0,
+    60.0
+  ],
+  "vfov_deg": [
+    -20.0,
+    10.0
+  ],
+  "min_range_m": 0.5,
+  "max_range_m": 200.0,
+  "display_range_m": 4.0,
+  "panels": [
+    {
+      "id": "panel_absent",
+      "label": "Opaque panel absent",
+      "objects": [
+        {
+          "label": "study_target",
+          "role": "target",
+          "vertices": [
+            [
+              10.6,
+              0.30000000000000004,
+              0.0
+            ],
+            [
+              11.4,
+              0.30000000000000004,
+              0.0
+            ],
+            [
+              11.4,
+              1.9000000000000001,
+              0.0
+            ],
+            [
+              10.6,
+              1.9000000000000001,
+              0.0
+            ],
+            [
+              10.6,
+              0.30000000000000004,
+              1.2
+            ],
+            [
+              11.4,
+              0.30000000000000004,
+              1.2
+            ],
+            [
+              11.4,
+              1.9000000000000001,
+              1.2
+            ],
+            [
+              10.6,
+              1.9000000000000001,
+              1.2
+            ]
+          ],
+          "faces": [
+            [
+              0,
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6,
+              7
+            ],
+            [
+              0,
+              1,
+              5,
+              4
+            ],
+            [
+              1,
+              2,
+              6,
+              5
+            ],
+            [
+              2,
+              3,
+              7,
+              6
+            ],
+            [
+              3,
+              0,
+              4,
+              7
+            ]
+          ],
+          "label_at": [
+            11.0,
+            1.1,
+            1.3199999999999998
+          ]
+        }
+      ],
+      "rays": [
+        {
+          "beam_index": 1,
+          "target_point": [
+            10.6,
+            0.6695589123367971,
+            0.001733769632308535
+          ],
+          "nearest_point": [
+            10.6,
+            0.6695589123367971,
+            0.001733769632308535
+          ],
+          "visible": true,
+          "nearest_label": "study_target",
+          "azimuth_deg": -59.99999999999999,
+          "elevation_deg": -15.714285714285715,
+          "target_range_m": 2.208924812712271,
+          "nearest_range_m": 2.208924812712271,
+          "range_eligible": true
+        },
+        {
+          "beam_index": 71,
+          "target_point": [
+            10.6,
+            1.1033172693020579,
+            0.9153683923398774
+          ],
+          "nearest_point": [
+            10.6,
+            1.1033172693020579,
+            0.9153683923398774
+          ],
+          "visible": true,
+          "nearest_label": "study_target",
+          "azimuth_deg": -52.0,
+          "elevation_deg": 10.0,
+          "target_range_m": 1.8161341891233471,
+          "nearest_range_m": 1.8161341891233471,
+          "range_eligible": true
+        },
+        {
+          "beam_index": 137,
+          "target_point": [
+            10.6,
+            1.4582791975341167,
+            0.16443670776677288
+          ],
+          "nearest_point": [
+            10.6,
+            1.4582791975341167,
+            0.16443670776677288
+          ],
+          "visible": true,
+          "nearest_label": "study_target",
+          "azimuth_deg": -43.0,
+          "elevation_deg": -15.714285714285715,
+          "target_range_m": 1.6081913283477542,
+          "nearest_range_m": 1.6081913283477542,
+          "range_eligible": true
+        },
+        {
+          "beam_index": 199,
+          "target_point": [
+            10.6,
+            1.678334940482745,
+            0.8509614797848425
+          ],
+          "nearest_point": [
+            10.6,
+            1.678334940482745,
+            0.8509614797848425
+          ],
+          "visible": true,
+          "nearest_label": "study_target",
+          "azimuth_deg": -36.0,
+          "elevation_deg": 10.0,
+          "target_range_m": 1.4452295621909987,
+          "nearest_range_m": 1.4452295621909987,
+          "range_eligible": true
+        },
+        {
+          "beam_index": 261,
+          "target_point": [
+            10.6,
+            1.893490940128661,
+            0.63305398076751
+          ],
+          "nearest_point": [
+            10.6,
+            1.893490940128661,
+            0.63305398076751
+          ],
+          "visible": true,
+          "nearest_label": "study_target",
+          "azimuth_deg": -28.0,
+          "elevation_deg": 1.428571428571427,
+          "target_range_m": 1.3258348831545512,
+          "nearest_range_m": 1.3258348831545512,
+          "range_eligible": true
+        },
+        {
+          "beam_index": 327,
+          "target_point": [
+            11.289311036966144,
+            1.9000000000000001,
+            0.9485502503291361
+          ],
+          "nearest_point": [
+            11.289311036966144,
+            1.9000000000000001,
+            0.9485502503291361
+          ],
+          "visible": true,
+          "nearest_label": "study_target",
+          "azimuth_deg": -19.999999999999996,
+          "elevation_deg": 10.0,
+          "target_range_m": 2.007220893487754,
+          "nearest_range_m": 2.007220893487754,
+          "range_eligible": true
+        }
+      ],
+      "audit": {
+        "total_beams": 968,
+        "target_opportunities": 311,
+        "full_fov_opportunities": 335,
+        "visible_target_echoes": 311,
+        "blocked_target_echoes": 0,
+        "eligible_echoes": 311,
+        "expected_detections": 311.0,
+        "expected_detection_variance": 0.0,
+        "eligible_range_sum_m": 509.8246308456486,
+        "eligible_power_sum_w": 0.1495580917412349,
+        "eligible_incidence_sum_deg": 14272.139524955473
+      },
+      "displayed_visible_rays": 6,
+      "displayed_blocked_rays": 0
+    },
+    {
+      "id": "panel_present",
+      "label": "Opaque panel present",
+      "objects": [
+        {
+          "label": "study_target",
+          "role": "target",
+          "vertices": [
+            [
+              10.6,
+              0.30000000000000004,
+              0.0
+            ],
+            [
+              11.4,
+              0.30000000000000004,
+              0.0
+            ],
+            [
+              11.4,
+              1.9000000000000001,
+              0.0
+            ],
+            [
+              10.6,
+              1.9000000000000001,
+              0.0
+            ],
+            [
+              10.6,
+              0.30000000000000004,
+              1.2
+            ],
+            [
+              11.4,
+              0.30000000000000004,
+              1.2
+            ],
+            [
+              11.4,
+              1.9000000000000001,
+              1.2
+            ],
+            [
+              10.6,
+              1.9000000000000001,
+              1.2
+            ]
+          ],
+          "faces": [
+            [
+              0,
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6,
+              7
+            ],
+            [
+              0,
+              1,
+              5,
+              4
+            ],
+            [
+              1,
+              2,
+              6,
+              5
+            ],
+            [
+              2,
+              3,
+              7,
+              6
+            ],
+            [
+              3,
+              0,
+              4,
+              7
+            ]
+          ],
+          "label_at": [
+            11.0,
+            1.1,
+            1.3199999999999998
+          ]
+        },
+        {
+          "label": "study_occluder",
+          "role": "occluder",
+          "vertices": [
+            [
+              9.625,
+              0.10000000000000009,
+              0.0
+            ],
+            [
+              9.774999999999999,
+              0.10000000000000009,
+              0.0
+            ],
+            [
+              9.774999999999999,
+              2.1,
+              0.0
+            ],
+            [
+              9.625,
+              2.1,
+              0.0
+            ],
+            [
+              9.625,
+              0.10000000000000009,
+              1.8
+            ],
+            [
+              9.774999999999999,
+              0.10000000000000009,
+              1.8
+            ],
+            [
+              9.774999999999999,
+              2.1,
+              1.8
+            ],
+            [
+              9.625,
+              2.1,
+              1.8
+            ]
+          ],
+          "faces": [
+            [
+              0,
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6,
+              7
+            ],
+            [
+              0,
+              1,
+              5,
+              4
+            ],
+            [
+              1,
+              2,
+              6,
+              5
+            ],
+            [
+              2,
+              3,
+              7,
+              6
+            ],
+            [
+              3,
+              0,
+              4,
+              7
+            ]
+          ],
+          "label_at": [
+            9.7,
+            1.1,
+            1.92
+          ]
+        }
+      ],
+      "rays": [
+        {
+          "beam_index": 136,
+          "target_point": [
+            10.6,
+            1.458279197534117,
+            0.03654351608480466
+          ],
+          "nearest_point": [
+            10.6,
+            1.458279197534117,
+            0.03654351608480466
+          ],
+          "visible": true,
+          "nearest_label": "study_target",
+          "azimuth_deg": -43.0,
+          "elevation_deg": -20.0,
+          "target_range_m": 1.64743654697167,
+          "nearest_range_m": 1.64743654697167,
+          "range_eligible": true
+        },
+        {
+          "beam_index": 173,
+          "target_point": [
+            10.6,
+            1.5885067922140008,
+            0.6366976197745788
+          ],
+          "nearest_point": [
+            10.6,
+            1.5885067922140008,
+            0.6366976197745788
+          ],
+          "visible": true,
+          "nearest_label": "study_target",
+          "azimuth_deg": -39.0,
+          "elevation_deg": 1.428571428571427,
+          "target_range_m": 1.4719856215837015,
+          "nearest_range_m": 1.4719856215837015,
+          "range_eligible": true
+        },
+        {
+          "beam_index": 210,
+          "target_point": [
+            10.6,
+            1.7351161377786664,
+            0.3180158005518646
+          ],
+          "nearest_point": [
+            10.6,
+            1.7351161377786664,
+            0.3180158005518646
+          ],
+          "visible": true,
+          "nearest_label": "study_target",
+          "azimuth_deg": -34.0,
+          "elevation_deg": -11.428571428571429,
+          "target_range_m": 1.423112228656251,
+          "nearest_range_m": 1.423112228656251,
+          "range_eligible": true
+        },
+        {
+          "beam_index": 248,
+          "target_point": [
+            10.6,
+            1.868173930843823,
+            0.11391402657537114
+          ],
+          "nearest_point": [
+            10.6,
+            1.868173930843823,
+            0.11391402657537114
+          ],
+          "visible": true,
+          "nearest_label": "study_target",
+          "azimuth_deg": -29.000000000000004,
+          "elevation_deg": -20.0,
+          "target_range_m": 1.4212203079564873,
+          "nearest_range_m": 1.4212203079564873,
+          "range_eligible": true
+        },
+        {
+          "beam_index": 285,
+          "target_point": [
+            10.785107384339454,
+            1.9000000000000001,
+            0.6372916579986013
+          ],
+          "nearest_point": [
+            10.785107384339454,
+            1.9000000000000001,
+            0.6372916579986013
+          ],
+          "visible": true,
+          "nearest_label": "study_target",
+          "azimuth_deg": -25.0,
+          "elevation_deg": 1.428571428571427,
+          "target_range_m": 1.4958132084899787,
+          "nearest_range_m": 1.4958132084899787,
+          "range_eligible": true
+        },
+        {
+          "beam_index": 327,
+          "target_point": [
+            11.289311036966144,
+            1.9000000000000001,
+            0.9485502503291361
+          ],
+          "nearest_point": [
+            11.289311036966144,
+            1.9000000000000001,
+            0.9485502503291361
+          ],
+          "visible": true,
+          "nearest_label": "study_target",
+          "azimuth_deg": -19.999999999999996,
+          "elevation_deg": 10.0,
+          "target_range_m": 2.007220893487754,
+          "nearest_range_m": 2.007220893487754,
+          "range_eligible": true
+        },
+        {
+          "beam_index": 1,
+          "target_point": [
+            10.6,
+            0.6695589123367971,
+            0.001733769632308535
+          ],
+          "nearest_point": [
+            9.625,
+            2.060973452496511,
+            0.47976308733300493
+          ],
+          "visible": false,
+          "nearest_label": "study_occluder",
+          "azimuth_deg": -59.99999999999999,
+          "elevation_deg": -15.714285714285715,
+          "target_range_m": 2.208924812712271,
+          "nearest_range_m": 0.44393998242356203,
+          "range_eligible": false
+        },
+        {
+          "beam_index": 28,
+          "target_point": [
+            10.6,
+            0.8502358579702043,
+            0.5011267218465125
+          ],
+          "nearest_point": [
+            9.625,
+            2.0972851094652016,
+            0.5801288839198998
+          ],
+          "visible": false,
+          "nearest_label": "study_occluder",
+          "azimuth_deg": -57.0,
+          "elevation_deg": -2.8571428571428577,
+          "target_range_m": 1.9835795240257452,
+          "nearest_range_m": 0.39865107855367754,
+          "range_eligible": false
+        },
+        {
+          "beam_index": 55,
+          "target_point": [
+            10.6,
+            1.0082125606012076,
+            0.9278285750148606
+          ],
+          "nearest_point": [
+            9.650257094333176,
+            2.1,
+            0.6726711023248685
+          ],
+          "visible": false,
+          "nearest_label": "study_occluder",
+          "azimuth_deg": -54.00000000000001,
+          "elevation_deg": 10.0,
+          "target_range_m": 1.887889521326618,
+          "nearest_range_m": 0.41849619904596336,
+          "range_eligible": false
+        },
+        {
+          "beam_index": 84,
+          "target_point": [
+            10.6,
+            1.1915607496260723,
+            0.5139049547592309
+          ],
+          "nearest_point": [
+            9.690928906641064,
+            2.1,
+            0.5780453208801177
+          ],
+          "visible": false,
+          "nearest_label": "study_occluder",
+          "azimuth_deg": -50.0,
+          "elevation_deg": -2.8571428571428577,
+          "target_range_m": 1.7272247067054087,
+          "nearest_range_m": 0.4404511792473423,
+          "range_eligible": false
+        },
+        {
+          "beam_index": 110,
+          "target_point": [
+            10.6,
+            1.3130112908463751,
+            0.7642547058303278
+          ],
+          "nearest_point": [
+            9.725349201417274,
+            2.1,
+            0.6465190667582649
+          ],
+          "visible": false,
+          "nearest_label": "study_occluder",
+          "azimuth_deg": -46.99999999999999,
+          "elevation_deg": 5.714285714285715,
+          "target_range_m": 1.6496761901168708,
+          "nearest_range_m": 0.46720973033697594,
+          "range_eligible": false
+        },
+        {
+          "beam_index": 135,
+          "target_point": [
+            10.6,
+            1.4235235791810068,
+            0.876782438922601
+          ],
+          "nearest_point": [
+            9.764027134879878,
+            2.1,
+            0.6871615664480732
+          ],
+          "visible": false,
+          "nearest_label": "study_occluder",
+          "azimuth_deg": -44.0,
+          "elevation_deg": 10.0,
+          "target_range_m": 1.5939265395199804,
+          "nearest_range_m": 0.5019434561257267,
+          "range_eligible": true
+        }
+      ],
+      "audit": {
+        "total_beams": 968,
+        "target_opportunities": 311,
+        "full_fov_opportunities": 335,
+        "visible_target_echoes": 188,
+        "blocked_target_echoes": 123,
+        "eligible_echoes": 188,
+        "expected_detections": 188.0,
+        "expected_detection_variance": 0.0,
+        "eligible_range_sum_m": 284.79612293378193,
+        "eligible_power_sum_w": 0.10426636062814451,
+        "eligible_incidence_sum_deg": 8425.017127926007
+      },
+      "displayed_visible_rays": 6,
+      "displayed_blocked_rays": 6
+    }
+  ],
+  "view_limits": [
+    [
+      8.879761924615424,
+      12.0
+    ],
+    [
+      -1.8,
+      4.3
+    ],
+    [
+      0.0,
+      2.5
+    ]
+  ],
+  "view_elevation_deg": 22,
+  "view_azimuth_deg": -64,
+  "interpretation": "Prepared scene truth and deterministic nearest-surface ray audits, not a noisy point cloud. The nominal FOV is angular and is truncated in radius only for display. All panel counts use every emitted ray; only a representative subset is drawn."
+}

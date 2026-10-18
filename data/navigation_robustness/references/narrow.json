@@ -1,0 +1,10 @@
+{
+  "inflation_m": 0.8999999999999999,
+  "known_obstacle_labels": [
+    "north_corridor_wall",
+    "south_corridor_wall",
+    "north_chicane",
+    "south_chicane"
+  ],
+  "timing": "Nominal t=s/cruise_speed; geometric corners are not dynamically time-scaled"
+}
