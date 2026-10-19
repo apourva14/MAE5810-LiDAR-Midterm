@@ -4,9 +4,9 @@ This is the single code folder for the 3D LiDAR simulation, navigation,
 measurement evaluation, and course report. Numerical code and visualization
 remain separate, so changing a figure or viewer does not rerun the sensor.
 
-**Team Members for this project:**
-Arunkumar Venkatesan - av652@cornell.edu
-Xuyi Lian - xl2339@cornell.edu
+**Team Members for this project:**<br>
+Arunkumar Venkatesan - av652@cornell.edu<br>
+Xuyi Lian - xl2339@cornell.edu<br>
 Apurva Singh - as4642@cornell.edu
 
 ## Start here
