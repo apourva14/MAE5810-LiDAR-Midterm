@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "scope": "Nine target settings and three weather conditions in one unchanged primary scene; shared baseline.",
+  "prepared_from_saved_results": true,
+  "figure_count": 7,
+  "figures": [
+    {
+      "path": "all_case_report/target_characteristics.png",
+      "bytes": 176661,
+      "sha256": "c98f246564d7bbeee7efe2ad9b984b2bfadeeefaf9f527e391dc5e969783322d"
+    },
+    {
+      "path": "all_case_report/weather_measurements.png",
+      "bytes": 171044,
+      "sha256": "39f152ed1205e07b8643ff95587160b2d82e8e582b088e73d5d762c096ba6e23"
+    },
+    {
+      "path": "all_case_report/weather_trajectories.png",
+      "bytes": 159472,
+      "sha256": "9b3d19560078edb9533470be490079070267c6983bc0ee4a9907cc97bc0bc050"
+    },
+    {
+      "path": "all_case_report/weather_profiles.png",
+      "bytes": 147931,
+      "sha256": "003a3d47605130480754aa0477b810efb1fce3028ee5fe0fedafb4ff173ede5f"
+    },
+    {
+      "path": "all_case_report/weather_maps.png",
+      "bytes": 206353,
+      "sha256": "ff9d637e92de7642a0341c0179511f9ce78da69c89173044942e9e0705d4e117"
+    },
+    {
+      "path": "weather_report/weather_fov_los.png",
+      "bytes": 191397,
+      "sha256": "2837df67d1f7eaf768cfb24e766fd37e2cb161a8bfb4537b75bf4d8017d38114"
+    },
+    {
+      "path": "navigation_validation/report_threshold_detection.png",
+      "bytes": 119200,
+      "sha256": "26bf141a92772fc610669340675bdf73bc067dceaec6240253444fa204ddbb25"
+    }
+  ],
+  "weather_manifest": "all_case_report/manifest.json",
+  "coverage_geometry": "weather_report/fov_los.json",
+  "weather_runs": 9,
+  "target_settings": 9,
+  "threshold": {
+    "png": "/Users/lianxuyi/Desktop/Cornell/MAE5810_robot_perception/midterm/LIDAR_model/outputs/navigation_validation/report_threshold_detection.png",
+    "pose_ids": [
+      0,
+      1,
+      2
+    ],
+    "settings": 33,
+    "trials": 33000,
+    "intervals": "Pointwise 95% Wilson binomial intervals; horizontal pose offsets are display only",
+    "prediction": "Phi(mean_SNR - SNR_threshold); shaded band is predicted 5\u201395% transition"
+  },
+  "sources": [
+    {
+      "path": "navigation_dependencies/summary.json",
+      "sha256": "128abc84b12b4c05d1e11440c036e9f3918ff4c0de8deb99bec90aa90bd83136"
+    },
+    {
+      "path": "navigation_dependencies/manifest.json",
+      "sha256": "06a18614d72890296d123ce280f099e5687ca18adc08be15538f9d97d44099d7"
+    },
+    {
+      "path": "navigation_threshold/summary.json",
+      "sha256": "5b5708e0f1fae56635c372af0278a4c09d11bb27ba6d01cebc134279d05c2fc5"
+    },
+    {
+      "path": "navigation_threshold/design.json",
+      "sha256": "5c1861c5c1c66dbf5a73f0127c9d93b47fab61b25b9b8add023ebea40d9e1c1e"
+    }
+  ]
+}

@@ -6,10 +6,43 @@ import tempfile
 import unittest
 import zipfile
 
-from lidar_project.workflow import Task, Workflow, WorkflowError
+from lidar_project.workflow import REPORT_CASE_IDS, TASKS, Task, Workflow, WorkflowError
 
 
 class DeliverableWorkflow(unittest.TestCase):
+    def dependency_fixture(self, root, *, superset=False):
+        """Retained raw-file references for either 11 fresh or 22 frozen cases."""
+        directory = Path(root) / "data/navigation_dependencies"
+        directory.mkdir(parents=True)
+        def file(relative, value="{}"):
+            path = directory / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            if path.suffix == ".npz":
+                with zipfile.ZipFile(path, "w") as archive:
+                    archive.writestr("raw.npy", b"retained archive fixture")
+            else:
+                path.write_text(value)
+        ids = list(REPORT_CASE_IDS) + ([f"legacy_{i}" for i in range(11)] if superset else [])
+        cases, runs, replays = [], [], []
+        for case_id in ids:
+            for seed in (1, 2, 3):
+                run, replay = f"runs/{case_id}/seed_{seed}", f"replays/{case_id}/seed_{seed}"
+                for name in ("trajectory.json", "trajectory.npz", "mapping.json", "mapping.npz"):
+                    file(f"{run}/{name}")
+                for name in ("replay.json", "traces.csv"):
+                    file(f"{replay}/{name}")
+                runs.append(dict(case_id=case_id, seed=seed, run_directory=run))
+                replays.append(dict(case_id=case_id, seed=seed, replay_directory=replay))
+            cases.append(dict(id=case_id, representative_run=f"runs/{case_id}/seed_1",
+                              representative_replay=f"replays/{case_id}/seed_1"))
+        summary = dict(cases=cases, seeds=[1, 2, 3], runs=runs, replays=replays)
+        file("summary.json", json.dumps(summary))
+        for name in ("manifest.json", "runs.csv", "replay.csv"):
+            file(name)
+        for seed in (1, 2, 3):
+            file(f"reference_poses_seed_{seed}.npz")
+        return directory, summary
+
     def fixture(self, root, *, fail=False):
         root = Path(root)
         (root / "worker.py").write_text(
@@ -113,6 +146,39 @@ class DeliverableWorkflow(unittest.TestCase):
             unsafe = Workflow(root, tasks=(bad,))
             with self.assertRaisesRegex(WorkflowError, "escapes"):
                 unsafe.task_catalog()
+
+    def test_active_catalog_is_only_the_single_scene_report(self):
+        self.assertEqual([task.id for task in TASKS], ["evaluation", "dependencies", "threshold",
+                         "weather_figures", "report_docx", "report_pdf", "report_viewer", "package"])
+        task = next(task for task in TASKS if task.id == "dependencies")
+        self.assertEqual(task.args[task.args.index("--cases") + 1:], REPORT_CASE_IDS)
+        figures = next(task for task in TASKS if task.id == "weather_figures")
+        self.assertEqual(sum(path.endswith(".png") for path in figures.outputs), 7)
+
+    def test_dependency_audit_accepts_fresh_scope_or_frozen_superset(self):
+        for superset in (False, True):
+            with self.subTest(superset=superset), tempfile.TemporaryDirectory() as root:
+                directory, summary = self.dependency_fixture(root, superset=superset)
+                workflow = Workflow(root)
+                workflow._validate(workflow.tasks["dependencies"])
+                summary["replays"].pop(0)
+                (directory / "summary.json").write_text(json.dumps(summary))
+                with self.assertRaisesRegex(WorkflowError, "33 distinct replays"):
+                    workflow._validate(workflow.tasks["dependencies"])
+
+    def test_dependency_audit_rejects_missing_seed_and_raw_run_file(self):
+        with tempfile.TemporaryDirectory() as root:
+            directory, summary = self.dependency_fixture(root, superset=True)
+            workflow = Workflow(root)
+            summary["seeds"] = [1, 2]
+            (directory / "summary.json").write_text(json.dumps(summary))
+            with self.assertRaisesRegex(WorkflowError, "seeds 1, 2, 3"):
+                workflow._validate(workflow.tasks["dependencies"])
+            summary["seeds"] = [1, 2, 3]
+            (directory / "summary.json").write_text(json.dumps(summary))
+            (directory / "runs/fog/seed_3/trajectory.npz").unlink()
+            with self.assertRaisesRegex(WorkflowError, "Incomplete saved study"):
+                workflow._validate(workflow.tasks["dependencies"])
 
 
 if __name__ == "__main__":

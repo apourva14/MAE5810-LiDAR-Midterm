@@ -277,7 +277,8 @@ def render_mapping(args):
 
 def evaluate_navigation_dependencies(args):
     from .experiments.navigation_dependencies import run_study
-    run_study(Path(args.data_dir).resolve(), args.config, seeds=args.seeds)
+    run_study(Path(args.data_dir).resolve(), args.config, seeds=args.seeds,
+              case_ids=getattr(args, 'cases', None))
     print(f"Saved navigation dependency comparisons to {Path(args.data_dir).resolve()}")
     return 0
 
@@ -424,6 +425,7 @@ def parser():
     p = command("evaluate-navigation-dependencies", "Compare LiDAR dependencies using matched poses and closed-loop navigation", evaluate_navigation_dependencies)
     p.add_argument("--config", default=str(DEFAULT_TRAJECTORY_CONFIG))
     p.add_argument("--seeds", type=int, nargs="+", default=[1, 2, 3])
+    p.add_argument("--cases", nargs="+", help="Select named conditions; the shared baseline is always included")
     p.add_argument("--data-dir", default=str(DATA_DIR / "navigation_dependencies"))
     p = command("render-navigation-dependencies", "Render saved navigation dependency measurements and moving 3D maps", render_navigation_dependencies)
     p.add_argument("--data-dir", default=str(DATA_DIR / "navigation_dependencies"))

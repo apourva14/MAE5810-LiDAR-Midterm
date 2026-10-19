@@ -26,18 +26,20 @@ FIGS = OUTPUTS/'evaluation'
 EVAL_DATA = DATA/'evaluation'
 OUT = args.output_dir.resolve()/'Midterm_Project_Report.docx'
 required = ('evaluation/geometry/summary.json', 'evaluation/response/summary.json',
-            'navigation_dependencies/summary.json', 'navigation_threshold/summary.json',
-            'navigation_robustness/summary.json', 'navigation_validation/fov_los.json')
+            'navigation_dependencies/summary.json', 'navigation_threshold/summary.json')
 missing = [str(DATA/name) for name in required if not (DATA/name).is_file()]
 if missing:
     parser.error('Generate the required saved studies first. Missing: '+', '.join(missing))
 if args.use_saved_figures:
     required_figures = (
-        'navigation_dependencies/report_physical_dependencies.png',
-        'navigation_dependencies/report_navigation_maps.png',
-        'navigation_validation/report_fov_los_3d.png',
+        'weather_report/weather_fov_los.png',
+        'weather_report/fov_los.json',
+        'all_case_report/target_characteristics.png',
+        'all_case_report/weather_measurements.png',
+        'all_case_report/weather_trajectories.png',
+        'all_case_report/weather_profiles.png',
+        'all_case_report/weather_maps.png',
         'navigation_validation/report_threshold_detection.png',
-        'navigation_validation/report_navigation_robustness.png',
     )
     missing = [str(OUTPUTS/name) for name in required_figures if not (OUTPUTS/name).is_file()]
     if missing:
@@ -245,6 +247,8 @@ G = json.loads((EVAL_DATA/'geometry/summary.json').read_text())
 R = json.loads((EVAL_DATA/'response/summary.json').read_text())
 NAV_DATA = DATA/'navigation_dependencies'
 NAV_FIGS = OUTPUTS/'navigation_dependencies'
+WEATHER_FIGS = OUTPUTS/'all_case_report'
+WEATHER_COVERAGE = OUTPUTS/'weather_report'
 N = json.loads((NAV_DATA/'summary.json').read_text())
 NC = {item['id']: item for item in N['cases']}
 NB = NC['baseline']
@@ -257,21 +261,21 @@ for case_id in ('target_near','baseline','target_far'):
 import sys
 sys.path.insert(0,str(PROJECT))
 if not args.use_saved_figures:
-    from lidar_project.visualization.navigation_dependency_report import render_navigation_dependency_report
-    render_navigation_dependency_report(NAV_DATA,NAV_FIGS)
+    from lidar_project.visualization.all_case_report import render_weather_report
+    render_weather_report(NAV_DATA, WEATHER_FIGS)
 VALIDATION_FIGS = OUTPUTS/'navigation_validation'
 T = json.loads((DATA/'navigation_threshold/summary.json').read_text())
 TA = T['aggregate']
-B = json.loads((DATA/'navigation_robustness/summary.json').read_text())
-if not B['complete'] or B['runs'] != B['planned_runs']:
-    raise ValueError('Complete the frozen navigation robustness study before building the report')
-BC = {(item['layout_id'],item['case_id']): item for item in B['cases']}
-C = json.loads((DATA/'navigation_validation/fov_los.json').read_text())
 if not args.use_saved_figures:
-    from lidar_project.visualization.navigation_validation import render_navigation_validation
-    render_navigation_validation(DATA/'navigation_validation/fov_los.json',
-                                 DATA/'navigation_threshold',
-                                 DATA/'navigation_robustness',VALIDATION_FIGS)
+    from lidar_project.visualization.navigation_validation import _threshold
+    from lidar_project.visualization import theme
+    import matplotlib.pyplot as plt
+    VALIDATION_FIGS.mkdir(parents=True, exist_ok=True)
+    with plt.rc_context({**theme.MATPLOTLIB, "font.size": 8.5}):
+        _threshold(T, VALIDATION_FIGS/'report_threshold_detection.png')
+    from lidar_project.visualization.weather_coverage import prepare_weather_coverage, render_weather_coverage
+    render_weather_coverage(prepare_weather_coverage(NAV_DATA, WEATHER_COVERAGE), WEATHER_COVERAGE)
+C = json.loads((WEATHER_COVERAGE/'fov_los.json').read_text())
 
 # 1 -- Title page.
 blank(1.1)
@@ -280,15 +284,15 @@ p('MAE 5810 Robot Perception\nMidterm Project Report','Subtitle',WD_ALIGN_PARAGR
 p('Author  __________________________________','Normal',WD_ALIGN_PARAGRAPH.CENTER,18)
 p('Student ID  _______________________________','Normal',WD_ALIGN_PARAGRAPH.CENTER,24)
 p('Instructor  Silvia Ferrari','Normal',WD_ALIGN_PARAGRAPH.CENTER,12)
-p('October 18 2026','Normal',WD_ALIGN_PARAGRAPH.CENTER)
+p('October 19 2026','Normal',WD_ALIGN_PARAGRAPH.CENTER)
 newpage()
 
 # 2 -- Motivation and nominal scan model.
 h('Abstract')
-p(f'This project models a spinning three dimensional pulsed LiDAR with opaque visibility, surface response, attenuation, and receiver noise. A cluttered navigation task supplies 22 controlled settings, 66 closed-loop runs, and 66 replays at identical baseline poses. A direct 3D diagram separates field of view from occlusion. An independent 33,000-trial experiment probes detection near the receiver threshold at three navigation viewpoints; its probability calibration RMS error is {100*TA["calibration_rmse"]:.2f} percentage points. A further 720 runs compare 12 sensor conditions across three fixed layouts and 20 noise seeds. Run-level confidence intervals, collision and timeout counts, and failure-aware clearance distributions expose task limits. Measured maps show why successful navigation does not imply complete perception. These experiments verify the virtual model and its dependencies within stated assumptions; physical calibration remains future work.')
+p(f'This project models a spinning three dimensional pulsed LiDAR with opaque visibility, surface response, attenuation, and receiver noise. Evaluation has two parts: nine target-characteristic settings at matched robot poses, and clear air, rain, and fog navigation in one fixed obstacle setup. Nine recorded weather runs retain all trajectories and measurement profiles. Attenuation reduces mean observed endpoint cells from 73.7 to 47.1 percent while all nine runs reach the goal. An independent 33,000-trial experiment checks detection near threshold; probability calibration RMS error is {100*TA["calibration_rmse"]:.2f} percentage points. These results establish internal model consistency and conditional environmental dependencies. Three navigation seeds are descriptive; physical calibration and general reliability remain untested.')
 h('1 Introduction')
 p('A virtual LiDAR must determine where its beams can reach and whether their returned signal is measurable. A missing point may arise from angular sampling, occlusion, a range gate, or weak power. This project therefore models measurements together with field of view (FOV) and line of sight (LOS), addressing the dependencies on sensor state, targets, and environment required by the midterm assignment [1].')
-p('The sensor uses eight channels for the navigation studies. Physical surface modeling is motivated by Heiden et al. [2], whose continuous wave phase estimator differs from this pulsed geometric approximation. Controlled replays isolate measurement effects, threshold trials resolve uncertain detections, and repeated navigation tests measure consequences. Target geometry interventions are interpreted together with their visibility changes.')
+p('The navigation sensor uses eight channels. Surface modeling is motivated by Heiden et al. [2], whose continuous wave phase estimator differs from this pulsed geometric approximation. Target experiments quantify geometric exposure and surface response; weather experiments hold the physical scene, robot, sensor, reference route, and controller fixed. Threshold trials resolve uncertain detections independently of navigation.')
 h('2 Theory and Methods')
 h('2.1 Scan pattern',2)
 p('The sensor frame has x forward, y left, and z up. World z is up. With M azimuth samples per full revolution and L channels, beam angles and the nominal unit direction are')
@@ -333,47 +337,53 @@ eq('E[',sup(['(z − ',sub('r','ref'),')'],'2'),' | P̃, G] = ',sup(['(',sub('r�
 p('The first term is centroid displacement; the second is conditional random variance. Angular, pose, calibration, and additional physical model errors are excluded.',after=0)
 newpage()
 
-# 5 -- Reproducible navigation and measurement evaluation.
+# 5 -- Reproducible two-part evaluation.
 h('3 Procedure')
-p('Python and NumPy generate measurements; independent renderers read saved results. The primary cluttered task has 12 objects: nine in the planning map and three unknown to the planner. Its designated target is a pure diffuse box centered at (11, 1.1, 0.6) m, sized (0.8, 1.6, 1.2) m, with diffuse weight 0.30.')
-p('The baseline uses eight channels from -20 to +10 degrees, 360 azimuths, one subray, a level 0.6 m mount, and 0.5-200 m range gates. Parameters are 75 W peak power, 25 mm aperture, 0.5 efficiency, 4 × 10⁻⁹ W power noise RMS, threshold factor 10, 0.01 m range floor, 5 ns pulse, and 1 ns rise time.')
-p('A* supplies a reference from (0, 0) to (18, 0) m on a 0.25 m grid, with 0.90 m total inflation and checked shortcuts. The measured-point controller uses 0.12 ≤ z ≤ 1 m, without target labels or true obstacle geometry. Limits are 1.2 m/s, 90 degrees/s, 0.2 s steps, and 36 s duration. Forward Euler integrates')
+p('Python and NumPy generate measurements; independent renderers read saved results. The fixed navigation scene has 12 objects: nine in the planning map and three unknown to the planner. Its designated target is a pure diffuse box centered at (11, 1.1, 0.6) m, sized (0.8, 1.6, 1.2) m, with diffuse weight 0.30.')
+p('The sensor uses eight channels from -20 to +10 degrees, 360 azimuths, one subray, a level 0.6 m mount, and 0.5-200 m gates. Parameters are 75 W peak power, 25 mm aperture, 0.5 efficiency, 4 × 10⁻⁹ W power noise RMS, threshold factor 10, 0.01 m range floor, 5 ns pulse, and 1 ns rise time.')
+p('A* supplies a shared reference from (0, 0) to (18, 0) m on a 0.25 m grid, with 0.90 m total inflation. The measured-point controller uses 0.12 ≤ z ≤ 1 m without object labels. Limits are 1.2 m/s, 90 degrees/s, 0.2 s steps, and 36 s. Forward Euler integrates')
 eq(sub('p','k+1'),' = ',sub('p','k'),' + ',sub('v','k'),'Δt ',sup(['[cos ',sub('θ','k'),', sin ',sub('θ','k'),']'],'T'),',     ',sub('θ','k+1'),' = wrap(',sub('θ','k'),' + ',sub('ω','k'),'Δt)')
-h('3.1 Controlled dependencies',2)
-p('Vary pose, FOV, LOS, target geometry and reflectance, attenuation, noise, sampling, and enabled sensing in 22 settings. Each has three closed-loop runs and three replays at 271 common baseline snapshots (seeds 1-3). Count emitted target intersections, nearest visible hits, in-gate eligible echoes NE, and detections ND separately. For qi from Equation (9),')
+h('3.1 Target characteristics',2)
+p('Nine target settings vary diffuse weight (0.02, 0.30, 0.85), yaw (0, 45, 75 degrees), height (0.3, 1.2, 2.0 m), and center x (9, 11, 13 m). Each is replayed at the same 271 baseline snapshots across three seeds. The shared baseline appears in both evaluation parts. Count target intersections, nearest visible hits, in-gate eligible echoes NE, and detections ND separately. For qi from Equation (9),')
 eq(sub('p̂','D'),' = ',frac(sub('N','D'),sub('N','E')),',     ',sub('p̄','D'),' = ',frac(['Σ',sub('q','i')],sub('N','E')),'     (i ∈ E)')
-h('3.2 Threshold and robustness studies',2)
-p('At three saved approach poses, extract one eligible target ray at ranges 7.99, 4.90, and 1.93 m. Fix each ray and solve extinction to obtain mean SNR 6-14 at 11 settings. Draw 1,000 actual scans per setting using 33,000 disjoint noise seeds, independent of navigation. Keep all misses in the denominator. These coefficients are illustrative optical stress, not calibrated weather.')
-p('Freeze 12 conditions on the original three environment presets, including barrels, distinct from the primary box-target scene. Run 20 seeds (1001-1020) per cell: 720 runs. Reuse each layout’s partial-map reference and controller. Test extinction 0.0002, 0.1, 0.3, 0.6, 1.2, 3, and 10 m⁻¹, high mount, sparse sampling, front and side FOV, and disabled sensing. Retain every failure; one whole run is the statistical unit. Paired seeds do not imply identical per-ray noise.',after=0)
+h('3.2 Environmental conditions through navigation',2)
+p('Hold all obstacle geometry, target properties, sensor settings, robot parameters, controller, and reference route fixed. Compare clear air (κ = 0.0002 m⁻¹), rain at 50 mm/h (effective κ = 0.104764 m⁻¹), and fog represented by κ = 0.6 m⁻¹. Each condition uses seeds 1-3: nine closed-loop runs and nine matched-pose replays, including the shared baseline. All recorded trajectories and metric histories are retained.')
+p('Points per scan include all detected surfaces. Mapping reports endpoint-observed cells, not free space or accuracy. Target range RMS pools squared errors over detected replay returns; misses are not zero errors. Weather coefficients are illustrative attenuation settings; no backscatter or false weather returns are modeled. Three navigation seeds provide descriptive comparisons, not a reliability estimate.',after=0)
 newpage()
 
-# 6 -- Sensor pose, angular coverage, and visibility on the shared task.
+# 6 -- Target-characteristic evaluation and unchanged-scene visibility.
 h('4 Results')
-h('4.1 Sensor pose and visibility',2)
-figure(VALIDATION_FIGS/'report_fov_los_3d.png',2.8)
-caption('Figure 1  Same-pose 3D coverage and occlusion at 8.2 s. Blue rays reach the target; solid red rays stop at the panel; dashed red segments show blocked continuations. Scene geometry explains visibility; it is not a measured cloud.')
-p('The angular FOV is ±60 degrees horizontally and -20 to +10 vertically. Display ends at 4 m; physical gates are 0.5-200 m, with the near cutout omitted. Each panel emits 968 beams, including 311 target intersections. The panel changes 311 visible target hits into 188 visible and 123 blocked. All rays are audited; representative rays are drawn. The envelope contains channel gaps.')
-p(f'Height changes the intersections predicted by Equation (12). In the primary replays, raising the mount from 0.6 to 1.6 m reduces eligible target echoes from {NB["replay"]["eligible_echoes"]:,} to {NC["mount_high"]["replay"]["eligible_echoes"]:,} and worst navigation gap from {NB["aggregate"]["worst_surface_gap_m"]:.3f} to {NC["mount_high"]["aggregate"]["worst_surface_gap_m"]:.3f} m. Pitch offsets also move the sampled surfaces; positive pitch points downward.')
-p('Post-hoc geometry at the open high-mount run’s last four poses (seed 1001) shows 152-173 visible barrel rays per pose, none in the controller’s height band. Restoring a 0.6 m mount at identical XY/yaw gives 286-544 in-band intersections. Visible 3D surfaces can therefore miss body-relevant coverage. High mounting causes 20/20 collisions in open and narrow layouts; cluttered 19/20 goals accompany a median gap of only 1.8 mm.')
-p(f'Full-circle yaw of 60 degrees preserves geometry by permuting the grid. Primary replays retain {NC["fov_front"]["replay"]["target_opportunities"]:,} target opportunities with front 120-degree FOV; sideways coverage has none and causes three collisions. Its conditional detection probability is undefined. The LOS panel also changes physical obstacle geometry.',after=0)
+h('4.1 Target characteristics',2)
+figure(WEATHER_COVERAGE/'weather_fov_los.png',2.35)
+caption('Figure 1  Unchanged baseline at 2.6 s: 2,880 emitted rays; 12 visible and 12 existing-wall-blocked target rays. Only representative rays and relevant true surfaces are drawn. The full-circle angular envelope is clipped at 4 m; target rays extend farther. This is explanatory geometry, not measured map points.')
+figure(WEATHER_FIGS/'target_characteristics.png',3.05)
+caption('Figure 2  All nine target settings at matched baseline poses. Power is the noiseless eligible-echo mean; counts distinguish intersections, eligibility, and detections. Range RMS is conditional on detected target returns. Target position, orientation, and size also change geometric exposure.')
+p('Diffuse weights 0.02, 0.30, and 0.85 give power ratios 0.0667, 1, and 2.8333. At one common seed-1 viewpoint (6 s), target centers x = 9, 11, and 13 m give ranges 2.134, 4.011, and 5.950 m and powers 0.339830, 0.105144, and 0.048696 mW. Whole-route averages need not preserve this ordering because eligible exposures and incidence differ.',after=0)
 newpage()
 
-# 7 -- Target features, environment, angular sampling, and noise.
-h('4.2 Target and environmental dependencies',2)
-figure(NAV_FIGS/'report_physical_dependencies.png',3.0)
-caption('Figure 2  Fixed-pose replay comparisons. Power ratios use independently evaluated noiseless eligible-beam predictions; counts and range errors use measured returns. Moved, rotated, and resized targets change geometric exposure. Range RMS is conditional on detected target returns.')
-p('Diffuse weights 0.02, 0.30, and 0.85 give power ratios 0.0667, 1, and 2.8333, following Equation (7). All eligible target echoes remain detected and paths remain unchanged: a physical power change need not alter a strongly illuminated target’s detection or the task.')
-p(f'Target heights of 0.3, 1.2, and 2.0 m give {NC["target_short"]["replay"]["target_opportunities"]:,}, {NB["replay"]["target_opportunities"]:,}, and {NC["target_tall"]["replay"]["target_opportunities"]:,} intersections. This exposes discrete angular sampling of target size. Target yaw 45 and 75 degrees changes mean eligible incidence to {NC["target_yaw_45"]["replay"]["mean_eligible_incidence_deg"]:.2f} and {NC["target_yaw_75"]["replay"]["mean_eligible_incidence_deg"]:.2f} degrees. Rotation also changes projected area and footprint, so these cases demonstrate combined geometry and surface response, rather than a pure cosine-only intervention.')
-p(f'Target position is compared at one common viewpoint. At seed-1 time 6 s, moving the target center to x = 9, 11, and 13 m gives mean eligible ranges {distance_examples[0][0]:.3f}, {distance_examples[1][0]:.3f}, and {distance_examples[2][0]:.3f} m and powers {distance_examples[0][1]:.6f}, {distance_examples[1][1]:.6f}, and {distance_examples[2][1]:.6f} mW. The decrease is consistent with range and incidence in Equation (7). Pooled whole-route power can reverse this ordering because the target exposures and range gates differ.')
-p(f'Rain at 50 mm/h and extinction 0.6 m⁻¹ reduce mean eligible power from {NB["replay"]["mean_eligible_power_w"]*1000:.6f} to {NC["rain"]["replay"]["mean_eligible_power_w"]*1000:.6f} and {NC["fog"]["replay"]["mean_eligible_power_w"]*1000:.6f} mW, consistent with Equation (13). Four-degree azimuth spacing reduces eligible target echoes from {NB["replay"]["eligible_echoes"]:,} to {NC["sampling_sparse"]["replay"]["eligible_echoes"]:,}. Sampling removes opportunities; attenuation weakens echoes.')
-p(f'Tenfold receiver noise changes detected-target range RMS from {NB["replay"]["range_rmse_m"]*1000:.3f} to {NC["noise_high"]["replay"]["range_rmse_m"]*1000:.3f} mm, versus predictions {NB["replay"]["predicted_range_rmse_m"]*1000:.3f} and {NC["noise_high"]["replay"]["predicted_range_rmse_m"]*1000:.3f} mm. The 10 mm floor dominates these strong echoes; the threshold study below probes weaker signals.',after=0)
+# 7 -- Environmental conditions: scalar metrics and matched-pose profiles.
+h('4.2 Environmental measurement metrics',2)
+caption('Table 1  Same fixed scene; three seeds per weather condition. Navigation/map values are means of run summaries. Range RMS and detection fraction pool target echoes at identical baseline poses.')
+weather_ids=('baseline','rain','fog')
+weather_names={'baseline':'Clear','rain':'Rain 50 mm/h','fog':'Fog κ = 0.6 m⁻¹'}
+table(['Condition','Mean points / scan','Observed cells (%)','Target RMS (mm)','Detected / eligible (%)'],[
+ [weather_names[c], f"{NC[c]['aggregate']['mean_returns_per_control_step']:,.1f}",
+  f"{100*NC[c]['aggregate']['mean_observed_fraction']:.2f}",
+  f"{1000*NC[c]['replay']['range_rmse_m']:.3f}",
+  f"{100*NC[c]['replay']['observed_detection_probability']:.2f}"] for c in weather_ids
+], [1.5,1.2,1.2,1.15,1.45],spacing=1.0,size=11,pad_y=65)
+figure(WEATHER_FIGS/'weather_measurements.png',2.6)
+caption('Figure 3  Weather measurement profiles over the same saved baseline poses. Colors denote weather; all three seeds contribute. Cumulative range RMS uses pooled detected-return squared errors and its actual detection denominator. No profile is extended beyond its recorded exposure.')
+p(f'Rain and fog reduce mean eligible target power from {NB["replay"]["mean_eligible_power_w"]*1000:.6f} to {NC["rain"]["replay"]["mean_eligible_power_w"]*1000:.6f} and {NC["fog"]["replay"]["mean_eligible_power_w"]*1000:.6f} mW. This follows the two-way attenuation term in Equation (7); target geometry and angular sampling are unchanged.')
+p('Fog lowers mean points per scan by 20.8 percent and observed endpoint coverage by 26.57 percentage points relative to clear air. Target RMS rises from 9.992 to 11.139 mm, while detection falls to 98.07 percent of eligible target echoes. These describe different denominators: whole-scene closed-loop returns, common-region endpoint cells, and detected-target replay errors.')
+p('The range floor dominates strong nearby returns, so a substantial optical-power loss can produce a small RMS increase. Detection and coverage expose losses that conditional range RMS alone can conceal. Missing returns remain in the detection denominator; map gaps are not filled using scene truth.',after=0)
 newpage()
 
 # 8 -- Independent near-threshold detection and uncertainty.
 h('4.3 Near-threshold detection and range uncertainty',2)
 figure(VALIDATION_FIGS/'report_threshold_detection.png',2.2)
-caption('Figure 3  Detection and calibration residuals from 33,000 actual scan trials. Each marker counts 1,000 trials, including misses; bars are pointwise 95% Wilson intervals. Small horizontal offsets distinguish viewpoints. The shaded band is the predicted 5-95% transition, not an uncertainty interval.')
-p('The original replays nearly saturate detection. Here extinction changes the mean SNR of three fixed eligible navigation rays; geometry, reflectance, receiver noise, and threshold remain fixed. Ray selection does not depend on noisy detection.')
+caption('Figure 4  Detection and calibration residuals from 33,000 actual scan trials. Each marker counts 1,000 trials, including misses; bars are pointwise 95% Wilson intervals. Small horizontal offsets distinguish viewpoints. The shaded band is the predicted 5-95% transition, not an uncertainty interval.')
+p('The weather replays nearly saturate detection. For independent component validation, select three eligible rays from this same baseline scene at ranges 7.99, 4.90, and 1.93 m. Vary extinction to obtain 11 mean-SNR settings from 6 to 14, with 1,000 independent actual scans per setting. Geometry, diffuse target response, receiver noise, and threshold remain fixed. Ray selection does not depend on noisy detection; these pencil-ray probes are not additional navigation runs.')
 p(f'At mean SNR 10, predicted probability is 0.5; measured fractions are 0.510, 0.492, and 0.498. Over 33 settings, calibration RMS error is {100*TA["calibration_rmse"]:.3f} percentage points, with maximum residual {100*TA["max_abs_detection_residual"]:.3f} points. The model lies within {TA["pointwise_wilson_contains_model"]}/33 pointwise intervals; the excluded prediction is retained.')
 p('With n independent trials, observed fraction p̂, and a = 1.96, the Wilson interval is')
 eq(frac(['p̂ + ',frac(sup('a','2'),'2n'),' ± a ',root([frac('p̂(1 − p̂)','n'),' + ',frac(sup('a','2'),['4',sup('n','2')])])],['1 + ',frac(sup('a','2'),'n')]))
@@ -382,42 +392,40 @@ eq(sub('e','i'),' = ',sub('z','i'),' − ',sub('r','true,i'),',     ',sub('ε','
 p(f'Across {TA["detections"]:,} detections, range RMS is {1000*TA["conditional_range_rmse_m"]:.3f} mm versus {1000*TA["predicted_conditional_range_rmse_m"]:.3f} mm predicted from measured-SNR conditional variance; standardized RMS is {TA["normalized_range_rmse"]:.4f}. Agreement checks the assumed noise and selection laws, not physical accuracy. Intervals do not provide simultaneous coverage.',after=0)
 newpage()
 
-# 9 -- Repeated navigation, conditional uncertainty and failure modes.
-h('4.4 Repeated navigation and failure boundaries',2)
-figure(VALIDATION_FIGS/'report_navigation_robustness.png',2.8)
-caption('Figure 4  Frozen 720-run study. Goal bars: pointwise 95% Wilson intervals. Gap: all-run median and interquartile range. Sensor settings: 1.6 m mount, 90 azimuths, 120-degree FOV. Extinction is illustrative optical stress, not calibrated weather.')
-caption('Table 1  Goals/collisions/timeouts; each cell totals 20. All 36 groups are retained in the accompanying results.')
-labels={'baseline':'Baseline','fog_1000':'κ = 10 m⁻¹',
-        'mount_high':'Mount 1.6 m','fov_side':'Side FOV 120°','lidar_disabled':'LiDAR disabled'}
-table(['Condition','Open G/C/T','Cluttered G/C/T','Narrow G/C/T'],[
- [label]+[f"{BC[(layout,case)]['goals']}/{BC[(layout,case)]['collisions']}/{BC[(layout,case)]['timeouts']}"
-           for layout in ('open','cluttered','narrow')] for case,label in labels.items()
-], [1.75,1.55,1.65,1.55],spacing=1.0,size=11,pad_y=40)
-baseline_goals=sum(BC[(layout,'baseline')]['goals'] for layout in ('open','cluttered','narrow'))
-p(f'Baseline reaches {baseline_goals}/60 goals. Wilson intervals remain [0.839, 1.000] for 20/20 and [0.000, 0.161] for 0/20; one whole run is the unit. These pointwise intervals apply to fixed layouts and this controller, not new random environments. Side FOV rotates the matched front window by 90 degrees.')
-p('At κ = 10 m⁻¹, the open representative stalls from 8.6 to 36 s despite nearby returns. Open-layout outcomes at κ = 1.2 (19/20) and 3 m⁻¹ (20/20) have overlapping intervals, without establishing monotonic task reliability. Time/path summaries condition on success; paired time differences require both successes. Clearance retains failures. Poses are exact, objects static, and scans snapshots.',after=0)
+# 9 -- All environmental trajectories and recorded metric histories.
+h('4.4 Environmental conditions through navigation',2)
+figure(WEATHER_FIGS/'weather_trajectories.png',3.0)
+figure(WEATHER_FIGS/'weather_profiles.png',2.5)
+caption('Figure 5  All nine weather runs in the unchanged scene. Upper: recorded 3D paths and top-down detail. Lower: points per scan, endpoint coverage, swept clearance, and route error. Exact overlaps remain overlaps. Lines stop at recorded termination; terminal poses add no scan. Colors denote weather, line styles seeds.')
+caption('Table 2  Three runs per condition; all reach the goal without collision or timeout. Gap is the worst swept clearance. Three seeds are descriptive.')
+table(['Condition','Goals','Mean time (s)','Mean path (m)','Min gap (m)'],[
+ [weather_names[c],f"{NC[c]['aggregate']['goals']}/3",f"{NC[c]['aggregate']['mean_elapsed_s']:.2f}",
+  f"{NC[c]['aggregate']['mean_path_length_m']:.3f}",f"{NC[c]['aggregate']['worst_surface_gap_m']:.3f}"] for c in weather_ids
+], [1.7,.6,1.35,1.4,1.45],spacing=1.0,size=11,pad_y=40)
 newpage()
 
 # 10 -- Measured maps, effectiveness, conclusions and references.
 h('4.5 Route generation and measured 3D mapping',2)
-figure(NAV_FIGS/'report_navigation_maps.png',2.3)
-caption('Figure 5  Seed-1 measured maps: black driven path, orange shared reference, height colors. Display hides z ≤ 0.12 m. Each map ends with its run; no scene truth is drawn.')
+figure(WEATHER_FIGS/'weather_maps.png',2.2)
+caption('Figure 6  Seed-1 measured maps for clear air, rain, and fog in the same fixed scene. Colors show height; all panels use the same axes and height scale. Display hides z ≤ 0.12 m. Each map ends with its own run; no true scene surfaces fill gaps.')
 p('Measured surfaces accumulate in 0.12 m voxels. Endpoint cells are 0.2 m over [-2, 21] m × [-6, 7] m (NROI = 7,475). For K intervals and K + 1 states,')
 eq('L = Σ ‖',sub('p','k+1'),' − ',sub('p','k'),'‖,     ',sub('f','obs'),' = ',frac(sub('N','obs'),sub('N','ROI')),',     k = 0, …, K − 1')
-p(f'Primary-task attenuation reduces mean observed cells from {100*NB["aggregate"]["mean_observed_fraction"]:.1f} to {100*NC["fog"]["aggregate"]["mean_observed_fraction"]:.1f} percent despite three successful runs. Endpoint counts do not establish accuracy or free space. Collision uses swept gap ≤ 0; goal tolerance is 0.35 m.')
-p(f'Independent numerical checks additionally cover {G["analytic_cases"]} geometry and {R["radiometry"]["rows"]} power cases, with maximum residuals {G["max_abs_range_error_m"]:.2e} m and {R["radiometry"]["max_abs_relative_power_error"]:.2e} relative power.')
+p('Mean observed endpoint cells are 73.67 percent in clear air, 70.33 in rain, and 47.10 in fog. All weather runs reach the goal; endpoint observations do not establish accuracy or free space.')
+p(f'Independent checks cover {G["analytic_cases"]} geometry and {R["radiometry"]["rows"]} power cases; maximum residuals are {G["max_abs_range_error_m"]:.2e} m and {R["radiometry"]["max_abs_relative_power_error"]:.2e} relative power.')
 h('5 Conclusions')
-p('Controlled replays expose LiDAR dependencies; threshold trials verify probabilistic behavior; 720 navigation runs reveal collisions and timeouts. Goal completion does not imply complete perception. Results support the virtual model within its assumptions. Physical calibration, backscatter, pose uncertainty, navigation scan motion, and latency remain future work.')
+p('Target replays expose surface response and geometric sampling. With obstacles fixed, attenuation reduces returns and coverage and increases conditional range error, although all nine weather runs succeed. Threshold trials support the assumed noise model. Three seeds do not establish navigation reliability. Physical calibration, backscatter, pose uncertainty, moving objects, and scan motion remain future work.')
 h('References')
 p('[1] “Midterm project,” Robot Perception, course assignment handout, pp. 1-2.').paragraph_format.line_spacing=1.0
 p('[2] E. Heiden, Z. Liu, R. K. Ramachandran, and G. S. Sukhatme, “Physics-based Simulation of Continuous-Wave LIDAR for Localization, Calibration and Tracking,” Proc. IEEE ICRA, 2020, pp. 2595-2601.').paragraph_format.line_spacing=1.0
 
 for shape,description in zip(doc.inline_shapes,[
-    'Same-pose three dimensional FOV diagram with visible target rays and opaque-panel blocked ray continuations.',
-    'Target and atmospheric power ratios, measured detection counts, and measured versus predicted target range RMS.',
-    'Three navigation-viewpoint near-threshold detection curves and calibration residuals with pointwise Wilson intervals.',
-    '720 navigation runs across three fixed layouts: goal fraction intervals, swept clearance distributions and sensor ablations.',
-    'Measured 3D endpoint maps and executed trajectories in clear air and optical stress, with a shared planned reference.'
+    'Full-circle field of view and natural target occlusion by an existing wall in the unchanged weather scene.',
+    'Nine matched-pose target-characteristic settings with eligible optical power, geometric sampling, detected-return range RMS and target features.',
+    'Clear, rain and fog measurement profiles at the same baseline poses, including detected target returns, power and pooled cumulative range RMS.',
+    'Three near-threshold target-ray detection curves and calibration residuals with pointwise Wilson intervals.',
+    'All nine recorded weather trajectories in the unchanged three dimensional obstacle scene with a top-down detail.',
+    'Recorded weather histories of returns, endpoint coverage, swept clearance and spatial route error, retaining all seeds and true termination times.',
+    'Measured three dimensional endpoint maps in clear air, rain and fog, sharing physical axes and height colors.'
 ]):
     shape._inline.docPr.set('descr',description)
 OUT.parent.mkdir(parents=True,exist_ok=True)

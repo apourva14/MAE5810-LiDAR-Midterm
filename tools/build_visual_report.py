@@ -17,12 +17,12 @@ sys.path.insert(0,str(PROJECT))
 
 def build(project=PROJECT,output=None):
     from plotly.offline import get_plotlyjs
-    from lidar_project.visualization.report_data import load_report_data
+    from lidar_project.visualization.report_data import load_weather_report_data
     from lidar_project.visualization.report_math import extract_equations
     project=Path(project).resolve()
     output=Path(output or project/'index.html').resolve()
     visual=project/'lidar_project/visualization'
-    data=load_report_data(project)
+    data=load_weather_report_data(project)
     data['equations']=extract_equations(project/'outputs/reports/Midterm_Project_Report.docx')
     data['provenance']['report_pdf']='outputs/reports/Midterm_Project_Report.pdf'
     data['provenance']['report_docx']='outputs/reports/Midterm_Project_Report.docx'
@@ -37,8 +37,8 @@ def build(project=PROJECT,output=None):
         '__REPORT_3D_JS__':(visual/'static/report_3d.js').read_text(encoding='utf-8'),
         '__REPORT_CHARTS_JS__':(visual/'static/report_charts.js').read_text(encoding='utf-8'),
         '__PLOTLY_JS__':get_plotlyjs(),
-        '__FOV_FALLBACK__':image(project/'outputs/navigation_validation/report_fov_los_3d.png'),
-        '__MAP_FALLBACK__':image(project/'outputs/navigation_dependencies/report_navigation_maps.png'),
+        '__FOV_FALLBACK__':image(project/'outputs/weather_report/weather_fov_los.png'),
+        '__MAP_FALLBACK__':image(project/'outputs/all_case_report/weather_maps.png'),
     }
     for token,value in replacements.items():
         template=template.replace(token,value)

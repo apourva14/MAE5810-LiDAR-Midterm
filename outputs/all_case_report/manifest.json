@@ -1,0 +1,719 @@
+{
+  "schema_version": 1,
+  "scope": "Weather changes only; one fixed primary obstacle setup; existing saved data only.",
+  "conditions": [
+    {
+      "id": "baseline",
+      "label": "Clear air"
+    },
+    {
+      "id": "rain",
+      "label": "Rain 50 mm/h"
+    },
+    {
+      "id": "fog",
+      "label": "Extinction 0.6 m\u207b\u00b9"
+    }
+  ],
+  "runs": 9,
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "metrics": [
+    {
+      "case_id": "baseline",
+      "label": "Clear air",
+      "runs": 3,
+      "goals": 3,
+      "collisions": 0,
+      "timeouts": 0,
+      "mean_points_per_scan": 2198.387545787546,
+      "mean_observed_fraction": 0.7367224080267558,
+      "target_range_rms_mm": 9.99201215785597,
+      "target_detection_probability": 1.0,
+      "mean_eligible_power_w": 0.0007450810739410859,
+      "mean_elapsed_s": 18.066666666666666,
+      "mean_path_length_m": 19.702310840312034,
+      "worst_surface_gap_m": 0.32963455970450084,
+      "mean_spatial_route_rmse_m": 0.5974670095390099,
+      "target_detected_returns": 46712,
+      "target_eligible_echoes": 46712
+    },
+    {
+      "case_id": "rain",
+      "label": "Rain 50 mm/h",
+      "runs": 3,
+      "goals": 3,
+      "collisions": 0,
+      "timeouts": 0,
+      "mean_points_per_scan": 2011.2617419617418,
+      "mean_observed_fraction": 0.7033221850613156,
+      "target_range_rms_mm": 10.00569582070903,
+      "target_detection_probability": 1.0,
+      "mean_eligible_power_w": 0.0005753555743931511,
+      "mean_elapsed_s": 18.066666666666666,
+      "mean_path_length_m": 19.702306957871574,
+      "worst_surface_gap_m": 0.32963045593583995,
+      "mean_spatial_route_rmse_m": 0.5974672958993136,
+      "target_detected_returns": 46712,
+      "target_eligible_echoes": 46712
+    },
+    {
+      "case_id": "fog",
+      "label": "Extinction 0.6 m\u207b\u00b9",
+      "runs": 3,
+      "goals": 3,
+      "collisions": 0,
+      "timeouts": 0,
+      "mean_points_per_scan": 1741.9640865584686,
+      "mean_observed_fraction": 0.47103678929765885,
+      "target_range_rms_mm": 11.13878697636185,
+      "target_detection_probability": 0.9806901866758007,
+      "mean_eligible_power_w": 0.00018712589174063973,
+      "mean_elapsed_s": 17.933333333333334,
+      "mean_path_length_m": 19.78398706269225,
+      "worst_surface_gap_m": 0.3448307242673919,
+      "mean_spatial_route_rmse_m": 0.6005119975851946,
+      "target_detected_returns": 45810,
+      "target_eligible_echoes": 46712
+    }
+  ],
+  "run_identities": [
+    {
+      "case_id": "baseline",
+      "seed": 1,
+      "status": "goal",
+      "states": 91,
+      "scans": 90,
+      "terminal_time_s": 18.0
+    },
+    {
+      "case_id": "baseline",
+      "seed": 2,
+      "status": "goal",
+      "states": 92,
+      "scans": 91,
+      "terminal_time_s": 18.2
+    },
+    {
+      "case_id": "baseline",
+      "seed": 3,
+      "status": "goal",
+      "states": 91,
+      "scans": 90,
+      "terminal_time_s": 18.0
+    },
+    {
+      "case_id": "rain",
+      "seed": 1,
+      "status": "goal",
+      "states": 91,
+      "scans": 90,
+      "terminal_time_s": 18.0
+    },
+    {
+      "case_id": "rain",
+      "seed": 2,
+      "status": "goal",
+      "states": 92,
+      "scans": 91,
+      "terminal_time_s": 18.2
+    },
+    {
+      "case_id": "rain",
+      "seed": 3,
+      "status": "goal",
+      "states": 91,
+      "scans": 90,
+      "terminal_time_s": 18.0
+    },
+    {
+      "case_id": "fog",
+      "seed": 1,
+      "status": "goal",
+      "states": 90,
+      "scans": 89,
+      "terminal_time_s": 17.8
+    },
+    {
+      "case_id": "fog",
+      "seed": 2,
+      "status": "goal",
+      "states": 91,
+      "scans": 90,
+      "terminal_time_s": 18.0
+    },
+    {
+      "case_id": "fog",
+      "seed": 3,
+      "status": "goal",
+      "states": 91,
+      "scans": 90,
+      "terminal_time_s": 18.0
+    }
+  ],
+  "target_characteristics": {
+    "case_ids": [
+      "baseline",
+      "reflectance_dark",
+      "reflectance_bright",
+      "target_yaw_45",
+      "target_yaw_75",
+      "target_short",
+      "target_tall",
+      "target_near",
+      "target_far"
+    ],
+    "conditions": 9,
+    "replays": 27,
+    "poses_per_condition": 271,
+    "identical_baseline_poses_per_seed": true,
+    "metrics": [
+      {
+        "case_id": "baseline",
+        "label": "Baseline: \u03c1 = 0.30",
+        "replay_poses": 271,
+        "target_opportunities_per_pose": 175.50553505535055,
+        "visible_target_echoes_per_pose": 172.3690036900369,
+        "eligible_echoes_per_pose": 172.3690036900369,
+        "detected_target_returns_per_pose": 172.3690036900369,
+        "eligible_mean_power_w": 0.0007450810739410859,
+        "eligible_mean_range_m": 1.9579177425193166,
+        "eligible_mean_incidence_deg": 29.586928181344,
+        "detected_target_range_rms_mm": 9.99201215785597,
+        "detected_target_returns": 46712,
+        "target_detection_probability": 1.0
+      },
+      {
+        "case_id": "reflectance_dark",
+        "label": "Reflectance 0.02",
+        "replay_poses": 271,
+        "target_opportunities_per_pose": 175.50553505535055,
+        "visible_target_echoes_per_pose": 172.3690036900369,
+        "eligible_echoes_per_pose": 172.3690036900369,
+        "detected_target_returns_per_pose": 172.3690036900369,
+        "eligible_mean_power_w": 4.96720715960724e-05,
+        "eligible_mean_range_m": 1.9579177425193166,
+        "eligible_mean_incidence_deg": 29.586928181344,
+        "detected_target_range_rms_mm": 10.131575434209145,
+        "detected_target_returns": 46712,
+        "target_detection_probability": 1.0
+      },
+      {
+        "case_id": "reflectance_bright",
+        "label": "Reflectance 0.85",
+        "replay_poses": 271,
+        "target_opportunities_per_pose": 175.50553505535055,
+        "visible_target_echoes_per_pose": 172.3690036900369,
+        "eligible_echoes_per_pose": 172.3690036900369,
+        "detected_target_returns_per_pose": 172.3690036900369,
+        "eligible_mean_power_w": 0.0021110630428330768,
+        "eligible_mean_range_m": 1.9579177425193166,
+        "eligible_mean_incidence_deg": 29.586928181344,
+        "detected_target_range_rms_mm": 9.985519574477564,
+        "detected_target_returns": 46712,
+        "target_detection_probability": 1.0
+      },
+      {
+        "case_id": "target_yaw_45",
+        "label": "Target yaw 45\u00b0",
+        "replay_poses": 271,
+        "target_opportunities_per_pose": 181.68265682656826,
+        "visible_target_echoes_per_pose": 178.59040590405905,
+        "eligible_echoes_per_pose": 178.59040590405905,
+        "detected_target_returns_per_pose": 178.59040590405905,
+        "eligible_mean_power_w": 0.0006966057406509727,
+        "eligible_mean_range_m": 1.9399222974982964,
+        "eligible_mean_incidence_deg": 36.15777627704417,
+        "detected_target_range_rms_mm": 10.021509195083777,
+        "detected_target_returns": 48398,
+        "target_detection_probability": 1.0
+      },
+      {
+        "case_id": "target_yaw_75",
+        "label": "Target yaw 75\u00b0",
+        "replay_poses": 271,
+        "target_opportunities_per_pose": 171.1070110701107,
+        "visible_target_echoes_per_pose": 168.8929889298893,
+        "eligible_echoes_per_pose": 168.8929889298893,
+        "detected_target_returns_per_pose": 168.8929889298893,
+        "eligible_mean_power_w": 0.0007081127522994133,
+        "eligible_mean_range_m": 1.8143388176174375,
+        "eligible_mean_incidence_deg": 34.74227066151238,
+        "detected_target_range_rms_mm": 9.966577700140002,
+        "detected_target_returns": 45770,
+        "target_detection_probability": 1.0
+      },
+      {
+        "case_id": "target_short",
+        "label": "Target height 0.3 m",
+        "replay_poses": 271,
+        "target_opportunities_per_pose": 65.87084870848709,
+        "visible_target_echoes_per_pose": 64.30258302583026,
+        "eligible_echoes_per_pose": 64.30258302583026,
+        "detected_target_returns_per_pose": 64.30258302583026,
+        "eligible_mean_power_w": 0.00040162628891839033,
+        "eligible_mean_range_m": 2.003644858480625,
+        "eligible_mean_incidence_deg": 50.99491373833445,
+        "detected_target_range_rms_mm": 10.004577963994358,
+        "detected_target_returns": 17426,
+        "target_detection_probability": 1.0
+      },
+      {
+        "case_id": "target_tall",
+        "label": "Target height 2.0 m",
+        "replay_poses": 271,
+        "target_opportunities_per_pose": 185.20664206642067,
+        "visible_target_echoes_per_pose": 180.239852398524,
+        "eligible_echoes_per_pose": 180.239852398524,
+        "detected_target_returns_per_pose": 180.239852398524,
+        "eligible_mean_power_w": 0.0007154700291043342,
+        "eligible_mean_range_m": 2.109591385595908,
+        "eligible_mean_incidence_deg": 28.87788813823582,
+        "detected_target_range_rms_mm": 9.990392402825,
+        "detected_target_returns": 48845,
+        "target_detection_probability": 1.0
+      },
+      {
+        "case_id": "target_near",
+        "label": "Target x = 9 m",
+        "replay_poses": 271,
+        "target_opportunities_per_pose": 158.38376383763838,
+        "visible_target_echoes_per_pose": 152.97785977859778,
+        "eligible_echoes_per_pose": 145.27306273062732,
+        "detected_target_returns_per_pose": 145.27306273062732,
+        "eligible_mean_power_w": 0.0010294410403548226,
+        "eligible_mean_range_m": 2.2202066791809787,
+        "eligible_mean_incidence_deg": 36.96089333743117,
+        "detected_target_range_rms_mm": 9.986694250161838,
+        "detected_target_returns": 39369,
+        "target_detection_probability": 1.0
+      },
+      {
+        "case_id": "target_far",
+        "label": "Target x = 13 m",
+        "replay_poses": 271,
+        "target_opportunities_per_pose": 314.94464944649445,
+        "visible_target_echoes_per_pose": 312.75645756457567,
+        "eligible_echoes_per_pose": 198.55719557195573,
+        "detected_target_returns_per_pose": 198.55719557195573,
+        "eligible_mean_power_w": 0.0014084955201888307,
+        "eligible_mean_range_m": 1.7683287852699485,
+        "eligible_mean_incidence_deg": 35.01677583548246,
+        "detected_target_range_rms_mm": 10.013711587890947,
+        "detected_target_returns": 53809,
+        "target_detection_probability": 1.0
+      }
+    ],
+    "scope": "Target measurement dependencies only; no navigation causal claim from these altered target geometries."
+  },
+  "checks": {
+    "identical_world_geometry_and_material": true,
+    "world_config_sha256": "b08e55626bb462b31ddc1d77af327bce1f286f5ee8410bec91acf388695d0eea",
+    "identical_reference_route": true,
+    "identical_replay_poses_per_seed": true,
+    "scan_times_equal_nonterminal_states": true,
+    "terminal_state_has_no_extra_scan": true,
+    "map_first_seen_within_saved_scan_range": true,
+    "observed_endpoint_cells_monotone": true,
+    "cumulative_rms_reproduces_pooled_summary": true
+  },
+  "display": {
+    "trajectory_smoothing": false,
+    "trajectory_subsampling": false,
+    "trajectory_z_m": 0,
+    "figure_sizes_inches": {
+      "weather_measurements": [
+        6.5,
+        2.6
+      ],
+      "weather_trajectories": [
+        6.5,
+        3.0
+      ],
+      "weather_profiles": [
+        6.5,
+        2.5
+      ],
+      "weather_maps": [
+        6.5,
+        2.2
+      ],
+      "target_characteristics": [
+        6.5,
+        3.2
+      ]
+    },
+    "map_display": "Seed 1; all saved voxel representatives with z > 0.12 m; no additional map endpoints.",
+    "map_coverage": "All saved endpoint cells, including low and elevated endpoints; this is not map accuracy.",
+    "uncertainty": "Three recorded seed paths drawn separately; no confidence interval inferred from three seeds.",
+    "measurement_profiles": "Target-return counts average available same-time seed snapshots; power pools eligible geometric echoes; cumulative RMS pools squared errors/counts across all detected target echoes.",
+    "weather_limits": "Illustrative atmospheric extinction, not calibrated weather; attenuation only, without fog backscatter."
+  },
+  "figures": [
+    "target_characteristics.png",
+    "target_characteristics.pdf",
+    "weather_measurements.png",
+    "weather_measurements.pdf",
+    "weather_trajectories.png",
+    "weather_trajectories.pdf",
+    "weather_profiles.png",
+    "weather_profiles.pdf",
+    "weather_maps.png",
+    "weather_maps.pdf"
+  ],
+  "sources": [
+    {
+      "path": "summary.json",
+      "bytes": 258178,
+      "sha256": "128abc84b12b4c05d1e11440c036e9f3918ff4c0de8deb99bec90aa90bd83136"
+    },
+    {
+      "path": "runs/baseline/seed_1/trajectory.npz",
+      "bytes": 6175772,
+      "sha256": "4f6f44b6d601b39203637423d33897a132af3444e5f14e73df10d3c96f03a01e"
+    },
+    {
+      "path": "runs/baseline/seed_1/trajectory.json",
+      "bytes": 12324,
+      "sha256": "ce1b652248da284b7fdd8cdfb0d37b09cf4eae22ef073911a35567a98474c4ef"
+    },
+    {
+      "path": "runs/baseline/seed_1/mapping.npz",
+      "bytes": 877354,
+      "sha256": "83b07c5955916cfc27813a07ff9b851da6cc84294af5750835f89577bef1ce88"
+    },
+    {
+      "path": "runs/baseline/seed_1/mapping.json",
+      "bytes": 1970,
+      "sha256": "cac14f315299983c8ad14da02af887cf91aad6a555cf23630748da7b68db79e2"
+    },
+    {
+      "path": "runs/baseline/seed_2/trajectory.npz",
+      "bytes": 6251849,
+      "sha256": "ac273edf259d30a6ad7d8f43a87d70fd689f20921558b847500bf7cc4bd8eac7"
+    },
+    {
+      "path": "runs/baseline/seed_2/trajectory.json",
+      "bytes": 12324,
+      "sha256": "393518611db8a56753228af580b44b5af0ee4de7ed5a144ea70791f1a2b17f91"
+    },
+    {
+      "path": "runs/baseline/seed_2/mapping.npz",
+      "bytes": 875400,
+      "sha256": "cf41516b6c5906aff6cd0e2bd7fad9e182d620bb21da011f74938cd5c476e879"
+    },
+    {
+      "path": "runs/baseline/seed_2/mapping.json",
+      "bytes": 1969,
+      "sha256": "ab71b54e641d55d2af05aa1ed34c6191989251c7b4ad4807fbd490292bf0fca2"
+    },
+    {
+      "path": "runs/baseline/seed_3/trajectory.npz",
+      "bytes": 6175201,
+      "sha256": "734cc369d1b511ab7e6386f79a5325103f166dbba112a0d86f5aa7bec6fb39f7"
+    },
+    {
+      "path": "runs/baseline/seed_3/trajectory.json",
+      "bytes": 12324,
+      "sha256": "34281ff8630d783b81b61eb38e4f6029744d88fc8757836eff2bfdadb762eeb3"
+    },
+    {
+      "path": "runs/baseline/seed_3/mapping.npz",
+      "bytes": 877360,
+      "sha256": "b5079b9a529f0ee2a3c1a44f72d773a5e75b6e2f27dc32bc161f75612192d1d3"
+    },
+    {
+      "path": "runs/baseline/seed_3/mapping.json",
+      "bytes": 1969,
+      "sha256": "5623d89ad1a4542ba5646f689d23f3b1853da5e440da2af3b01139154ed392b6"
+    },
+    {
+      "path": "runs/rain/seed_1/trajectory.npz",
+      "bytes": 5948854,
+      "sha256": "25913dacb62381475ef0bd14b49b10098b847c65132a71a8a196fb0f27fbe643"
+    },
+    {
+      "path": "runs/rain/seed_1/trajectory.json",
+      "bytes": 12319,
+      "sha256": "9a8f1f26e819ed72fb0ac3744c1e87ce2204981755bcd086c8f0e835f44718bf"
+    },
+    {
+      "path": "runs/rain/seed_1/mapping.npz",
+      "bytes": 883816,
+      "sha256": "a41585aeb54550ffeaee10ff14efbcbfbca323e7443f6746ab2264474aadfb65"
+    },
+    {
+      "path": "runs/rain/seed_1/mapping.json",
+      "bytes": 1971,
+      "sha256": "417d2a6e90e7f397b247b0e964c8765bb8fb3d33b789fc324a7b69c879b58919"
+    },
+    {
+      "path": "runs/rain/seed_2/trajectory.npz",
+      "bytes": 6022873,
+      "sha256": "4b57d949d9b7937f9b787213c969b8786ad2a0a06f676064f97db005329dbba4"
+    },
+    {
+      "path": "runs/rain/seed_2/trajectory.json",
+      "bytes": 12319,
+      "sha256": "417534b08d9fd7497664e68d984a1989048e956b0497027b721d3ae4b4a50126"
+    },
+    {
+      "path": "runs/rain/seed_2/mapping.npz",
+      "bytes": 881797,
+      "sha256": "9030042679e0a9291e1db74f47d912f1468757dc952223804a28dc95d5d932ec"
+    },
+    {
+      "path": "runs/rain/seed_2/mapping.json",
+      "bytes": 1971,
+      "sha256": "01df418e0200bbfd77d46ea1157802c60225276f950176856fa9fea4c8a2b06b"
+    },
+    {
+      "path": "runs/rain/seed_3/trajectory.npz",
+      "bytes": 5949191,
+      "sha256": "4d87d9e2b4f27ab18e8427c3b7e7a08bc9727bffe89a3264d0db10adbb137cdb"
+    },
+    {
+      "path": "runs/rain/seed_3/trajectory.json",
+      "bytes": 12319,
+      "sha256": "49db889afa6d83aa9eb9589d7f6fcbd0cc9fa94bbb1636254f2ca4610931fd80"
+    },
+    {
+      "path": "runs/rain/seed_3/mapping.npz",
+      "bytes": 883511,
+      "sha256": "ad7540a96c1f1e2350469a4c94e895b9bfb7576c764455ca58fc4e3a639f8977"
+    },
+    {
+      "path": "runs/rain/seed_3/mapping.json",
+      "bytes": 1971,
+      "sha256": "c3e145adc81ca3f5402221fea47825828a863564ff7d343d5c68b33140b8fef1"
+    },
+    {
+      "path": "runs/fog/seed_1/trajectory.npz",
+      "bytes": 5366299,
+      "sha256": "c3f35f92dbefdf14b546b9027c19c0bb5c3be385599af551df5867c82509cf23"
+    },
+    {
+      "path": "runs/fog/seed_1/trajectory.json",
+      "bytes": 12305,
+      "sha256": "1b1dd54dce685d3856109232c93be778db3bc8daf7fea40dece09bbeb8ef81dd"
+    },
+    {
+      "path": "runs/fog/seed_1/mapping.npz",
+      "bytes": 677053,
+      "sha256": "9d05c3519cc775575835c51e0ff57cf4a378b2c8c193c1af467f9d147ddcc596"
+    },
+    {
+      "path": "runs/fog/seed_1/mapping.json",
+      "bytes": 1972,
+      "sha256": "48599cf8ce7a9e2cd85b72c13118c5467dfb774fc3e30d8a1c1840505ecf00c1"
+    },
+    {
+      "path": "runs/fog/seed_2/trajectory.npz",
+      "bytes": 5429935,
+      "sha256": "3672b1be886e7f7b05c4db234d1ac3e589fb642baf789e4f067d5d97a5bbe22a"
+    },
+    {
+      "path": "runs/fog/seed_2/trajectory.json",
+      "bytes": 12305,
+      "sha256": "32d77f4a51bebe0fc85cd6a001b5e98e508a6a913eaf9c918ab7f64d82b8c459"
+    },
+    {
+      "path": "runs/fog/seed_2/mapping.npz",
+      "bytes": 677848,
+      "sha256": "63112d9735f33456994d60e7c803c92867aea05561641f99b209b1f946cbdab1"
+    },
+    {
+      "path": "runs/fog/seed_2/mapping.json",
+      "bytes": 1972,
+      "sha256": "8782a8422ac3002d02bdbad84bd89346401a80cbcf1803620ddc091f3232dc08"
+    },
+    {
+      "path": "runs/fog/seed_3/trajectory.npz",
+      "bytes": 5430581,
+      "sha256": "3c480cb2a713f640aa99a342f9d2e796035bd122252a8f2790a600ec6721acd2"
+    },
+    {
+      "path": "runs/fog/seed_3/trajectory.json",
+      "bytes": 12305,
+      "sha256": "8a328b5031914c8513745ebefb2cfb6d541bc0c0c5ab928a38a1ed98121e9acf"
+    },
+    {
+      "path": "runs/fog/seed_3/mapping.npz",
+      "bytes": 680120,
+      "sha256": "7ba6030682ab9ab061c9daa7d1e6be2341783df205faeb293393f0115d76626f"
+    },
+    {
+      "path": "runs/fog/seed_3/mapping.json",
+      "bytes": 1968,
+      "sha256": "b862c989b76a783bc6c0f2fe5602a709485693c760f54646da20139c547a12d2"
+    },
+    {
+      "path": "replays/baseline/seed_1/traces.csv",
+      "bytes": 54125,
+      "sha256": "eef46e17ff2c0784ad182050f4939bf20be3b8b84d94d1485f019188986caff4"
+    },
+    {
+      "path": "replays/baseline/seed_2/traces.csv",
+      "bytes": 54696,
+      "sha256": "777bc3ba9959c2350c04e0bc8c620bb5cdc3811874a1037a597c861b21ab0618"
+    },
+    {
+      "path": "replays/baseline/seed_3/traces.csv",
+      "bytes": 54093,
+      "sha256": "1fb21e0e58a599521cf499d4ed3a8414a4e491aed6518714882107049bbfafe6"
+    },
+    {
+      "path": "replays/rain/seed_1/traces.csv",
+      "bytes": 54158,
+      "sha256": "fcb707d747db3b5da7860825f5c2fb33928f13d408007ae3b2cdf29e16475bc4"
+    },
+    {
+      "path": "replays/rain/seed_2/traces.csv",
+      "bytes": 54771,
+      "sha256": "a20b39a9ea3fdeff55a46ee486c4ea3e4700f1de81635e11553bae16fb869027"
+    },
+    {
+      "path": "replays/rain/seed_3/traces.csv",
+      "bytes": 54119,
+      "sha256": "e9e4401be9955388372b19a024d1e3c194991f5cfb9ded9730e4e69b16ce16fc"
+    },
+    {
+      "path": "replays/fog/seed_1/traces.csv",
+      "bytes": 50541,
+      "sha256": "a8a14cbdd03b16449657de2024e24475a8471a2e64198ed07e73a4909e14a991"
+    },
+    {
+      "path": "replays/fog/seed_2/traces.csv",
+      "bytes": 51155,
+      "sha256": "3ac8e536465c48ed32f932975fcbef4a8106b1e389f8f4d14df3600283e06a24"
+    },
+    {
+      "path": "replays/fog/seed_3/traces.csv",
+      "bytes": 50552,
+      "sha256": "0e5b00ff5f25eaf793e006355a5d5fb09b60c76fb2e548109c9bf00ed361e82f"
+    },
+    {
+      "path": "replays/reflectance_dark/seed_1/traces.csv",
+      "bytes": 54307,
+      "sha256": "91f755262093b7c44e5c790bffb326f2af88226e4a499a2ffa8555c0caf155d8"
+    },
+    {
+      "path": "replays/reflectance_dark/seed_2/traces.csv",
+      "bytes": 54951,
+      "sha256": "2ffe09e4d9ce097592d802d4ffd22c9f9434d7ce4753461e1bc95b31d44b8310"
+    },
+    {
+      "path": "replays/reflectance_dark/seed_3/traces.csv",
+      "bytes": 54330,
+      "sha256": "37dfe1f6c3ca03ccf3bfb151ea456a6fa81aa5aaa0d634381c68e0b9e044503b"
+    },
+    {
+      "path": "replays/reflectance_bright/seed_1/traces.csv",
+      "bytes": 53962,
+      "sha256": "aab25e113306fc4dc7c97af206c35eb03c45477e2a07dcf2b1d038b0c933071a"
+    },
+    {
+      "path": "replays/reflectance_bright/seed_2/traces.csv",
+      "bytes": 54593,
+      "sha256": "33cab855cf219b679a006f2176aaf4380ece82088e0ead66686cfc9a5fecef57"
+    },
+    {
+      "path": "replays/reflectance_bright/seed_3/traces.csv",
+      "bytes": 53985,
+      "sha256": "6c934957aa15b3d6c2fa4361aa9caf5c75574bc816e4f0d84e23006721e1f3d6"
+    },
+    {
+      "path": "replays/target_yaw_45/seed_1/traces.csv",
+      "bytes": 53929,
+      "sha256": "411fa7a2f4dcfdbf4fc4f1c4e1ea87aa25fe20c037630fd81e23a0a69bf273e6"
+    },
+    {
+      "path": "replays/target_yaw_45/seed_2/traces.csv",
+      "bytes": 54662,
+      "sha256": "d321032036ca260c3f3f2b25db0d29a8bcecf05a074914166cd9f8a772dd1b48"
+    },
+    {
+      "path": "replays/target_yaw_45/seed_3/traces.csv",
+      "bytes": 54056,
+      "sha256": "a258507d6ff3ed1dbbd3777bdec18e965f439224b7d2bfca71463bfcc5f3656f"
+    },
+    {
+      "path": "replays/target_yaw_75/seed_1/traces.csv",
+      "bytes": 53124,
+      "sha256": "9b37f4f9d522b286cfd336d6be0a5270a8c634f62f1c354afe9235b96468e94b"
+    },
+    {
+      "path": "replays/target_yaw_75/seed_2/traces.csv",
+      "bytes": 53756,
+      "sha256": "edc9c4fcfc4efff786f476ea889ae941f3a76fef7d4e464ef2625224d6a9f4c8"
+    },
+    {
+      "path": "replays/target_yaw_75/seed_3/traces.csv",
+      "bytes": 53123,
+      "sha256": "9a7d896a3c1279664ef3a9e98d06c2ddd8371304949e0700d18a2f457df6f9fc"
+    },
+    {
+      "path": "replays/target_short/seed_1/traces.csv",
+      "bytes": 53042,
+      "sha256": "3de79ea7f556ad9826ffbc7b302d60464895054049375ee3f29b053638d35772"
+    },
+    {
+      "path": "replays/target_short/seed_2/traces.csv",
+      "bytes": 53657,
+      "sha256": "94bfa5d7a1462124005b63886cd60daba6d6c19262e1a25edd7e412e515de368"
+    },
+    {
+      "path": "replays/target_short/seed_3/traces.csv",
+      "bytes": 53050,
+      "sha256": "aec4dee414f2baecbcc3b6d2b8fde7483529524dc6e66c70f4bd7149214b2a95"
+    },
+    {
+      "path": "replays/target_tall/seed_1/traces.csv",
+      "bytes": 54050,
+      "sha256": "c221ca37181f2263582395b41795a0c4ce9557b42286afdd11c4d34092638fad"
+    },
+    {
+      "path": "replays/target_tall/seed_2/traces.csv",
+      "bytes": 54683,
+      "sha256": "a509d8c13615deafe4996c4ef00a57b7b1120f300258034bc8107aacd0b7ad78"
+    },
+    {
+      "path": "replays/target_tall/seed_3/traces.csv",
+      "bytes": 54061,
+      "sha256": "3cf76c2be8373ddb72dc142e1d7dd8ef375c55095b14a6414aaee7424546a199"
+    },
+    {
+      "path": "replays/target_near/seed_1/traces.csv",
+      "bytes": 55477,
+      "sha256": "5cec10769c6da4fcd25626dbef83e377440119baa76a7a13cf3a9a06c985443b"
+    },
+    {
+      "path": "replays/target_near/seed_2/traces.csv",
+      "bytes": 56128,
+      "sha256": "54ef723d5fc1c85342e33ad1dd1ee55b5e562980edf0c2dd64c2881e667a6b1f"
+    },
+    {
+      "path": "replays/target_near/seed_3/traces.csv",
+      "bytes": 55497,
+      "sha256": "3ec59d5b899dc442bdb6832d9b35cc3af73a53b42f92db8164588f2b5a641612"
+    },
+    {
+      "path": "replays/target_far/seed_1/traces.csv",
+      "bytes": 53172,
+      "sha256": "d582465130da9ca041fbb9a6ef83ea3b1a4d92fdf3e8ea4209c695f7c66256f7"
+    },
+    {
+      "path": "replays/target_far/seed_2/traces.csv",
+      "bytes": 53765,
+      "sha256": "720d4de668f0c243a1df255c2ce57baf40197d700aead27c98e0dc7ae6b46e37"
+    },
+    {
+      "path": "replays/target_far/seed_3/traces.csv",
+      "bytes": 53188,
+      "sha256": "404024f1e59fe65f3546842ac2686b76dc85cd80ad86a149a5759ff7c5bf9c47"
+    }
+  ]
+}

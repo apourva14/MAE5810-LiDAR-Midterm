@@ -1,10 +1,11 @@
 {
   "docx": "/Users/lianxuyi/Desktop/Cornell/MAE5810_robot_perception/midterm/LIDAR_model/outputs/reports/Midterm_Project_Report.docx",
   "equations": 19,
-  "figures": 5,
-  "docx_sha256": "b417a308ba177099f0e8cd9404e927937a5aaa7b0556d8d49806e716c902a371",
+  "figures": 7,
+  "docx_sha256": "05b129020468d6910a291c9d316339fe527bc66de3a2881a99682c1b1f11d182",
   "pdf": "/Users/lianxuyi/Desktop/Cornell/MAE5810_robot_perception/midterm/LIDAR_model/outputs/reports/Midterm_Project_Report.pdf",
   "pages": 10,
   "renderer": "/Users/lianxuyi/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override/soffice",
-  "pdf_sha256": "4b18ec6d57b84ed965c5303716cbd8396a9263aff105971f40ebee1eac5256e4"
+  "pdf_sha256": "c00ee28c7dcdc15262f83dd6a1d880b1e8f3e9890d2f283af4fc4bc21b01176c",
+  "evaluation": "Target characteristics and environmental conditions through fixed-scene navigation"
 }

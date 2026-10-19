@@ -92,9 +92,16 @@
       {...mesh(sector.vertices, sector.faces, C.sector, 'Nominal angular FOV', .1), hoverinfo: 'skip', hovertemplate: undefined},
       {...separatedLines(sector.lines, '#7EADC5', 1.5, 'FOV boundary'), showlegend: false}
     ];
-    panel.objects.forEach(object => traces.push(mesh(object.vertices, object.faces,
-      object.role === 'target' ? C.target : C.panel,
-      object.role === 'target' ? 'Target surface' : 'Opaque panel', object.role === 'target' ? .38 : .25)));
+    let obstacleLegend = false;
+    panel.objects.forEach(object => {
+      const target = object.role === 'target';
+      const item = mesh(object.vertices, object.faces, target ? C.target : C.panel,
+        target ? 'Target surface' : 'Fixed obstacle geometry', target ? .38 : .25);
+      item.showlegend = target || !obstacleLegend;
+      item.hovertemplate = (object.label || 'Fixed scene surface') + '<extra>explanatory scene geometry</extra>';
+      if (!target) obstacleLegend = true;
+      traces.push(item);
+    });
     const visible = [], blocked = [], continuations = [], hits = [];
     panel.rays.forEach(ray => {
       if (ray.visible) visible.push([origin, ray.target_point]);
@@ -131,7 +138,7 @@
       `${audit.target_opportunities.toLocaleString()} target intersections in the complete ray audit`);
     text('fov-note', `Same saved sensor pose and angular grid. ${panel.rays.length} representative rays are drawn. ` +
       `The FOV is clipped to ${fmt(fov.display_range_m, 0)} m for display; the sensor range gate is ` +
-      `${fmt(fov.min_range_m, 1)}–${fmt(fov.max_range_m, 0)} m. Surfaces are drawn translucent to expose the rays; the panel is modeled as opaque.`);
+      `${fmt(fov.min_range_m, 1)}–${fmt(fov.max_range_m, 0)} m. Existing surfaces are drawn translucent to expose the rays and are modeled as opaque. The weather comparison changes only atmospheric attenuation.`);
     await Plotly.react(byId('fov-plot'), traces, layout(byId('fov-plot'), scene), config);
     byId('fov-plot').dataset.ready = 'true';
     byId('fov-plot').dataset.panel = panel.id;

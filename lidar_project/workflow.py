@@ -41,117 +41,80 @@ class Task:
     description: str = ""
 
 
+REPORT_CASE_IDS = (
+    "baseline", "reflectance_dark", "reflectance_bright", "target_yaw_45",
+    "target_yaw_75", "target_short", "target_tall", "target_near", "target_far",
+    "rain", "fog",
+)
+
+
 def _tasks() -> tuple[Task, ...]:
+    """The current report: target properties and weather in one fixed scene.
+
+    Broader historical studies remain available through their CLI commands, but
+    are deliberately outside this report's default generation graph.
+    """
     sensor = ("lidar_project/model", "lidar_project/api.py", "lidar_project/config.py",
               "lidar_project/data.py", "configs/sensor.jsonc")
     motion = sensor + ("lidar_project/trajectory", "lidar_project/mapping",
                        "lidar_project/navigation/engine.py", "configs/trajectory.jsonc")
+    figures = tuple("outputs/all_case_report/" + name + extension
+                    for name in ("target_characteristics", "weather_measurements",
+                                 "weather_trajectories", "weather_profiles", "weather_maps")
+                    for extension in (".png", ".pdf"))
     return (
-        Task("scan", "Example 3D LiDAR scan", "data", (),
-             ("run.py", "scan", "--config", "configs/sensor.jsonc", "--data-dir", "data/scan"),
-             ("data/scan/pointcloud.npz", "data/scan/pointcloud.csv", "data/scan/pointcloud.ply", "data/scan/config_used.json"),
-             sensor, ("data/scan",), "Generate one scene's point cloud and configuration snapshot."),
-        Task("render_scan", "Point cloud figures and 3D viewer", "media", ("scan",),
-             ("run.py", "render-scan", "--data-dir", "data/scan", "--output-dir", "outputs/scan"),
-             ("outputs/scan/pointcloud.png", "outputs/scan/pointcloud_interactive.html",
-              "outputs/scan/report_figures/range_image.png", "outputs/scan/report_figures/plan_view.png",
-              "outputs/scan/report_figures/return_counts.png", "outputs/scan/report_figures/object_cloud.png"),
-             ("lidar_project/visualization/scan_figures.py", "lidar_project/visualization/scan_viewer.py")),
-        Task("evaluation", "Controlled geometry and response studies", "data", (),
+        Task("evaluation", "Controlled geometry and response checks", "data", (),
              ("run.py", "evaluate", "--data-dir", "data/evaluation"),
              ("data/evaluation/evaluation.json", "data/evaluation/geometry/summary.json",
               "data/evaluation/geometry/frustum_geometry.npz", "data/evaluation/geometry/cases.csv",
               "data/evaluation/response/summary.json", "data/evaluation/response/trials.npz",
               "data/evaluation/response/laws.csv", "data/evaluation/response/detection.csv"),
-             sensor + ("lidar_project/experiments/geometry.py", "lidar_project/experiments/response.py", "lidar_project/experiments/runner.py"),
-             ("data/evaluation",), "Analytical geometry, optical response and 54,000 uncertainty trials."),
-        Task("render_evaluation", "Controlled-study figures", "media", ("evaluation",),
-             ("run.py", "render-evaluation", "--data-dir", "data/evaluation", "--output-dir", "outputs/evaluation"),
-             tuple("outputs/evaluation/" + name + ".png" for name in
-                   ("fov_volume", "geometry_pose_fov", "los_comparison", "response_laws", "detection_uncertainty")),
-             ("lidar_project/visualization/evaluation.py",)),
-        Task("trajectory", "Route and tracking factor study", "data", (),
-             ("run.py", "evaluate-trajectory", "--config", "configs/trajectory.jsonc", "--data-dir", "data/trajectory"),
-             ("data/trajectory/summary.json", "data/trajectory/manifest.json", "data/trajectory/runs.csv",
-              "data/trajectory/runs/baseline/seed_1/trajectory.npz"),
-             motion + ("lidar_project/experiments/trajectory.py",), ("data/trajectory",),
-             "Generate planned routes and retain all 21 tracking-study outcomes."),
-        Task("render_trajectory", "Trajectory figures, animation and viewer", "media", ("trajectory",),
-             ("run.py", "render-trajectory", "--data-dir", "data/trajectory", "--output-dir", "outputs/trajectory", "--gifs"),
-             ("outputs/trajectory/trajectory_report.png", "outputs/trajectory/trajectory_overview.png",
-              "outputs/trajectory/trajectory_motion.gif", "outputs/trajectory/trajectory_interactive.html"),
-             ("lidar_project/visualization/trajectory.py",)),
-        Task("mapping", "Moving 3D maps in three environments", "data", (),
-             ("run.py", "map-environments", "--config", "configs/trajectory.jsonc", "--data-dir", "data/mapping"),
-             ("data/mapping/comparison.json", "data/mapping/runs.csv",
-              "data/mapping/runs/open/seed_1/mapping.npz", "data/mapping/runs/cluttered/seed_1/mapping.npz",
-              "data/mapping/runs/narrow/seed_1/mapping.npz"),
-             motion + ("lidar_project/experiments/environments.py", "lidar_project/experiments/trajectory.py"), ("data/mapping",),
-             "Retain full scans, trajectories and endpoint maps for nine runs."),
-        Task("render_mapping", "Moving 3D mapping viewer and comparisons", "media", ("mapping",),
-             ("run.py", "render-mapping", "--data-dir", "data/mapping", "--output-dir", "outputs/mapping"),
-             ("outputs/mapping/mapping_interactive.html", "outputs/mapping/mapping_3d_comparison.png",
-              "outputs/mapping/mapping_comparison.png", "outputs/mapping/trajectory_3d_report.png"),
-             ("lidar_project/visualization/mapping.py", "lidar_project/visualization/mapping_report.py")),
-        Task("dependencies", "Navigation sensor-dependency experiments", "data", (),
-             ("run.py", "evaluate-navigation-dependencies", "--config", "configs/trajectory.jsonc", "--data-dir", "data/navigation_dependencies"),
+             sensor + ("lidar_project/experiments/geometry.py", "lidar_project/experiments/response.py",
+                       "lidar_project/experiments/runner.py"),
+             ("data/evaluation",), "Verify analytical assumptions; includes 54,000 controlled response trials."),
+        Task("dependencies", "Target and weather measurements in one scene", "data", (),
+             ("run.py", "evaluate-navigation-dependencies", "--config", "configs/trajectory.jsonc",
+              "--data-dir", "data/navigation_dependencies", "--cases", *REPORT_CASE_IDS),
              ("data/navigation_dependencies/summary.json", "data/navigation_dependencies/manifest.json",
               "data/navigation_dependencies/runs.csv", "data/navigation_dependencies/replay.csv",
-              "data/navigation_dependencies/reference_poses_seed_1.npz"),
+              "data/navigation_dependencies/reference_poses_seed_1.npz",
+              "data/navigation_dependencies/reference_poses_seed_2.npz",
+              "data/navigation_dependencies/reference_poses_seed_3.npz"),
              motion + ("lidar_project/experiments/navigation_dependencies.py", "lidar_project/experiments/environments.py",
-                       "lidar_project/experiments/trajectory.py"), ("data/navigation_dependencies",),
-             "22 conditions, 66 closed-loop runs and 66 matched-viewpoint replays."),
-        Task("render_dependencies", "Navigation dependency figures and viewer", "media", ("dependencies",),
-             ("run.py", "render-navigation-dependencies", "--data-dir", "data/navigation_dependencies", "--output-dir", "outputs/navigation_dependencies"),
-             ("outputs/navigation_dependencies/navigation_dependencies.html",
-              "outputs/navigation_dependencies/navigation_dependency_measurements.png",
-              "outputs/navigation_dependencies/navigation_dependency_outcomes.png",
-              "outputs/navigation_dependencies/navigation_dependency_visibility.png",
-              "outputs/navigation_dependencies/report_visibility_navigation.png",
-              "outputs/navigation_dependencies/report_physical_dependencies.png",
-              "outputs/navigation_dependencies/report_navigation_maps.png"),
-             ("lidar_project/visualization/navigation_dependencies.py",
-              "lidar_project/visualization/navigation_dependency_report.py")),
-        Task("coverage", "3D field-of-view and occluded-ray geometry", "data", ("dependencies",),
-             ("run.py", "prepare-navigation-coverage", "--source-dir", "data/navigation_dependencies", "--data-dir", "data/navigation_validation"),
-             ("data/navigation_validation/fov_los.json",),
-             sensor + ("lidar_project/experiments/navigation_coverage.py",), ("data/navigation_validation",)),
-        Task("threshold", "Near-threshold detection trials", "data", ("dependencies",),
-             ("run.py", "evaluate-navigation-threshold", "--source-dir", "data/navigation_dependencies", "--data-dir", "data/navigation_threshold", "--trials", "1000"),
+                       "lidar_project/experiments/trajectory.py"),
+             ("data/navigation_dependencies",),
+             "Nine target settings and three weather conditions share a baseline: 11 unique conditions, three seeds each."),
+        Task("threshold", "Near-threshold detection calibration", "data", ("dependencies",),
+             ("run.py", "evaluate-navigation-threshold", "--source-dir", "data/navigation_dependencies",
+              "--data-dir", "data/navigation_threshold", "--trials", "1000"),
              ("data/navigation_threshold/summary.json", "data/navigation_threshold/design.json", "data/navigation_threshold/settings.csv"),
              sensor + ("lidar_project/experiments/navigation_threshold.py",), ("data/navigation_threshold",),
-             "33,000 independent sensor trials at three frozen navigation viewpoints."),
-        Task("robustness", "Multi-layout navigation robustness", "data", (),
-             ("run.py", "evaluate-navigation-robustness", "--config", "configs/trajectory.jsonc", "--data-dir", "data/navigation_robustness"),
-             ("data/navigation_robustness/summary.json", "data/navigation_robustness/manifest.json", "data/navigation_robustness/runs.csv"),
-             motion + ("lidar_project/experiments/navigation_robustness.py", "lidar_project/experiments/environments.py",
-                       "lidar_project/experiments/trajectory.py"),
-             ("data/navigation_robustness",), "720 runs: 12 sensing conditions, three fixed layouts and 20 noise seeds."),
-        Task("diagnostics", "Navigation failure explanations", "analysis", ("robustness",),
-             ("run.py", "diagnose-navigation-failures", "--data-dir", "data/navigation_robustness"),
-             ("data/navigation_robustness/failure_diagnostics.json",),
-             ("lidar_project/experiments/navigation_robustness.py",)),
-        Task("render_validation", "3D visibility, detection and robustness evidence", "media", ("coverage", "threshold", "diagnostics"),
-             ("run.py", "render-navigation-validation", "--diagram", "data/navigation_validation/fov_los.json",
-              "--threshold-dir", "data/navigation_threshold", "--robustness-dir", "data/navigation_robustness",
-              "--output-dir", "outputs/navigation_validation"),
-             ("outputs/navigation_validation/report_fov_los_3d.png", "outputs/navigation_validation/report_threshold_detection.png",
-              "outputs/navigation_validation/report_navigation_robustness.png", "outputs/navigation_validation/navigation_validation.html"),
-             ("lidar_project/visualization/navigation_validation.py",)),
-        Task("report_docx", "Editable course report", "report", ("render_evaluation", "render_dependencies", "render_validation"),
+             "33,000 independent sensor trials at three frozen viewpoints in the primary scene."),
+        Task("weather_figures", "Target, weather and 3D visibility figures", "media", ("dependencies", "threshold"),
+             ("tools/render_report_figures.py", "--data-dir", "data", "--output-dir", "outputs"),
+             figures + ("outputs/weather_report/weather_fov_los.png", "outputs/weather_report/weather_fov_los.pdf",
+                        "outputs/weather_report/fov_los.json", "outputs/all_case_report/manifest.json",
+                        "outputs/navigation_validation/report_threshold_detection.png", "outputs/report_figures_manifest.json"),
+             ("tools/render_report_figures.py", "lidar_project/visualization/all_case_report.py",
+              "lidar_project/visualization/weather_coverage.py", "lidar_project/visualization/navigation_validation.py"),
+             description="Seven report figures from retained measurements; no navigation or sensor simulation."),
+        Task("report_docx", "Editable course report", "report", ("evaluation", "weather_figures"),
              ("tools/export_report.py", "--output-dir", "outputs/reports", "--format", "docx", "--use-saved-figures"),
              ("outputs/reports/Midterm_Project_Report.docx",), ("tools/build_report.py", "tools/export_report.py")),
         Task("report_pdf", "PDF course report", "report", ("report_docx",),
              ("tools/export_report.py", "--output-dir", "outputs/reports", "--format", "pdf"),
              ("outputs/reports/Midterm_Project_Report.pdf", "outputs/reports/report_metadata.json"),
              ("tools/export_report.py",)),
-        Task("package", "Submission archive", "package",
-             ("render_scan", "render_evaluation", "render_trajectory", "render_mapping", "render_dependencies", "render_validation", "report_pdf"),
+        Task("report_viewer", "Offline interactive report", "media", ("report_pdf", "weather_figures"),
+             ("tools/build_visual_report.py", "--output", "index.html"), ("index.html",),
+             ("tools/build_visual_report.py", "lidar_project/visualization/report_data.py",
+              "lidar_project/visualization/report_math.py"),
+             description="The current report's equations, target plots and fixed-scene weather playback."),
+        Task("package", "Submission archive", "package", ("report_pdf", "report_viewer", "weather_figures"),
              ("tools/package_project.py", "--output", "outputs/submission/Midterm_Project_Submission.zip"),
              ("outputs/submission/Midterm_Project_Submission.zip",),
              ("tools/package_project.py", "README.md", "index.html", "start.py", "pyproject.toml", "tests", "configs", "lidar_project")),
     )
-
 
 TASKS = _tasks()
 
@@ -182,7 +145,9 @@ class Workflow:
         self.event_callback = event_callback or (lambda event: None)
         self.tasks = {task.id: task for task in (TASKS if tasks is None else tasks)}
         self.build_dir = self.project_root / "build"
-        self.manifest_path = self.build_dir / "manifest.json"
+        # The narrowed target/weather report has its own adoption record. Keep
+        # the former multi-study workflow's provenance unchanged on disk.
+        self.manifest_path = self.build_dir / "report_manifest.json"
         self._lock = threading.Lock()
         self._manifest = {"format_version": 1, "tasks": {}}
         if self.manifest_path.exists():
@@ -279,12 +244,7 @@ class Workflow:
 
     def _owned_files(self, task):
         paths = task.data_roots if task.kind == "data" else task.outputs
-        files = self._files(paths)
-        # This diagnostic is a downstream derivative stored next to raw runs;
-        # regenerating it must not make the parent numerical study appear edited.
-        if task.id == "robustness":
-            files = [p for p in files if p.name != "failure_diagnostics.json"]
-        return tuple(p.relative_to(self.project_root).as_posix() for p in files)
+        return tuple(p.relative_to(self.project_root).as_posix() for p in self._files(paths))
 
     def _validate(self, task):
         missing = [p for p in task.outputs if not self._path(p).is_file() or self._path(p).stat().st_size == 0]
@@ -303,14 +263,29 @@ class Workflow:
                         raise WorkflowError(f"Invalid archive: {path.name}")
         data = self.project_root / "data"
         if task.id == "dependencies":
-            value = _read(data / "navigation_dependencies/summary.json")
-            if len(value.get("cases", [])) != 22 or len(value.get("runs", [])) != 66 or len(value.get("replays", [])) != 66:
-                raise WorkflowError("Navigation dependency study is incomplete; require 22 conditions and 66 runs/replays")
-            for row in value["runs"]:
-                self._require_run(data / "navigation_dependencies", row["run_directory"])
-            for row in value["cases"]:
-                self._require_run(data / "navigation_dependencies", row["representative_run"], mapping=True)
-                self._require_files(data / "navigation_dependencies" / row["representative_replay"], ("replay.json", "traces.csv"))
+            root = data / "navigation_dependencies"
+            value = _read(root / "summary.json")
+            required = set(REPORT_CASE_IDS)
+            cases = {row["id"]: row for row in value.get("cases", [])}
+            if not required.issubset(cases) or set(value.get("seeds", [])) != {1, 2, 3}:
+                raise WorkflowError("Target/weather study requires all 11 report conditions and seeds 1, 2, 3")
+            expected_pairs = {(case_id, seed) for case_id in required for seed in (1, 2, 3)}
+            for key in ("runs", "replays"):
+                rows = [row for row in value.get(key, []) if row["case_id"] in required]
+                pairs = [(row["case_id"], row["seed"]) for row in rows]
+                if set(pairs) != expected_pairs or len(pairs) != len(expected_pairs):
+                    raise WorkflowError(f"Target/weather study is incomplete: require 33 distinct {key}")
+                for row in rows:
+                    if key == "runs":
+                        self._require_run(root, row["run_directory"])
+                    else:
+                        self._require_files(root / row["replay_directory"], ("replay.json", "traces.csv"))
+            # A frozen 22-condition study is a valid superset. Its additional
+            # conditions never enter the current report's target/weather plots.
+            for case_id in REPORT_CASE_IDS:
+                row = cases[case_id]
+                self._require_run(root, row["representative_run"], mapping=True)
+                self._require_files(root / row["representative_replay"], ("replay.json", "traces.csv"))
         elif task.id == "threshold":
             root = data / "navigation_threshold"
             value, design = _read(root / "summary.json"), _read(root / "design.json")
@@ -321,34 +296,10 @@ class Workflow:
             source = data / "navigation_dependencies"
             if design.get("source_manifest_sha256") != _sha(source / "manifest.json") or design.get("source_pose_sha256") != _sha(source / "reference_poses_seed_1.npz"):
                 raise WorkflowError("Threshold design does not match the saved navigation viewpoints")
-        elif task.id == "robustness":
-            root = data / "navigation_robustness"
-            value = _read(root / "summary.json")
-            if not value.get("complete") or value.get("runs") != 720 or value.get("planned_runs") != 720 or len(value.get("run_metrics", [])) != 720:
-                raise WorkflowError("Robustness study is incomplete; require all 720 runs")
-            for row in value["run_metrics"]:
-                self._require_run(root, row["run_directory"], mapping=bool(row.get("representative_full_scans")))
-        elif task.id == "trajectory":
-            value = _read(data / "trajectory/summary.json")
-            if value.get("runs") != 21 or value.get("case_count") != 7:
-                raise WorkflowError("Trajectory factor study is incomplete")
-            for case in value["cases"]:
-                for seed in value["seeds"]:
-                    self._require_run(data / "trajectory", f"runs/{case['case_id']}/seed_{seed}")
-        elif task.id == "mapping":
-            value = _read(data / "mapping/comparison.json")
-            if len(value.get("cases", [])) != 3 or len(value.get("runs", [])) != 9:
-                raise WorkflowError("Environment comparison is incomplete")
-            for row in value["runs"]:
-                self._require_run(data / "mapping", row["run_directory"], mapping=True)
         elif task.id == "evaluation":
             value = _read(data / "evaluation/response/summary.json")
             if value["detection"]["independent_trials"] != 54000:
                 raise WorkflowError("Controlled response trials are incomplete")
-        elif task.id == "diagnostics":
-            value = _read(data / "navigation_robustness/failure_diagnostics.json")
-            if value.get("summary_sha256") != _sha(data / "navigation_robustness/summary.json"):
-                raise WorkflowError("Failure diagnostics belong to a different robustness summary")
 
     def _require_files(self, directory, names):
         directory = directory.resolve()

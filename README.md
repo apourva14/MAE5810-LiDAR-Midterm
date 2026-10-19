@@ -25,6 +25,10 @@ threshold trials. Large raw scan and navigation history arrays are excluded;
 the documented simulation commands regenerate them. The embedded visual report
 opens independently of these arrays.
 
+The course report evaluates target characteristics at matched viewpoints and
+environmental conditions through navigation. Clear air, rain, and fog use the
+same obstacle geometry, robot, sensor, controller, and planned reference.
+
 For a local browser address, use Python 3.10 or newer:
 
 ```sh
@@ -63,11 +67,13 @@ python start.py
 4. To regenerate numerical results after changing a model or configuration,
    select **Recompute numerical studies**. Previous owned data is moved to
    `build/backups/`; failed replacement runs restore it. A complete fresh run
-   includes 54,000 controlled sensor trials, 33,000 threshold trials, and 720
-   navigation robustness runs, in addition to the smaller scene studies.
+   includes 54,000 controlled sensor trials, 33,000 threshold trials, and the
+   11 selected target/weather conditions with three seeds each. The target and
+   weather comparisons share their baseline; nine runs form the weather study.
 
 The page shows real build progress, errors, and links to completed files.
-Build records and diagnostic logs are in ignored `build/`; they are not part
+The current workflow records provenance in ignored `build/report_manifest.json`.
+Build records and diagnostic logs are not part
 of maintained documentation or the submission archive.
 
 After saved results or report equations change, refresh only the visual report:
@@ -87,12 +93,10 @@ sources are in `lidar_project/visualization/templates/report.html` and
 | --- | --- |
 | Offline interactive visual report | `index.html` |
 | Editable report and 5–10 page PDF | `outputs/reports/` |
-| 3D FOV/LOS, threshold and robustness figures; evaluation viewer | `outputs/navigation_validation/` |
-| Navigation dependency comparisons and moving 3D maps | `outputs/navigation_dependencies/` |
-| Moving 3D map viewer for three environments | `outputs/mapping/` |
-| Route figures, recorded animation and interactive viewer | `outputs/trajectory/` |
-| Point cloud, scan figures and interactive 3D view | `outputs/scan/` |
-| Controlled geometry and optical-response figures | `outputs/evaluation/` |
+| Target profiles; weather metrics, trajectories, time histories, and maps | `outputs/all_case_report/` |
+| Unchanged-scene 3D FOV/LOS geometry and figure | `outputs/weather_report/` |
+| Near-threshold detection figure | `outputs/navigation_validation/report_threshold_detection.png` |
+| Figure source and output hashes | `outputs/report_figures_manifest.json` |
 | Source, reports, media and evidence archive | `outputs/submission/Midterm_Project_Submission.zip` |
 | Archive file inventory and SHA-256 hashes | `outputs/submission/deliverables_manifest.json` |
 
@@ -295,6 +299,25 @@ the resulting navigation and map behavior with the same reference route.
 Target diagnostics separate angular sampling, occlusion, range eligibility,
 and threshold detection. All outcomes, including collision and timeout
 prefixes, remain in the saved comparisons.
+
+To regenerate only the two-part report's conditions, select the target and
+weather cases explicitly:
+
+```sh
+python -m lidar_project evaluate-navigation-dependencies --seeds 1 2 3 --cases baseline reflectance_dark reflectance_bright target_yaw_45 target_yaw_75 target_short target_tall target_near target_far rain fog
+```
+
+Refresh the report figures from saved data:
+
+```sh
+python tools/render_report_figures.py
+python tools/export_report.py --use-saved-figures
+python tools/build_visual_report.py
+```
+
+These rendering commands do not rerun navigation. The target and weather
+comparisons share the baseline; weather trajectories and metric histories retain
+all nine runs and their actual termination times.
 
 `sensor_mount` in the trajectory configuration accepts `offset_xy_m`,
 `roll_deg`, `pitch_deg`, and `yaw_deg`; `mount_height_m` sets its height.

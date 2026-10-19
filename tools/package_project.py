@@ -12,10 +12,9 @@ from zipfile import ZipFile, ZIP_DEFLATED
 PROJECT = Path(__file__).resolve().parents[1]
 SOURCE_DIRS = ("configs", "lidar_project", "tools", "tests")
 SOURCE_FILES = ("README.md", "pyproject.toml", "run.py", "start.py", "index.html", "builder.html",
-                "Start Project.command", ".gitignore")
+                "Start Project.command", ".gitignore", ".nojekyll")
 EXCLUDE_PARTS = {"__pycache__", ".venv", ".pytest_cache", ".artifacts", "build", "dist"}
-MEDIA_DIRS = ("scan", "evaluation", "trajectory", "mapping", "navigation_dependencies",
-              "navigation_validation", "reports")
+MEDIA_DIRS = ("all_case_report", "weather_report", "reports")
 
 
 def collect_files(project: Path):
@@ -26,8 +25,13 @@ def collect_files(project: Path):
         selected.update((project/name).rglob("*"))
     for name in MEDIA_DIRS:
         selected.update((project/"outputs"/name).rglob("*"))
+    selected.update((project/"outputs/navigation_validation/report_threshold_detection.png",
+                     project/"outputs/report_figures_manifest.json"))
     for file in (project/"data").rglob("*"):
         # Keep numerical evidence small. Full navigation archives regenerate from code.
+        if file.relative_to(project/"data").parts[0] not in (
+                "evaluation", "navigation_dependencies", "navigation_threshold"):
+            continue
         if file.suffix in (".json", ".csv") or (
                 file.suffix == ".npz" and "navigation_threshold" in file.parts):
             selected.add(file)
@@ -38,7 +42,7 @@ def collect_files(project: Path):
         relative = file.relative_to(project)
         if any(part in EXCLUDE_PARTS for part in relative.parts):
             continue
-        if file.suffix in (".pyc", ".pyo") or file.name.startswith(".") and file.name != ".gitignore":
+        if file.suffix in (".pyc", ".pyo") or file.name.startswith(".") and file.name not in (".gitignore", ".nojekyll"):
             continue
         if "preview" in file.stem or "screenshot" in file.stem:
             continue
@@ -56,9 +60,12 @@ def build_package(project: Path = PROJECT, output: Path | None = None):
     report_dir = project/"outputs/reports"
     required = [project/"index.html", project/"start.py", report_dir/"Midterm_Project_Report.docx",
                 report_dir/"Midterm_Project_Report.pdf",
-                project/"outputs/navigation_validation/navigation_validation.html",
-                project/"outputs/navigation_dependencies/navigation_dependencies.html",
-                project/"outputs/mapping/mapping_interactive.html"]
+                project/"outputs/all_case_report/target_characteristics.png",
+                project/"outputs/all_case_report/weather_trajectories.png",
+                project/"outputs/all_case_report/weather_profiles.png",
+                project/"outputs/all_case_report/weather_maps.png",
+                project/"outputs/weather_report/fov_los.json",
+                project/"outputs/navigation_validation/report_threshold_detection.png"]
     missing = [str(path.relative_to(project)) for path in required if not path.is_file()]
     if missing:
         raise ValueError("Generate the required files before packaging: " + ", ".join(missing))

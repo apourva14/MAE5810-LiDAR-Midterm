@@ -36,10 +36,10 @@ class ReportExport(unittest.TestCase):
                  '--data-dir', str(data), '--output-dir', str(Path(directory)/'report')],
                 cwd=directory, capture_output=True, text=True)
             self.assertEqual(result.returncode, 2)
-            self.assertIn(str(data/'navigation_robustness/summary.json'), result.stderr)
+            self.assertIn(str(data/'navigation_threshold/summary.json'), result.stderr)
             self.assertFalse((Path(directory)/'report').exists())
 
-    def test_saved_figure_mode_requires_all_five_report_inputs(self):
+    def test_saved_figure_mode_requires_target_and_fixed_weather_report_inputs(self):
         with tempfile.TemporaryDirectory() as directory:
             data = Path(directory)/'saved-studies'
             figures = Path(directory)/'saved-figures'
@@ -56,9 +56,9 @@ class ReportExport(unittest.TestCase):
                 cwd=directory, capture_output=True, text=True)
             self.assertEqual(result.returncode, 2)
             self.assertIn('Render the required report figures first', result.stderr)
-            for name in ('report_physical_dependencies.png', 'report_navigation_maps.png',
-                         'report_fov_los_3d.png', 'report_threshold_detection.png',
-                         'report_navigation_robustness.png'):
+            for name in ('target_characteristics.png', 'weather_measurements.png',
+                         'weather_trajectories.png', 'weather_profiles.png', 'weather_maps.png',
+                         'weather_fov_los.png', 'report_threshold_detection.png'):
                 self.assertIn(name, result.stderr)
             self.assertFalse((Path(directory)/'report').exists())
 
