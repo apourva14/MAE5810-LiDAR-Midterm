@@ -5,8 +5,8 @@ Importing this module never imports visualization, a GUI, or a command parser.
 from dataclasses import replace
 
 from .config import (
-    CONFIG_TEMPLATE, ConfigError, apply_overrides, build_all, build_pose,
-    build_scene, build_sensor, find_default_config, load_config_file,
+    ConfigError, apply_overrides, build_all, build_pose,
+    build_scene, build_sensor, load_config_file,
 )
 from .data import PointCloud, load_npz
 from .model.geometry import (
@@ -20,11 +20,11 @@ from .model.sensor import (
 )
 
 __all__ = [
-    "C_LIGHT", "EPS", "CONFIG_TEMPLATE", "ConfigError", "Material", "MATERIALS",
+    "C_LIGHT", "EPS", "ConfigError", "Material", "MATERIALS",
     "Primitive", "Plane", "Sphere", "OrientedBox", "VerticalCylinder", "Scene",
     "LidarConfig", "SensorPose", "LidarSensor", "PointCloud", "load_npz",
     "rot_x", "rot_y", "rot_z", "flu_to_ned", "beam_pattern", "received_power",
-    "max_range_estimate", "load_config_file", "find_default_config",
+    "max_range_estimate", "load_config_file",
     "apply_overrides", "build_all", "build_sensor", "build_pose", "build_scene",
     "replace",
 ]

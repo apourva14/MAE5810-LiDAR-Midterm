@@ -61,7 +61,6 @@ class NavigationDependencies(unittest.TestCase):
     def test_cases_preserve_known_map_and_fov_yaw_has_matched_baseline(self):
         config = study_config()
         cases = dependency_cases()
-        self.assertEqual(len(cases), 22)
         for case in cases:
             active = apply_case(config, case)
             self.assertEqual(active["world"]["known_objects"], config["world"]["known_objects"])

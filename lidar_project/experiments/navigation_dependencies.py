@@ -20,7 +20,7 @@ from ..mapping import build_map, save_map
 from ..trajectory import load_config, generate_reference, run_trajectory, save_result
 from ..trajectory.configuration import effective_config
 from ..trajectory.engine import mounted_sensor_pose
-from .environments import environment_cases
+from .environments import fixed_environment
 from .trajectory import evaluate_result
 
 
@@ -41,7 +41,6 @@ def dependency_cases():
         case("yaw_full", "Full FOV, yaw 60 degrees", "sensor_orientation", "Negative control: a full circle rotated by an integer azimuth step preserves physical sampling directions.", {"sensor_mount": {"yaw_deg": 60.}}),
         case("fov_front", "Front FOV: 120 degrees", "field_of_view", "Horizontal FOV -60 to +60 degrees; fixed one-degree angular spacing.", {"sensor": {"hfov_start_deg": -60., "hfov_end_deg": 60.}}),
         case("fov_side", "120-degree FOV, yaw 90 degrees", "sensor_orientation", "Yaw offset +90 degrees with the same partial FOV as fov_front.", {"sensor": {"hfov_start_deg": -60., "hfov_end_deg": 60.}, "sensor_mount": {"yaw_deg": 90.}}, "fov_front"),
-        case("los_occluder", "Opaque occluder", "line_of_sight", "Insert a held-out opaque panel upstream of the study target; the panel also becomes a real obstacle.", {"occluder": True}),
         case("reflectance_dark", "Diffuse reflectance 0.02", "target_reflectance", "Only the study target's diffuse reflectance changes; specular weight stays zero.", {"target": {"material": {"rho_d": .02, "rho_s": 0.}}}),
         case("reflectance_bright", "Diffuse reflectance 0.85", "target_reflectance", "Only the study target's diffuse reflectance changes; specular weight stays zero.", {"target": {"material": {"rho_d": .85, "rho_s": 0.}}}),
         case("target_yaw_45", "Target yaw: 45 degrees", "target_orientation", "Rotate the target box 45 degrees; incidence, projected area and footprint change together.", {"target": {"yaw_deg": 45.}}),
@@ -54,13 +53,12 @@ def dependency_cases():
         case("fog", "Extinction: 0.6 /m", "environment", "Illustrative extinction coefficient 0.6 per metre; no fog backscatter.", {"sensor": {"air_extinction_per_m": .6}}),
         case("noise_high", "Receiver noise: 10 times", "measurement_reliability", "Receiver RMS optical noise increases from 4e-9 to 4e-8 W; threshold SNR remains fixed.", {"sensor": {"noise_rms_w": 4e-8}}),
         case("sampling_sparse", "Azimuth samples: 90", "sampling", "Four-degree instead of one-degree azimuth spacing; full-circle FOV remains fixed.", {"sensor": {"measurements_per_cycle": 90}}),
-        case("lidar_disabled", "LiDAR disabled", "sensor_ablation", "Same reference and controller with no emitted scans or sensed obstacle points.", {"lidar_enabled": False}),
     ]
 
 
 def study_config(config=None):
     original = load_config(config) if config is None or isinstance(config, (str, Path)) else copy.deepcopy(config)
-    active = environment_cases(original)[1]["config"]
+    active = fixed_environment(original)
     for obj in active["world"]["unexpected_objects"]:
         if obj["label"] == "unexpected_barrel":
             obj.clear()
@@ -81,10 +79,6 @@ def apply_case(baseline, case):
             active[key] = changes[key]
     target = next(obj for obj in active["world"]["unexpected_objects"] if obj["label"] == TARGET_LABEL)
     target.update(copy.deepcopy(changes.get("target", {})))
-    if changes.get("occluder"):
-        active["world"]["unexpected_objects"].append(dict(
-            type="box", label="study_occluder", center=[9.7, 1.1, .9],
-            size=[.15, 2., 1.8], yaw_deg=0., material={"rho_d": .3, "rho_s": 0.}))
     active["scenarios"] = [{"name": case["id"]}]
     return active
 

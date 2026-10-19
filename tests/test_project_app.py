@@ -182,6 +182,20 @@ class ProjectAppTests(unittest.TestCase):
         self.assertEqual(exposed[1]['url'], '/files/data/study/summary.json')
         self.assertTrue(all('url' not in item for item in exposed[2:]))
 
+    def test_generated_videos_are_linked_and_served(self):
+        relative = 'simulalted_environments/environment_conditions.mp4'
+        path = self.root/relative
+        path.parent.mkdir()
+        path.write_bytes(b'recorded-video-fixture')
+        app, _ = self.app(outputs=[{'path': relative}])
+        self.assertEqual(app.status()['deliverables'][0]['url'], '/files/'+relative)
+        for route in ('/'+relative, '/files/'+relative):
+            with self.subTest(route=route):
+                result = self.get(app, route)
+                self.assertEqual(result.response, 200)
+                self.assertEqual(result.response_headers['Content-Type'], 'video/mp4')
+                self.assertEqual(result.wfile.getvalue(), b'recorded-video-fixture')
+
     def test_static_serving_contains_decoded_paths_and_symlinks(self):
         for relative, content in (('index.html', '<title>Project</title>'),
                                   ('assets/main.js', 'project code'),

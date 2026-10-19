@@ -8,7 +8,7 @@ import math
 import numpy as np
 
 from .. import api
-from ..navigation.engine import free_path_lengths, wrap
+from ..navigation.control import free_path_lengths, wrap
 from .configuration import effective_config
 from .planning import generate_reference, interpolate_reference, project_reference, swept_surface_gap
 

@@ -47,17 +47,21 @@ REPORT_CASE_IDS = (
     "rain", "fog",
 )
 
+VIDEO_CASE_IDS = (
+    "baseline", "mount_low", "mount_high", "pitch_up", "pitch_down", "yaw_full",
+    "fov_front", "fov_side", "noise_high", "sampling_sparse", "fog", "rain",
+)
+
 
 def _tasks() -> tuple[Task, ...]:
     """The current report: target properties and weather in one fixed scene.
 
-    Broader historical studies remain available through their CLI commands, but
-    are deliberately outside this report's default generation graph.
+    Every retained stage generates report evidence or its presentation.
     """
     sensor = ("lidar_project/model", "lidar_project/api.py", "lidar_project/config.py",
               "lidar_project/data.py", "configs/sensor.jsonc")
     motion = sensor + ("lidar_project/trajectory", "lidar_project/mapping",
-                       "lidar_project/navigation/engine.py", "configs/trajectory.jsonc")
+                       "lidar_project/navigation/control.py", "configs/trajectory.jsonc")
     figures = tuple("outputs/all_case_report/" + name + extension
                     for name in ("target_characteristics", "weather_measurements",
                                  "weather_trajectories", "weather_profiles", "weather_maps")
@@ -110,10 +114,28 @@ def _tasks() -> tuple[Task, ...]:
              ("tools/build_visual_report.py", "lidar_project/visualization/report_data.py",
               "lidar_project/visualization/report_math.py"),
              description="The current report's equations, target plots and fixed-scene weather playback."),
-        Task("package", "Submission archive", "package", ("report_pdf", "report_viewer", "weather_figures"),
+        Task("video_inputs", "Recorded environment and sensor-state comparisons", "data", (),
+             ("run.py", "evaluate-navigation-dependencies", "--config", "configs/trajectory.jsonc",
+              "--data-dir", "data/video_inputs/all", "--cases", *VIDEO_CASE_IDS),
+             ("data/video_inputs/all/summary.json", "data/video_inputs/all/manifest.json",
+              "data/video_inputs/all/runs.csv", "data/video_inputs/all/replay.csv"),
+             motion + ("lidar_project/experiments/navigation_dependencies.py", "lidar_project/experiments/environments.py",
+                       "lidar_project/experiments/trajectory.py"), ("data/video_inputs/all",),
+             "Twelve fixed-scene conditions, three seeds each; separate inputs preserve report evidence."),
+        Task("environment_video", "Normal, Fog and Rain video", "media", ("video_inputs",),
+             ("tools/generate_environment_video.py", "--data-dir", "data/video_inputs/all", "--use-saved"),
+             ("simulalted_environments/environment_conditions.mp4", "simulalted_environments/environment_conditions.json"),
+             ("tools/generate_environment_video.py", "lidar_project/visualization/simulation_video.py"),
+             description="Synchronized 3D scans and growing maps in identical obstacle geometry."),
+        Task("sensor_state_video", "Best and worst tested sensor-state video", "media", ("video_inputs",),
+             ("tools/generate_sensor_state_video.py", "--data-dir", "data/video_inputs/all", "--use-saved"),
+             ("simulalted_environments/sensor_state_best_vs_worst.mp4", "simulalted_environments/sensor_state_best_vs_worst.json"),
+             ("tools/generate_sensor_state_video.py", "lidar_project/visualization/simulation_video.py"),
+             description="Rank ten enabled configurations, then replay both extremes at their actual times."),
+        Task("package", "Submission archive", "package", ("report_pdf", "report_viewer", "weather_figures", "environment_video", "sensor_state_video"),
              ("tools/package_project.py", "--output", "outputs/submission/Midterm_Project_Submission.zip"),
              ("outputs/submission/Midterm_Project_Submission.zip",),
-             ("tools/package_project.py", "README.md", "index.html", "start.py", "pyproject.toml", "tests", "configs", "lidar_project")),
+             ("tools/package_project.py", "README.md", "index.html", "start.py", "pyproject.toml", "tests", "configs", "lidar_project", "simulalted_environments")),
     )
 
 TASKS = _tasks()

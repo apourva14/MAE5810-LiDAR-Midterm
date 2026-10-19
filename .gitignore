@@ -11,6 +11,7 @@ tests/.artifacts/
 # Reproducible raw histories and duplicate submission packages.
 data/**/*.npz
 !data/navigation_threshold/trials/*.npz
+data/video_inputs/
 outputs/submission/
 outputs/*preview*.png
 outputs/*screenshot*.png

@@ -14,12 +14,28 @@ from pathlib import Path
 import numpy as np
 
 from .. import api
-from ..experiments.navigation_coverage import _box_geometry, _subset
 from ..experiments.navigation_dependencies import (
     TARGET_LABEL, _scene, emitted_rays, opportunity_audit,
 )
 from ..trajectory.engine import mounted_sensor_pose
 from ..trajectory.storage import load_result
+
+
+def _box_geometry(obj, role):
+    local = np.array([[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],
+                      [-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]], float)
+    vertices = local * obj.h @ obj.R.T + obj.c
+    faces = [[0,1,2,3],[4,5,6,7],[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7]]
+    return dict(label=obj.label if hasattr(obj, "label") else role, role=role,
+                vertices=vertices.tolist(), faces=faces,
+                label_at=(obj.c + [0,0,obj.h[2]+.12]).tolist())
+
+
+
+def _subset(indices, limit):
+    indices = np.asarray(indices, dtype=int)
+    return indices[np.unique(np.linspace(0, len(indices)-1, min(limit, len(indices))).astype(int))] if len(indices) else indices
+
 
 
 def _geometry(obj, role):
@@ -140,13 +156,28 @@ def prepare_weather_coverage(dependency_dir, output_dir):
     return payload
 
 
+def _sector_lines(position, rotation, horizontal, vertical, radius):
+    """Display-only geometry of the stated angular FOV; no visibility queries."""
+    def world(azimuth, elevation):
+        a, e = np.broadcast_arrays(np.radians(azimuth), np.radians(elevation))
+        local = np.stack((np.cos(e)*np.cos(a), np.cos(e)*np.sin(a), np.sin(e)), axis=-1)
+        return position + radius * local @ rotation.T
+    azimuth = np.linspace(*horizontal, 101)
+    elevation = np.linspace(*vertical, 41)
+    lines = [world(azimuth, vertical[0]), world(azimuth, vertical[1]),
+             world(horizontal[0], elevation), world(horizontal[1], elevation)]
+    for a in horizontal:
+        for e in vertical:
+            lines.append(np.stack((position, world(a, e))))
+    return lines, world
+
+
 def render_weather_coverage(data, output_dir):
     """Draw saved audit geometry without performing additional ray queries."""
     import matplotlib.pyplot as plt
     from matplotlib.lines import Line2D
     from matplotlib.patches import Patch
     from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-    from .navigation_validation import _sector_lines
 
     output = Path(output_dir)
     output.mkdir(parents=True, exist_ok=True)

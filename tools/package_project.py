@@ -25,12 +25,13 @@ def collect_files(project: Path):
         selected.update((project/name).rglob("*"))
     for name in MEDIA_DIRS:
         selected.update((project/"outputs"/name).rglob("*"))
+    selected.update((project/"simulalted_environments").rglob("*"))
     selected.update((project/"outputs/navigation_validation/report_threshold_detection.png",
                      project/"outputs/report_figures_manifest.json"))
     for file in (project/"data").rglob("*"):
         # Keep numerical evidence small. Full navigation archives regenerate from code.
         if file.relative_to(project/"data").parts[0] not in (
-                "evaluation", "navigation_dependencies", "navigation_threshold"):
+                "evaluation", "navigation_dependencies", "navigation_threshold", "video_inputs"):
             continue
         if file.suffix in (".json", ".csv") or (
                 file.suffix == ".npz" and "navigation_threshold" in file.parts):
@@ -65,7 +66,9 @@ def build_package(project: Path = PROJECT, output: Path | None = None):
                 project/"outputs/all_case_report/weather_profiles.png",
                 project/"outputs/all_case_report/weather_maps.png",
                 project/"outputs/weather_report/fov_los.json",
-                project/"outputs/navigation_validation/report_threshold_detection.png"]
+                project/"outputs/navigation_validation/report_threshold_detection.png",
+                project/"simulalted_environments/environment_conditions.mp4",
+                project/"simulalted_environments/sensor_state_best_vs_worst.mp4"]
     missing = [str(path.relative_to(project)) for path in required if not path.is_file()]
     if missing:
         raise ValueError("Generate the required files before packaging: " + ", ".join(missing))
@@ -85,7 +88,7 @@ def build_package(project: Path = PROJECT, output: Path | None = None):
                 "report": {"pages": pages, "editable_equations": report["equations"], "figures": report["figures"]},
                 "launch": "python start.py", "files": entries,
                 "included": ["source code, configurations, tests and setup guide", "editable report and page-checked PDF",
-                             "scientific figures and offline interactive media", "CSV/JSON evidence and raw threshold trials"],
+                             "scientific figures, simulation videos and offline interactive media", "CSV/JSON evidence and raw threshold trials"],
                 "omitted": ["large raw navigation scan/history NPZ archives, caches, local logs and backup directories"],
                 "reproduction": "Open index.html to explore the saved report offline. For regeneration, install the dependencies in README.md, start the local server, and open /builder. Numerical evidence is stored under evidence/data for review. The live data folder is regenerated from the project configurations and fixed seeds.",
                 "limitations": "The sensor coefficients remain illustrative. Simulated model consistency does not establish physical LiDAR calibration."}

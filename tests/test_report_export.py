@@ -44,8 +44,7 @@ class ReportExport(unittest.TestCase):
             data = Path(directory)/'saved-studies'
             figures = Path(directory)/'saved-figures'
             for relative in ('evaluation/geometry/summary.json', 'evaluation/response/summary.json',
-                             'navigation_dependencies/summary.json', 'navigation_threshold/summary.json',
-                             'navigation_robustness/summary.json', 'navigation_validation/fov_los.json'):
+                             'navigation_dependencies/summary.json', 'navigation_threshold/summary.json'):
                 path = data/relative
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text('{}')

@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 
 from lidar_project.experiments.trajectory import (
-    evaluate_result, factor_matrix, point_polyline_distances, summarize_cases, tracking_metrics,
+    evaluate_result, point_polyline_distances, tracking_metrics,
 )
 
 
@@ -30,35 +30,7 @@ class TrajectoryEvaluationTests(unittest.TestCase):
         distances = point_polyline_distances([[1., 1.], [3., 0.]], [[0., 0.], [2., 0.]])
         np.testing.assert_array_equal(distances, [1., 1.])
 
-    def test_failures_remain_in_summary_denominators(self):
-        common = dict(case_id="baseline", factor="baseline", path_length_m=2.,
-                      spatial_route_rmse_m=.1, spatial_route_max_m=.2,
-                      time_reference_rmse_m=.3, angular_rate_total_variation_rad_s=.4,
-                      mean_returns_per_control_step=12.)
-        first = dict(common, status="goal", goal_completed=1, collision=0, timeout=0,
-                     elapsed_s=4., swept_min_surface_gap_m=.5)
-        second = dict(common, status="collision", goal_completed=0, collision=1, timeout=0,
-                      elapsed_s=2., swept_min_surface_gap_m=-.1)
-        summary = summarize_cases([first, second], factor_matrix())[0]
-        self.assertEqual(summary["runs"], 2)
-        self.assertEqual(summary["goals"], 1)
-        self.assertEqual(summary["collisions"], 1)
-        self.assertEqual(summary["goal_fraction"], .5)
-        self.assertEqual(summary["mean_termination_time_s_all_runs"], 3.)
-        self.assertEqual(summary["min_surface_gap_m"], -.1)
 
-    def test_factor_matrix_changes_one_physical_factor(self):
-        cases = factor_matrix()
-        self.assertEqual(len(cases), 7)
-        self.assertEqual(cases[0]["overrides"], {})
-        for case in cases[1:]:
-            changes = case["overrides"]
-            self.assertEqual(len(changes), 1)
-            if isinstance(next(iter(changes.values())), dict):
-                self.assertEqual(len(next(iter(changes.values()))), 1)
-        # This must not change the known-map planner or planned reference.
-        margin = next(case for case in cases if case["case_id"] == "smaller_margin")
-        self.assertEqual(set(margin["overrides"]), {"controller"})
 
     def _simple_execution(self, obstacle_x):
         from lidar_project.trajectory import load_config, run_trajectory

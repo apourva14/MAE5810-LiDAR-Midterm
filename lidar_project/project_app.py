@@ -151,7 +151,7 @@ class ProjectApp:
                     candidate = self.root / candidate
                 try:
                     relative = candidate.resolve().relative_to(self.root)
-                    if relative.parts[0] in ("outputs", "data"):
+                    if relative.parts[0] in ("outputs", "data", "simulalted_environments"):
                         item["url"] = "/files/" + quote(relative.as_posix(), safe="/")
                 except (ValueError, IndexError):
                     pass
@@ -243,9 +243,9 @@ class ProjectHandler(BaseHTTPRequestHandler):
                 return self._json({"error": str(exc)}, 500)
         if path == "/api/job":
             return self._json(self.server.app.snapshot_job())
-        if path.startswith("/files/") or path.startswith("/outputs/"):
+        if path.startswith(("/files/", "/outputs/", "/simulalted_environments/")):
             relative = Path(path.removeprefix("/files/") if path.startswith("/files/") else path.lstrip("/"))
-            if not relative.parts or relative.parts[0] not in ("data", "outputs"):
+            if not relative.parts or relative.parts[0] not in ("data", "outputs", "simulalted_environments"):
                 return self._json({"error": "Choose a generated project file."}, 403)
             candidate = (self.server.app.root / relative).resolve()
             try:

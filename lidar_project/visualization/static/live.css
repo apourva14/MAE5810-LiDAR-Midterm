@@ -1,7 +1,0 @@
-body{font-family:system-ui,sans-serif;margin:8px}
- #bar{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:4px;font-size:14px}
- #sl{flex:1;min-width:260px}
- #row{display:flex;gap:6px}
- #cam{width:46%;height:560px} #map{width:54%;height:560px}
- #hud{font:12px/1.4 monospace;white-space:pre-wrap;margin:2px 4px}
- #title{font-weight:600}

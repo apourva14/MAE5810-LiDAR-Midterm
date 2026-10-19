@@ -6,7 +6,7 @@ import tempfile
 import unittest
 import zipfile
 
-from lidar_project.workflow import REPORT_CASE_IDS, TASKS, Task, Workflow, WorkflowError
+from lidar_project.workflow import REPORT_CASE_IDS, VIDEO_CASE_IDS, TASKS, Task, Workflow, WorkflowError
 
 
 class DeliverableWorkflow(unittest.TestCase):
@@ -149,11 +149,17 @@ class DeliverableWorkflow(unittest.TestCase):
 
     def test_active_catalog_is_only_the_single_scene_report(self):
         self.assertEqual([task.id for task in TASKS], ["evaluation", "dependencies", "threshold",
-                         "weather_figures", "report_docx", "report_pdf", "report_viewer", "package"])
+                         "weather_figures", "report_docx", "report_pdf", "report_viewer", "video_inputs",
+                         "environment_video", "sensor_state_video", "package"])
         task = next(task for task in TASKS if task.id == "dependencies")
         self.assertEqual(task.args[task.args.index("--cases") + 1:], REPORT_CASE_IDS)
         figures = next(task for task in TASKS if task.id == "weather_figures")
         self.assertEqual(sum(path.endswith(".png") for path in figures.outputs), 7)
+        videos = next(task for task in TASKS if task.id == "video_inputs")
+        self.assertEqual(videos.args[videos.args.index("--cases") + 1:], VIDEO_CASE_IDS)
+        self.assertNotEqual(videos.data_roots, task.data_roots)
+        self.assertTrue(all("--use-saved" in task.args for task in TASKS
+                            if task.id in ("environment_video", "sensor_state_video")))
 
     def test_dependency_audit_accepts_fresh_scope_or_frozen_superset(self):
         for superset in (False, True):
