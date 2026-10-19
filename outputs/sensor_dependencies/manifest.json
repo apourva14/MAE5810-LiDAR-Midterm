@@ -1,0 +1,329 @@
+{
+  "schema_version": 1,
+  "prepared_from_saved_results": true,
+  "figure": "sensor_dependencies.png",
+  "cases": [
+    "dense_bright",
+    "dense_dark",
+    "sparse_bright",
+    "sparse_dark"
+  ],
+  "metrics": [
+    {
+      "case_id": "dense_bright",
+      "total_emitted_beams": 780480,
+      "eligible_target_echoes": 46712,
+      "detected_target_returns": 46712,
+      "observed_detection_probability": 1.0,
+      "expected_detection_probability": 1.0,
+      "mean_eligible_power_w": 0.0021110630428330768,
+      "target_range_rmse_m": 0.009985519574477564,
+      "predicted_target_range_rmse_m": 0.010003358010599738,
+      "mean_points_per_scan": 2198.387545787546,
+      "mean_observed_endpoint_fraction": 0.7367224080267558
+    },
+    {
+      "case_id": "dense_dark",
+      "total_emitted_beams": 780480,
+      "eligible_target_echoes": 46712,
+      "detected_target_returns": 34810,
+      "observed_detection_probability": 0.7452046583319062,
+      "expected_detection_probability": 0.7456327185340308,
+      "mean_eligible_power_w": 1.2418017899018096e-07,
+      "target_range_rmse_m": 0.02234364927446483,
+      "predicted_target_range_rmse_m": 0.022434050915332893,
+      "mean_points_per_scan": 2165.3544490231993,
+      "mean_observed_endpoint_fraction": 0.7419397993311038
+    },
+    {
+      "case_id": "sparse_bright",
+      "total_emitted_beams": 195120,
+      "eligible_target_echoes": 11592,
+      "detected_target_returns": 11592,
+      "observed_detection_probability": 1.0,
+      "expected_detection_probability": 1.0,
+      "mean_eligible_power_w": 0.0021109917586618057,
+      "target_range_rmse_m": 0.009964115960054344,
+      "predicted_target_range_rmse_m": 0.010003324628600674,
+      "mean_points_per_scan": 548.7254744720663,
+      "mean_observed_endpoint_fraction": 0.6499888517279822
+    },
+    {
+      "case_id": "sparse_dark",
+      "total_emitted_beams": 195120,
+      "eligible_target_echoes": 11592,
+      "detected_target_returns": 8671,
+      "observed_detection_probability": 0.748015873015873,
+      "expected_detection_probability": 0.7476543508010318,
+      "mean_eligible_power_w": 1.2417598580363562e-07,
+      "target_range_rmse_m": 0.0224467993575095,
+      "predicted_target_range_rmse_m": 0.022488649947425755,
+      "mean_points_per_scan": 540.5644810170671,
+      "mean_observed_endpoint_fraction": 0.652798216276477
+    }
+  ],
+  "range_conditioning": {
+    "dense_bright": {
+      "mean_pose_range_bin_centers_m": [
+        0.75,
+        1.5,
+        2.5,
+        4.0,
+        7.5
+      ],
+      "observed_probability": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "expected_probability": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "eligible_echoes": [
+        2188,
+        30865,
+        6575,
+        4887,
+        2197
+      ]
+    },
+    "dense_dark": {
+      "mean_pose_range_bin_centers_m": [
+        0.75,
+        1.5,
+        2.5,
+        4.0,
+        7.5
+      ],
+      "observed_probability": [
+        0.9913162705667276,
+        0.9305686052162644,
+        0.594828897338403,
+        0.0016369961121342337,
+        0.0
+      ],
+      "expected_probability": [
+        0.9924988617436795,
+        0.9308263752899749,
+        0.5965754675694549,
+        0.0012212535445243484,
+        7.002052015895973e-14
+      ],
+      "eligible_echoes": [
+        2188,
+        30865,
+        6575,
+        4887,
+        2197
+      ]
+    },
+    "sparse_bright": {
+      "mean_pose_range_bin_centers_m": [
+        0.75,
+        1.5,
+        2.5,
+        4.0,
+        7.5
+      ],
+      "observed_probability": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "expected_probability": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "eligible_echoes": [
+        272,
+        7931,
+        1625,
+        1197,
+        567
+      ]
+    },
+    "sparse_dark": {
+      "mean_pose_range_bin_centers_m": [
+        0.75,
+        1.5,
+        2.5,
+        4.0,
+        7.5
+      ],
+      "observed_probability": [
+        1.0,
+        0.9354431975791199,
+        0.6012307692307692,
+        0.002506265664160401,
+        0.0
+      ],
+      "expected_probability": [
+        0.9999332272268712,
+        0.9345663311568038,
+        0.6038066524497894,
+        0.0013333450662458928,
+        7.260078113652377e-14
+      ],
+      "eligible_echoes": [
+        272,
+        7931,
+        1625,
+        1197,
+        567
+      ]
+    }
+  },
+  "height_check": {
+    "heights_m": [
+      0.6,
+      1.2,
+      1.8,
+      2.4,
+      3.0
+    ],
+    "predicted_ranges_m": [
+      2.318221983093764,
+      4.636443966187528,
+      6.954665949281292,
+      9.272887932375056,
+      11.59110991546882
+    ],
+    "measured_ranges_m": [
+      2.318221983093764,
+      4.636443966187528,
+      6.954665949281293,
+      9.272887932375056,
+      11.59110991546882
+    ],
+    "maximum_absolute_error_m": 8.881784197001252e-16
+  },
+  "receiver_noise_comparison": {
+    "baseline": {
+      "mean_points_per_scan": 2198.387545787546,
+      "target_range_rmse_m": 0.009992012157855971
+    },
+    "noise_high": {
+      "mean_points_per_scan": 2011.1745734498545,
+      "target_range_rmse_m": 0.010081925687308679
+    }
+  },
+  "sources": [
+    {
+      "path": "sampling_reflectance/summary.json",
+      "sha256": "758758f91ba2b1df43019130e97fd6356b0e89f7ad7dc86aa82a1c6ee9250ae1"
+    },
+    {
+      "path": "evaluation/geometry/geometry_pose.csv",
+      "sha256": "24ca787316fe59e170aa460e5f99878c1a1c23146f0fbd16b49329881086f363"
+    },
+    {
+      "path": "evaluation/geometry/summary.json",
+      "sha256": "fc380b0784f001e92a22b5ae0b82f427ca263055a62f180aefac258f47011906"
+    },
+    {
+      "path": "navigation_dependencies/summary.json",
+      "sha256": "128abc84b12b4c05d1e11440c036e9f3918ff4c0de8deb99bec90aa90bd83136"
+    },
+    {
+      "path": "sampling_reflectance/replays/dense_bright/seed_1/traces.csv",
+      "sha256": "aab25e113306fc4dc7c97af206c35eb03c45477e2a07dcf2b1d038b0c933071a"
+    },
+    {
+      "path": "sampling_reflectance/replays/dense_bright/seed_2/traces.csv",
+      "sha256": "33cab855cf219b679a006f2176aaf4380ece82088e0ead66686cfc9a5fecef57"
+    },
+    {
+      "path": "sampling_reflectance/replays/dense_bright/seed_3/traces.csv",
+      "sha256": "6c934957aa15b3d6c2fa4361aa9caf5c75574bc816e4f0d84e23006721e1f3d6"
+    },
+    {
+      "path": "sampling_reflectance/replays/dense_dark/seed_1/traces.csv",
+      "sha256": "03598124cdbf20ab2a6c59d4559dac0e5c40ae0cd9d4dda033d2f32dc4e2d583"
+    },
+    {
+      "path": "sampling_reflectance/replays/dense_dark/seed_2/traces.csv",
+      "sha256": "a6f8c884e979133a595728604fc125934cc8087c7c6a955eae9ffd1a44dfb596"
+    },
+    {
+      "path": "sampling_reflectance/replays/dense_dark/seed_3/traces.csv",
+      "sha256": "8a62e2a99a3e1f1afedaf05257246f3c65d14488b1b2a822260576aaab8cf627"
+    },
+    {
+      "path": "sampling_reflectance/replays/sparse_bright/seed_1/traces.csv",
+      "sha256": "9c5d775963d5a4ff0060c93366ceec5fcf10eb9f686bb2c3758eb1820361d882"
+    },
+    {
+      "path": "sampling_reflectance/replays/sparse_bright/seed_2/traces.csv",
+      "sha256": "afbb8ca1f7539e97b7f43c5989d61426123583bf8334a5d5ffa47aa66a663864"
+    },
+    {
+      "path": "sampling_reflectance/replays/sparse_bright/seed_3/traces.csv",
+      "sha256": "8043ce2956452666598c8746624a707e93145801071d36aa7694d81efd3a4025"
+    },
+    {
+      "path": "sampling_reflectance/replays/sparse_dark/seed_1/traces.csv",
+      "sha256": "c5fe3d9cba7ddf5ca50255ac6f21fe66c2c18c4a3b4ae64fa02e323932c756a7"
+    },
+    {
+      "path": "sampling_reflectance/replays/sparse_dark/seed_2/traces.csv",
+      "sha256": "a3bc793836c90786ad9f81fce9677838a457f53a0c3452b1b594d51d30208fe9"
+    },
+    {
+      "path": "sampling_reflectance/replays/sparse_dark/seed_3/traces.csv",
+      "sha256": "e466f94e7def0fd5f4018e88e6498f98db37d5aacdb0c7406e2f6a358ed39ecb"
+    },
+    {
+      "path": "navigation_dependencies/replays/baseline/seed_1/traces.csv",
+      "sha256": "eef46e17ff2c0784ad182050f4939bf20be3b8b84d94d1485f019188986caff4"
+    },
+    {
+      "path": "navigation_dependencies/replays/baseline/seed_2/traces.csv",
+      "sha256": "777bc3ba9959c2350c04e0bc8c620bb5cdc3811874a1037a597c861b21ab0618"
+    },
+    {
+      "path": "navigation_dependencies/replays/baseline/seed_3/traces.csv",
+      "sha256": "1fb21e0e58a599521cf499d4ed3a8414a4e491aed6518714882107049bbfafe6"
+    },
+    {
+      "path": "navigation_dependencies/replays/rain/seed_1/traces.csv",
+      "sha256": "fcb707d747db3b5da7860825f5c2fb33928f13d408007ae3b2cdf29e16475bc4"
+    },
+    {
+      "path": "navigation_dependencies/replays/rain/seed_2/traces.csv",
+      "sha256": "a20b39a9ea3fdeff55a46ee486c4ea3e4700f1de81635e11553bae16fb869027"
+    },
+    {
+      "path": "navigation_dependencies/replays/rain/seed_3/traces.csv",
+      "sha256": "e9e4401be9955388372b19a024d1e3c194991f5cfb9ded9730e4e69b16ce16fc"
+    },
+    {
+      "path": "navigation_dependencies/replays/fog/seed_1/traces.csv",
+      "sha256": "a8a14cbdd03b16449657de2024e24475a8471a2e64198ed07e73a4909e14a991"
+    },
+    {
+      "path": "navigation_dependencies/replays/fog/seed_2/traces.csv",
+      "sha256": "3ac8e536465c48ed32f932975fcbef4a8106b1e389f8f4d14df3600283e06a24"
+    },
+    {
+      "path": "navigation_dependencies/replays/fog/seed_3/traces.csv",
+      "sha256": "0e5b00ff5f25eaf793e006355a5d5fb09b60c76fb2e548109c9bf00ed361e82f"
+    }
+  ],
+  "limitations": [
+    "Pose bins group snapshots by their mean eligible range, not individual returns; incidence and exposure also vary along the route.",
+    "Bright/weak pairs share geometry at each sample density; different sampling grids can intersect different points.",
+    "Range RMS is conditional on detection, and counts above RMS bars are actual detected-return denominators.",
+    "The very weak diffuse coefficient is an illustrative virtual stress setting, not a calibrated physical material."
+  ]
+}

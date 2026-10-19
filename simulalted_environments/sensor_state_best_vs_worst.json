@@ -1,5 +1,5 @@
 {
-  "format_version": 1,
+  "format_version": 2,
   "video": "sensor_state_best_vs_worst.mp4",
   "mode": "sensor",
   "frame_size": [
@@ -8,102 +8,113 @@
   ],
   "encoded_fps": 15,
   "simulation_snapshot_hz": 5.0,
-  "rendered_snapshot_count": 102,
-  "duration_s": 20.4,
+  "rendered_snapshot_count": 105,
+  "duration_s": 21.0,
   "common_time_axis_s": [
     0,
-    17.400000000000002
+    18.0
   ],
   "end_hold_s": 3.0,
   "chronology": "scan k at controls_t[k] = states_t[k]; terminal state has no scan; ended runs freeze without new measurements",
   "map_semantics": "first measured endpoint per 0.12 m voxel; observed XY cells are measured-endpoint cells, not free space or true map accuracy",
-  "display": "small endpoint markers; at most 12000 evenly selected recorded map voxels per panel; latest scans are visually cropped to x[-2,21], y[-6,7], z[-0.2,3.2] m; all raw returns retained in metrics; static translucent meshes are truth context",
+  "display": "small endpoint markers; common retained map-voxel fraction 0.438901, at most 12000 displayed voxels per panel, preserving case density ratios; latest scans are visually cropped to x[-2,21], y[-6,7], z[-0.2,3.2] m; all raw returns retained in metrics; static translucent meshes are truth context",
   "limitations": [
     "exact simulator poses, static objects, ideal snapshot scans; no SLAM",
     "illustrative attenuation coefficients; no calibrated real-weather validation",
-    "rain/fog attenuation only; no weather particles/backscatter"
+    "rain/fog attenuation only; no weather particles/backscatter",
+    "Matched-pose replay isolates measurements; closed-loop outcomes are reported separately",
+    "Bright/dark diffuse reflectances are illustrative virtual coefficients, not calibrated materials",
+    "Sampling density is sensor configuration; sensor state is its changing position/orientation along the common route"
   ],
-  "ranking": {
-    "eligible_cases": [
-      "baseline",
-      "mount_low",
-      "mount_high",
-      "pitch_up",
-      "pitch_down",
-      "yaw_full",
-      "fov_front",
-      "fov_side",
-      "noise_high",
-      "sampling_sparse"
+  "comparison_design": {
+    "configured_endpoints": [
+      "dense_bright",
+      "sparse_dark"
     ],
-    "ordering": [
-      "maximize completed goals",
-      "minimize collisions",
-      "minimize timeouts",
-      "maximize worst swept surface gap",
-      "maximize mean observed endpoint-cell fraction"
+    "factorial_cases": [
+      "dense_bright",
+      "dense_dark",
+      "sparse_bright",
+      "sparse_dark"
     ],
-    "ranked_case_ids": [
-      "pitch_up",
-      "noise_high",
-      "yaw_full",
-      "sampling_sparse",
-      "baseline",
-      "pitch_down",
-      "mount_low",
-      "fov_front",
-      "mount_high",
-      "fov_side"
+    "varied_parameters": [
+      "azimuth samples per scan",
+      "study_target diffuse reflectance"
     ],
-    "exclusions": "sensor disabled, weather, target changes and added obstacles",
-    "scope": "descriptive tested-case ranking, not a global sensor optimum",
-    "causal_limit": "the selected extremes differ in pitch, yaw and HFOV together; the video shows their combined configuration effect"
+    "fixed_parameters": [
+      "mount height, pitch, roll and yaw",
+      "horizontal/vertical FOV",
+      "receiver noise",
+      "weather",
+      "scene geometry",
+      "all other object materials",
+      "exact replay poses and scan times"
+    ],
+    "scope": "configured favourable/adverse endpoints for measurement yield, not a globally optimal sensor or a navigation safety ranking",
+    "causal_limit": "joint endpoints change two factors; paired rows/columns in the four-case video isolate each factor",
+    "reflectance_limit": "illustrative virtual diffuse coefficients, not calibrated real material measurements"
   },
   "source_files": [
     {
-      "path": "data/video_inputs/all/summary.json",
-      "sha256": "446a00d01d7ee03e60cf77c3c3063c48fd787711f11699d3203a29d004eb8649"
+      "path": "data/sampling_reflectance/summary.json",
+      "sha256": "758758f91ba2b1df43019130e97fd6356b0e89f7ad7dc86aa82a1c6ee9250ae1"
     },
     {
-      "path": "data/video_inputs/all/runs/pitch_up/seed_1/trajectory.json",
-      "sha256": "5d14477a8dc5c0514dd7c48baa31697501a5dd8e2794accf392f45868bbe4fe9"
+      "path": "data/sampling_reflectance/replays/dense_bright/seed_1/trajectory.json",
+      "sha256": "985c14e032ab58fe1ae9acf685e8565400b4a8f254201a3100f366f8dcc1825e"
     },
     {
-      "path": "data/video_inputs/all/runs/pitch_up/seed_1/trajectory.npz",
-      "sha256": "518ae27902b9431e9d5e5a7d395abe61440beebe0f6148bc4610c3186fc93b4b"
+      "path": "data/sampling_reflectance/replays/dense_bright/seed_1/trajectory.npz",
+      "sha256": "51bdffd65e683d104d9a0bb5367c340b5171ca19ebf7d525e33534b70b074795"
     },
     {
-      "path": "data/video_inputs/all/runs/pitch_up/seed_1/mapping.json",
-      "sha256": "87fa1cdaf0f9e4fab60ca2a82a5e018344ead7e5f3e0e6b06ab896c9c2168895"
+      "path": "data/sampling_reflectance/replays/dense_bright/seed_1/mapping.json",
+      "sha256": "cac14f315299983c8ad14da02af887cf91aad6a555cf23630748da7b68db79e2"
     },
     {
-      "path": "data/video_inputs/all/runs/pitch_up/seed_1/mapping.npz",
-      "sha256": "4419adb12d65ede2a1254635292d4d48baf29086878f5904847d176b1059a4c3"
+      "path": "data/sampling_reflectance/replays/dense_bright/seed_1/mapping.npz",
+      "sha256": "3c2a63af6ed104829c4d98e4a07e0c339bba7be5703fa99392aafcb34ff48195"
     },
     {
-      "path": "data/video_inputs/all/runs/fov_side/seed_1/trajectory.json",
-      "sha256": "c8d11ee2e1993b295a430a012da7d014df16d813a958897e245f75407d8cdc2d"
+      "path": "data/sampling_reflectance/replays/dense_bright/seed_1/scan_targets.npz",
+      "sha256": "bc2b3af5b0a48d7c760eec6951258ae37503ffbb8a2c8b6e864e5fe63b8703e1"
     },
     {
-      "path": "data/video_inputs/all/runs/fov_side/seed_1/trajectory.npz",
-      "sha256": "d0da50b6ff254f9b688f89529a956494bd9e7b2973a6b63fe0a3420466a03de4"
+      "path": "data/sampling_reflectance/replays/dense_bright/seed_1/diagnostics.csv",
+      "sha256": "aab25e113306fc4dc7c97af206c35eb03c45477e2a07dcf2b1d038b0c933071a"
     },
     {
-      "path": "data/video_inputs/all/runs/fov_side/seed_1/mapping.json",
-      "sha256": "9b31a3691b09a77239a4b9d974da89976ada89943654b814cd5b933c8b0861bd"
+      "path": "data/sampling_reflectance/replays/sparse_dark/seed_1/trajectory.json",
+      "sha256": "7b1a392bc83749a1f26a3667d6b26d16c76024f02e532eedfe56a190259007f7"
     },
     {
-      "path": "data/video_inputs/all/runs/fov_side/seed_1/mapping.npz",
-      "sha256": "2b7f6466579dc3a1390a11fafc58a9c041c4f02b7cc95f4792f3a78224552aee"
+      "path": "data/sampling_reflectance/replays/sparse_dark/seed_1/trajectory.npz",
+      "sha256": "05cfd690fa79448477a77264fc2462076ac6fee9781b4c0417c91278702eaa0d"
+    },
+    {
+      "path": "data/sampling_reflectance/replays/sparse_dark/seed_1/mapping.json",
+      "sha256": "2d686973271abf5301e9905b9a19db4fe41b9d89bcec40743a8d79e041c659c2"
+    },
+    {
+      "path": "data/sampling_reflectance/replays/sparse_dark/seed_1/mapping.npz",
+      "sha256": "49129ff24cf073baa681286f9942f3b3c9c9cf48320a86d2ab9c2b942b3c7131"
+    },
+    {
+      "path": "data/sampling_reflectance/replays/sparse_dark/seed_1/scan_targets.npz",
+      "sha256": "f8a2431f2443bfc765d4f6ee60184365f4e0873286edb3ee8c0e624f1c69bbb6"
+    },
+    {
+      "path": "data/sampling_reflectance/replays/sparse_dark/seed_1/diagnostics.csv",
+      "sha256": "c5fe3d9cba7ddf5ca50255ac6f21fe66c2c18c4a3b4ae64fa02e323932c756a7"
     }
   ],
   "cases": [
     {
-      "id": "pitch_up",
+      "id": "dense_bright",
       "seed": 1,
-      "status": "goal",
-      "end_time_s": 17.400000000000002,
-      "last_scan_time_s": 17.2,
+      "status": "replay",
+      "end_time_s": 18.0,
+      "last_scan_time_s": 17.8,
       "sensor": {
         "n_channels": 8,
         "vfov_lower_deg": -20.0,
@@ -138,21 +149,22 @@
           0.0
         ],
         "roll_deg": 0.0,
-        "pitch_deg": -15.0,
+        "pitch_deg": 0.0,
         "yaw_deg": 0.0
       },
       "mount_height_m": 0.6,
+      "recording_kind": "replays",
       "aggregate": {
         "runs": 3,
         "goals": 3,
         "collisions": 0,
         "timeouts": 0,
-        "mean_elapsed_s": 17.400000000000002,
-        "mean_path_length_m": 19.57354201327341,
-        "worst_surface_gap_m": 0.3919712053731593,
-        "mean_observed_fraction": 0.8334002229654404,
-        "mean_spatial_route_rmse_m": 0.588666842800739,
-        "mean_returns_per_control_step": 2080.421455938697
+        "mean_elapsed_s": 18.066666666666666,
+        "mean_path_length_m": 19.702310840312034,
+        "worst_surface_gap_m": 0.32963455970450084,
+        "mean_observed_fraction": 0.7367224080267558,
+        "mean_spatial_route_rmse_m": 0.5974670095390099,
+        "mean_returns_per_control_step": 2198.387545787546
       },
       "seed_map": {
         "format_version": 1,
@@ -179,19 +191,19 @@
         ],
         "ground_threshold_m": 0.12,
         "z_limits_m": null,
-        "steps": 87,
-        "raw_return_count": 181023,
-        "finite_return_count": 181023,
-        "retained_measurement_count": 167331,
-        "map_point_count": 27858,
+        "steps": 90,
+        "raw_return_count": 197814,
+        "finite_return_count": 197814,
+        "retained_measurement_count": 179435,
+        "map_point_count": 27341,
         "nonfinite_intensity_count": 0,
-        "observed_cell_count": 6231,
+        "observed_cell_count": 5513,
         "roi_cell_count": 7475,
-        "observed_cell_fraction": 0.8335785953177257,
-        "observed_cell_area_m2": 249.24000000000004,
+        "observed_cell_fraction": 0.7375250836120402,
+        "observed_cell_area_m2": 220.52000000000004,
         "map_z_range_m": [
-          -0.020022641104059602,
-          2.5065753637557036
+          -0.012972840226279647,
+          2.570525078416569
         ],
         "semantics": {
           "voxel": "Stable first observed measured representative; later observations never change its position or intensity.",
@@ -205,21 +217,40 @@
           "limits": "No rays mark free or traversable space. No unseen interiors or true obstacle coverage are inferred. All measured heights, including above robot body height, are retained unless an explicit z crop is requested.",
           "area": "Observed endpoint cells divided by regular raster ROI cells; this is not traversable area or true surface coverage. For non-grid-aligned crops, the enclosing regular raster extent is recorded separately."
         }
+      },
+      "study_target": {
+        "type": "box",
+        "label": "study_target",
+        "center": [
+          11.0,
+          1.1,
+          0.6
+        ],
+        "size": [
+          0.8,
+          1.6,
+          1.2
+        ],
+        "yaw_deg": 0.0,
+        "material": {
+          "rho_d": 0.85,
+          "rho_s": 0.0
+        }
       }
     },
     {
-      "id": "fov_side",
+      "id": "sparse_dark",
       "seed": 1,
-      "status": "collision",
-      "end_time_s": 9.0,
-      "last_scan_time_s": 8.8,
+      "status": "replay",
+      "end_time_s": 18.0,
+      "last_scan_time_s": 17.8,
       "sensor": {
         "n_channels": 8,
         "vfov_lower_deg": -20.0,
         "vfov_upper_deg": 10.0,
-        "measurements_per_cycle": 360,
-        "hfov_start_deg": -60.0,
-        "hfov_end_deg": 60.0,
+        "measurements_per_cycle": 90,
+        "hfov_start_deg": -180.0,
+        "hfov_end_deg": 180.0,
         "rotations_per_s": 10.0,
         "min_range_m": 0.5,
         "max_range_m": 200.0,
@@ -248,20 +279,21 @@
         ],
         "roll_deg": 0.0,
         "pitch_deg": 0.0,
-        "yaw_deg": 90.0
+        "yaw_deg": 0.0
       },
       "mount_height_m": 0.6,
+      "recording_kind": "replays",
       "aggregate": {
         "runs": 3,
-        "goals": 0,
-        "collisions": 3,
+        "goals": 3,
+        "collisions": 0,
         "timeouts": 0,
-        "mean_elapsed_s": 9.0,
-        "mean_path_length_m": 10.759320739493651,
-        "worst_surface_gap_m": -0.06852659020792196,
-        "mean_observed_fraction": 0.20659977703455965,
-        "mean_spatial_route_rmse_m": 0.07486215283154427,
-        "mean_returns_per_control_step": 660.3333333333334
+        "mean_elapsed_s": 18.066666666666666,
+        "mean_path_length_m": 19.82710092543095,
+        "worst_surface_gap_m": 0.3508241194157832,
+        "mean_observed_fraction": 0.652798216276477,
+        "mean_spatial_route_rmse_m": 0.5285970465738195,
+        "mean_returns_per_control_step": 540.5644810170671
       },
       "seed_map": {
         "format_version": 1,
@@ -288,19 +320,19 @@
         ],
         "ground_threshold_m": 0.12,
         "z_limits_m": null,
-        "steps": 45,
-        "raw_return_count": 29715,
-        "finite_return_count": 29715,
-        "retained_measurement_count": 24700,
-        "map_point_count": 6705,
+        "steps": 90,
+        "raw_return_count": 48457,
+        "finite_return_count": 48457,
+        "retained_measurement_count": 43853,
+        "map_point_count": 17703,
         "nonfinite_intensity_count": 0,
-        "observed_cell_count": 1548,
+        "observed_cell_count": 4873,
         "roi_cell_count": 7475,
-        "observed_cell_fraction": 0.20709030100334447,
-        "observed_cell_area_m2": 61.92000000000001,
+        "observed_cell_fraction": 0.6519063545150502,
+        "observed_cell_area_m2": 194.92000000000004,
         "map_z_range_m": [
-          -0.011112641505694132,
-          1.3971791874316841
+          -0.014569693156953223,
+          2.534924590512579
         ],
         "semantics": {
           "voxel": "Stable first observed measured representative; later observations never change its position or intensity.",
@@ -313,6 +345,25 @@
           "precedence": "Elevated-surface evidence takes precedence only from its own first observed step onward; later ground observations do not erase it.",
           "limits": "No rays mark free or traversable space. No unseen interiors or true obstacle coverage are inferred. All measured heights, including above robot body height, are retained unless an explicit z crop is requested.",
           "area": "Observed endpoint cells divided by regular raster ROI cells; this is not traversable area or true surface coverage. For non-grid-aligned crops, the enclosing regular raster extent is recorded separately."
+        }
+      },
+      "study_target": {
+        "type": "box",
+        "label": "study_target",
+        "center": [
+          11.0,
+          1.1,
+          0.6
+        ],
+        "size": [
+          0.8,
+          1.6,
+          1.2
+        ],
+        "yaw_deg": 0.0,
+        "material": {
+          "rho_d": 5e-05,
+          "rho_s": 0.0
         }
       }
     }

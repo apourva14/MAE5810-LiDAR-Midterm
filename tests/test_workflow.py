@@ -11,7 +11,7 @@ from lidar_project.workflow import REPORT_CASE_IDS, VIDEO_CASE_IDS, TASKS, Task,
 
 class DeliverableWorkflow(unittest.TestCase):
     def dependency_fixture(self, root, *, superset=False):
-        """Retained raw-file references for either 11 fresh or 22 frozen cases."""
+        """Retained raw-file references for a fresh scope or a frozen superset."""
         directory = Path(root) / "data/navigation_dependencies"
         directory.mkdir(parents=True)
         def file(relative, value="{}"):
@@ -148,18 +148,20 @@ class DeliverableWorkflow(unittest.TestCase):
                 unsafe.task_catalog()
 
     def test_active_catalog_is_only_the_single_scene_report(self):
-        self.assertEqual([task.id for task in TASKS], ["evaluation", "dependencies", "threshold",
+        self.assertEqual([task.id for task in TASKS], ["evaluation", "dependencies", "sampling_reflectance", "threshold",
                          "weather_figures", "report_docx", "report_pdf", "report_viewer", "video_inputs",
-                         "environment_video", "sensor_state_video", "package"])
+                         "environment_video", "sensor_state_video", "factorial_video", "package"])
         task = next(task for task in TASKS if task.id == "dependencies")
         self.assertEqual(task.args[task.args.index("--cases") + 1:], REPORT_CASE_IDS)
         figures = next(task for task in TASKS if task.id == "weather_figures")
-        self.assertEqual(sum(path.endswith(".png") for path in figures.outputs), 7)
+        # Eight embedded report images plus the separate full-size weather plot.
+        self.assertEqual(sum(path.endswith(".png") for path in figures.outputs), 9)
+        self.assertIn("outputs/sensor_dependencies/weather_measurements_compact.png", figures.outputs)
         videos = next(task for task in TASKS if task.id == "video_inputs")
         self.assertEqual(videos.args[videos.args.index("--cases") + 1:], VIDEO_CASE_IDS)
         self.assertNotEqual(videos.data_roots, task.data_roots)
         self.assertTrue(all("--use-saved" in task.args for task in TASKS
-                            if task.id in ("environment_video", "sensor_state_video")))
+                            if task.id in ("environment_video", "sensor_state_video", "factorial_video")))
 
     def test_dependency_audit_accepts_fresh_scope_or_frozen_superset(self):
         for superset in (False, True):
@@ -169,7 +171,7 @@ class DeliverableWorkflow(unittest.TestCase):
                 workflow._validate(workflow.tasks["dependencies"])
                 summary["replays"].pop(0)
                 (directory / "summary.json").write_text(json.dumps(summary))
-                with self.assertRaisesRegex(WorkflowError, "33 distinct replays"):
+                with self.assertRaisesRegex(WorkflowError, f"{3*len(REPORT_CASE_IDS)} distinct replays"):
                     workflow._validate(workflow.tasks["dependencies"])
 
     def test_dependency_audit_rejects_missing_seed_and_raw_run_file(self):

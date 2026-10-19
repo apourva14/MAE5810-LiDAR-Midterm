@@ -30,6 +30,27 @@ def _display_array(array, decimals=5):
     return np.round(np.asarray(array, float), decimals).tolist()
 
 
+def load_sensor_dependency_data(project):
+    """Expose the fixed-angle factorial evidence without running experiments."""
+    project = Path(project).resolve()
+    path = project / 'data/sampling_reflectance/summary.json'
+    study = _read(path)
+    required = {'dense_bright', 'dense_dark', 'sparse_bright', 'sparse_dark'}
+    if {row['id'] for row in study['cases']} != required:
+        raise ValueError('The visual report requires all four sampling/reflectance controls')
+    if set(study['seeds']) != {1, 2, 3} or len(study['replays']) != 12:
+        raise ValueError('The sampling/reflectance comparison requires twelve matched-pose replays')
+    primary = _read(project / 'data/navigation_dependencies/summary.json')
+    noise = {row['id']: row for row in primary['cases'] if row['id'] in ('baseline', 'noise_high')}
+    if len(noise) != 2:
+        raise ValueError('The visual report requires the receiver-noise comparison')
+    return dict(cases=study['cases'], settings=study['settings'],
+                controlled_invariants=study['controlled_invariants'],
+                factorial_contrasts=study['factorial_contrasts'],
+                limitations=study['limitations'], noise=noise,
+                source=_source(path, project))
+
+
 def _mapping_payload(directory, *, max_points=16_000):
     """Read measured representatives and their original first-observation steps.
 

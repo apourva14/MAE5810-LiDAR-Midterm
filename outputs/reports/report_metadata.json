@@ -1,10 +1,10 @@
 {
   "docx": "/Users/lianxuyi/Desktop/Cornell/MAE5810_robot_perception/midterm/LIDAR_model/outputs/reports/Midterm_Project_Report.docx",
   "equations": 19,
-  "figures": 7,
-  "docx_sha256": "6eb167cc3c64e173f181dfe1d4279f4f6840bc944c929a6b82a0282a95f99515",
+  "figures": 8,
+  "docx_sha256": "b5f38a16b0162c88934b8c9b81f96b0965192cdae2ed267d9441ab6d68e8667e",
   "pdf": "/Users/lianxuyi/Desktop/Cornell/MAE5810_robot_perception/midterm/LIDAR_model/outputs/reports/Midterm_Project_Report.pdf",
   "pages": 10,
   "renderer": "/Users/lianxuyi/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override/soffice",
-  "pdf_sha256": "cd8ff0eaafbb3439e6a1c39ee04238209ef5b00af8c0a77afc120f3a33cd51ec"
+  "pdf_sha256": "f2b17630b3d94ee034e84ae547dab8b77c8ede17e8c82e5761a94518ab62eb2b"
 }

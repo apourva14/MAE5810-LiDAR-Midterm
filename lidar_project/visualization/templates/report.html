@@ -18,20 +18,22 @@
       <a class="active" href="#overview"><span>01</span> The question</a>
       <a href="#model"><span>02</span> Measurement model</a>
       <a href="#visibility"><span>03</span> 3D coverage &amp; visibility</a>
-      <a href="#dependencies"><span>04</span> Target characteristics</a>
-      <a href="#detection"><span>05</span> Uncertain detection</a>
-      <a href="#navigation"><span>06</span> Weather &amp; navigation</a>
-      <a href="#mapping"><span>07</span> Mapping while moving</a>
-      <a href="#conclusions"><span>08</span> Conclusions &amp; limits</a>
+      <a href="#sensor-dependencies"><span>04</span> Sensor state &amp; sampling</a>
+      <a href="#dependencies"><span>05</span> Target characteristics</a>
+      <a href="#detection"><span>06</span> Uncertain detection</a>
+      <a href="#navigation"><span>07</span> Weather &amp; navigation</a>
+      <a href="#mapping"><span>08</span> Mapping while moving</a>
+      <a href="#conclusions"><span>09</span> Conclusions &amp; limits</a>
       <p class="nav-foot">Explore recorded results and model relationships.<br>All views work offline.</p>
     </nav>
     <main>
       <section id="overview" class="chapter hero" aria-labelledby="hero-title">
         <p class="eyebrow">01 / The question</p>
         <h1 id="hero-title">What can a moving<br><em>3D LiDAR</em> actually see?</h1>
-        <p class="standfirst">Two connected evaluations: how target characteristics change measurements, and how atmospheric conditions affect sensing and navigation in one fixed obstacle scene.</p>
+        <p class="standfirst">Controlled evaluations connect sensor position, sampling density, target characteristics, and atmospheric conditions to measurements in one fixed obstacle scene.</p>
         <p class="body-intro">The project models a spinning, pulsed LiDAR carried by a ground robot. A point appears only when a beam samples a surface, reaches it without obstruction, and returns enough optical power. This report follows that chain from geometry to measured maps.</p>
-        <div class="study-strip" aria-label="Two evaluation parts and a threshold validation">
+        <div class="study-strip" aria-label="Sensor, target, weather and detector evidence">
+          <div><strong>4</strong><span>sampling / reflectance combinations<br>identical angles and replayed poses</span></div>
           <div><strong>9</strong><span>target settings<br>measurements at paired baseline poses</span></div>
           <div><strong>3</strong><span>weather conditions<br>nine driven runs in one fixed scene</span></div>
           <div><strong>33,000</strong><span>threshold trials<br>three saved viewpoints</span></div>
@@ -41,7 +43,7 @@
       </section>
 
       <section id="model" class="chapter" aria-labelledby="model-title">
-        <div class="chapter-heading"><p class="eyebrow">02 / Measurement model</p><span class="pdf-reference">PDF §§2–3 · Equations 1–19</span></div>
+        <div class="chapter-heading"><p class="eyebrow">02 / Measurement model</p><span class="pdf-reference">PDF §§2–4 · Equations 1–19</span></div>
         <h2 id="model-title">From a laser beam to a useful point</h2>
         <p class="section-intro">Select a step to connect its physical meaning to the report’s equations. Geometry and detection are separate gates: a missing point can occur before receiver noise is involved.</p>
         <div class="pipeline" aria-label="Measurement formation stages">
@@ -79,8 +81,29 @@
         <p class="method-note">Counts audit the saved full-circle eight-channel beam grid. The drawn rays are a representative subset. The translucent angular envelope is clipped at 4 m and omits the 0.5 m near-range cutout. There are gaps between the eight channels. The surfaces show true scene geometry for explanation; measured maps below contain only observed endpoints.</p>
       </section>
 
+      <section id="sensor-dependencies" class="chapter" aria-labelledby="sensor-dependencies-title">
+        <div class="chapter-heading"><p class="eyebrow">04 / Sensor state and configuration</p><span class="pdf-reference">PDF §§3.1 &amp; 4.2 · Figure 3</span></div>
+        <h2 id="sensor-dependencies-title">Keep the angles fixed.<br>Change the available information.</h2>
+        <p class="section-intro">Sensor state is position and orientation; sampling density is a configuration parameter, and diffuse reflectance is a target property. We distinguish these inputs and evaluate how each enters the same measurement model.</p>
+        <div class="protocol-grid">
+          <article><span class="mini-label">Sensor state</span><h3>Height and changing viewpoint</h3><p>An independent ground-plane sweep checks range against r = −h / sin β. The moving replay changes sensor position and target range. All four cases use exactly the same recorded position and heading at each time.</p></article>
+          <article><span class="mini-label">Sensor configuration</span><h3>Dense and sparse sampling</h3><p>360 versus 90 azimuth samples, eight channels, the same full-circle FOV, 0.6 m mount, zero mounting angles, receiver noise and atmosphere. Emitted beams change from 2,880 to 720 per scan.</p></article>
+          <article><span class="mini-label">Target feature</span><h3>Bright and weak diffuse returns</h3><p>Only the designated target’s diffuse coefficient changes: 0.85 versus 0.00005. This weak-return setting is an illustrative stress case, rather than a calibrated material. Geometry and other materials remain fixed.</p></article>
+        </div>
+        <figure class="figure-panel dependency-evidence"><img src="__SENSOR_DEPENDENCIES_FIGURE__" alt="Measured height dependence, factorial optical power, distance-conditioned detection probability and target range RMS"><figcaption class="figure-note">Independent pose checks and all four controlled sampling/reflectance combinations. Power is averaged over eligible echoes, detection includes misses, and range RMS uses detected target returns. Range bins group whole poses by their mean eligible-target distance.</figcaption></figure>
+        <div class="table-wrap"><table><thead><tr><th>Matched-pose condition</th><th>Azimuths</th><th>Target diffuse coefficient</th><th>Target points / scan</th><th>Detected / eligible</th><th>Predicted detection</th><th>Target RMS (mm)</th></tr></thead><tbody>__FACTORIAL_TABLE_ROWS__</tbody></table></div>
+        <div class="takeaway"><span>What this demonstrates</span><p>Compare rows sharing reflectance to isolate sampling; compare rows sharing sampling to isolate the target feature. For the same eligible ray and all other model parameters, changing diffuse coefficient scales noiseless power by 17,000. Reduced sampling changes which rays exist. Neither a missing beam nor a missed echo is assigned zero range error.</p></div>
+        <p class="method-note">A separate receiver-noise check changes RMS optical noise from 4 × 10⁻⁹ to 4 × 10⁻⁸ W while retaining the same sensor geometry. Noise, sampling and target effects are not conflated. Exact pose and snapshot-scan assumptions remain; within-scan motion distortion and real-device calibration are outside these evaluations.</p>
+        <div class="subheading recorded-heading"><div><span class="mini-label">Recorded simulation media</span><h3>Watch each controlled comparison</h3></div></div>
+        <div class="media-grid">
+          <article><h3>Best versus worst configured conditions</h3><video controls preload="metadata" playsinline aria-label="Dense bright versus sparse weak target measurement replay"><source src="simulalted_environments/sensor_state_best_vs_worst.mp4" type="video/mp4"></video><p>Dense / bright versus sparse / weak target returns, with identical angles and viewpoints. These are favourable and adverse designed endpoints, not a universal sensor optimum.</p><a href="simulalted_environments/sensor_state_best_vs_worst.mp4">Open or download video</a></article>
+          <article><h3>Separate sampling and target effects</h3><video controls preload="metadata" playsinline aria-label="All four sampling and reflectance conditions at matched sensor poses"><source src="simulalted_environments/sampling_reflectance_factorial.mp4" type="video/mp4"></video><p>All four combinations share the replay clock. Pink points identify target returns; each panel reports detected / eligible echoes, power and predicted detection.</p><a href="simulalted_environments/sampling_reflectance_factorial.mp4">Open or download video</a></article>
+          <article><h3>Normal, Fog and Rain</h3><video controls preload="metadata" playsinline aria-label="Three environmental conditions in one fixed obstacle scene"><source src="simulalted_environments/environment_conditions.mp4" type="video/mp4"></video><p>The same robot, target, mounting, scene and reference under three attenuation settings. Recorded navigation and growing maps reveal the information loss.</p><a href="simulalted_environments/environment_conditions.mp4">Open or download video</a></article>
+        </div>
+      </section>
+
       <section id="dependencies" class="chapter" aria-labelledby="dependencies-title">
-        <div class="chapter-heading"><p class="eyebrow">04 / Part I · Target characteristics</p><span class="pdf-reference">PDF §4.1 · Figure 2</span></div>
+        <div class="chapter-heading"><p class="eyebrow">05 / Target characteristics</p><span class="pdf-reference">PDF §4.1 · Figure 2</span></div>
         <h2 id="dependencies-title">How do target characteristics change a return?</h2>
         <p class="section-intro">The first evaluation changes target diffuse weight, orientation, height, or location individually. Atmospheric conditions, sensor configuration and robot viewpoints remain fixed. These comparisons describe measurements, not navigation performance.</p>
         <div class="model-explorer">
@@ -106,7 +129,7 @@
       </section>
 
       <section id="detection" class="chapter" aria-labelledby="detection-title">
-        <div class="chapter-heading"><p class="eyebrow">05 / Uncertain detection</p><span class="pdf-reference">PDF §4.3 · Figure 4 · Equations 9, 17–18</span></div>
+        <div class="chapter-heading"><p class="eyebrow">06 / Uncertain detection</p><span class="pdf-reference">PDF §4.4 · Figure 5 · Equations 9, 17–18</span></div>
         <h2 id="detection-title">The threshold is a probability transition.</h2>
         <p class="section-intro">A strong echo is almost always detected. Near the receiver threshold, independent noise changes whether a point appears. The line is the assumed Gaussian prediction; markers count actual saved scan trials.</p>
         <div class="figure-panel">
@@ -121,7 +144,7 @@
       </section>
 
       <section id="navigation" class="chapter" aria-labelledby="navigation-title">
-        <div class="chapter-heading"><p class="eyebrow">06 / Part II · Weather &amp; navigation</p><span class="pdf-reference">PDF §§4.2 &amp; 4.4 · Figures 3 &amp; 5 · Table 1</span></div>
+        <div class="chapter-heading"><p class="eyebrow">07 / Weather &amp; navigation</p><span class="pdf-reference">PDF §§4.3 &amp; 4.5 · Figures 4 &amp; 6</span></div>
         <h2 id="navigation-title">Change the atmosphere.<br>Keep the obstacles fixed.</h2>
         <p class="section-intro">Clear air, rain at 50 mm/h, and illustrative fog extinction κ = 0.6 m⁻¹ use the same scene, target, robot, sensor, controller and incomplete planning map. Each condition has three driven noise-seed runs and a corresponding replay at the same baseline poses.</p>
         <div id="weather-summary" class="plot" role="img" aria-label="Three weather conditions compared by mean points per scan, observed map cells and target range RMS"></div>
@@ -139,7 +162,7 @@
       </section>
 
       <section id="mapping" class="chapter" aria-labelledby="mapping-title">
-        <div class="chapter-heading"><p class="eyebrow">07 / Mapping while moving</p><span class="pdf-reference">PDF §4.5 · Figure 6 · Equation 19</span></div>
+        <div class="chapter-heading"><p class="eyebrow">08 / Mapping while moving</p><span class="pdf-reference">PDF §4.6 · Figure 7 · Equation 19</span></div>
         <h2 id="mapping-title">Build the world from measured surfaces.</h2>
         <p class="section-intro">Replay the robot’s recorded motion. The point cloud grows only when those measurements were first observed. Switch among clear air, rain and fog at the same displayed time.</p>
         <div class="figure-panel">
@@ -154,9 +177,9 @@
       </section>
 
       <section id="conclusions" class="chapter last" aria-labelledby="conclusions-title">
-        <div class="chapter-heading"><p class="eyebrow">08 / Conclusions &amp; limits</p><span class="pdf-reference">PDF §5 &amp; References</span></div>
+        <div class="chapter-heading"><p class="eyebrow">09 / Conclusions &amp; limits</p><span class="pdf-reference">PDF §5 &amp; References</span></div>
         <h2 id="conclusions-title">A chain of evidence, with clear limits.</h2>
-        <div class="conclusion-grid"><article><h3>What the evidence supports</h3><ul><li>Pose and FOV change beam intersections.</li><li>Opaque surfaces constrain LOS before power and detection.</li><li>Range, target response, and atmosphere change optical power.</li><li>Independent threshold trials match the assumed probabilistic model.</li><li>Atmospheric attenuation reduces measured points and observed map coverage even when the same navigation task succeeds.</li></ul></article><article><h3>What remains outside the evidence</h3><ul><li>Physical LiDAR calibration and measured-device accuracy.</li><li>Calibrated weather, atmospheric backscatter, and complex materials.</li><li>Pose error, moving targets, navigation scan motion, latency, and acceleration.</li><li>Reliability across randomly sampled environments or other controllers.</li></ul></article></div>
+        <div class="conclusion-grid"><article><h3>What the evidence supports</h3><ul><li>Pose and FOV change beam intersections.</li><li>Opaque surfaces constrain LOS before power and detection.</li><li>Range, target response, and atmosphere change optical power.</li><li>Fixed-angle sampling and target-reflectance controls separate geometric sampling from threshold detection.</li><li>Independent threshold trials match the assumed probabilistic model.</li><li>Atmospheric attenuation reduces measured points and observed map coverage even when the same navigation task succeeds.</li></ul></article><article><h3>What remains outside the evidence</h3><ul><li>Physical LiDAR calibration and measured-device accuracy.</li><li>Calibrated weather, atmospheric backscatter, and complex materials.</li><li>Pose error, moving targets, navigation scan motion, latency, and acceleration.</li><li>Reliability across randomly sampled environments or other controllers.</li></ul></article></div>
         <p class="body-intro">Separate analytical checks cover <strong>65 geometry cases</strong> and <strong>72 optical-power cases</strong>, with maximum residuals 3.83 × 10⁻¹³ m and 4.39 × 10⁻¹⁶ relative power. Agreement is a numerical consistency check of the stated assumptions.</p>
         <details class="supporting" id="provenance"><summary>Data sources and presentation method</summary><p>This page presents the saved measurements and equations behind the report. Changing a control selects a recorded case, replays recorded measurements, or evaluates an explicitly labelled analytical relationship. It does not run the sensor, planner, or navigation experiments.</p><p id="provenance-summary"></p><div class="table-wrap"><table><thead><tr><th>Saved source</th><th>SHA-256</th></tr></thead><tbody id="source-rows"></tbody></table></div></details>
         <div class="references"><h3>References</h3><p>[1] “Midterm project,” Robot Perception, course assignment handout, pp. 1–2.</p><p>[2] E. Heiden, Z. Liu, R. K. Ramachandran, and G. S. Sukhatme, “Physics-based Simulation of Continuous-Wave LIDAR for Localization, Calibration and Tracking,” Proc. IEEE ICRA, 2020, pp. 2595–2601.</p><p class="method-note">The cited continuous-wave phase estimator differs from this project’s pulsed geometric approximation.</p></div>

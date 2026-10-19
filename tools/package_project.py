@@ -12,9 +12,9 @@ from zipfile import ZipFile, ZIP_DEFLATED
 PROJECT = Path(__file__).resolve().parents[1]
 SOURCE_DIRS = ("configs", "lidar_project", "tools", "tests")
 SOURCE_FILES = ("README.md", "pyproject.toml", "run.py", "start.py", "index.html", "builder.html",
-                "Start Project.command", ".gitignore", ".nojekyll")
+                "Start Project.command", ".gitignore", ".gitattributes", ".nojekyll")
 EXCLUDE_PARTS = {"__pycache__", ".venv", ".pytest_cache", ".artifacts", "build", "dist"}
-MEDIA_DIRS = ("all_case_report", "weather_report", "reports")
+MEDIA_DIRS = ("all_case_report", "weather_report", "sensor_dependencies", "reports")
 
 
 def collect_files(project: Path):
@@ -31,7 +31,7 @@ def collect_files(project: Path):
     for file in (project/"data").rglob("*"):
         # Keep numerical evidence small. Full navigation archives regenerate from code.
         if file.relative_to(project/"data").parts[0] not in (
-                "evaluation", "navigation_dependencies", "navigation_threshold", "video_inputs"):
+                "evaluation", "navigation_dependencies", "navigation_threshold", "video_inputs", "sampling_reflectance"):
             continue
         if file.suffix in (".json", ".csv") or (
                 file.suffix == ".npz" and "navigation_threshold" in file.parts):
@@ -68,7 +68,9 @@ def build_package(project: Path = PROJECT, output: Path | None = None):
                 project/"outputs/weather_report/fov_los.json",
                 project/"outputs/navigation_validation/report_threshold_detection.png",
                 project/"simulalted_environments/environment_conditions.mp4",
-                project/"simulalted_environments/sensor_state_best_vs_worst.mp4"]
+                project/"simulalted_environments/sensor_state_best_vs_worst.mp4",
+                project/"simulalted_environments/sampling_reflectance_factorial.mp4",
+                project/"outputs/sensor_dependencies/sensor_dependencies.png"]
     missing = [str(path.relative_to(project)) for path in required if not path.is_file()]
     if missing:
         raise ValueError("Generate the required files before packaging: " + ", ".join(missing))

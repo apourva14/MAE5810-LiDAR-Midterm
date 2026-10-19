@@ -62,17 +62,18 @@ trials. Large scan and navigation histories regenerate from the supplied
 configurations and fixed seeds. The offline HTML and saved videos play without
 these raw arrays. Build records and logs remain in ignored `build/`.
 
-The report uses nine target settings at matched viewpoints and Normal, Rain,
-and Fog navigation in one fixed obstacle setup. The two evaluations share a
-baseline; weather comparisons hold the scene, robot, sensor, controller, and
-planned route fixed. Mapping uses the known simulated pose.
+The report evaluates sensor pose, sampling density, receiver noise, target
+characteristics, and Normal/Rain/Fog navigation in one fixed obstacle setup.
+Target and weather comparisons share a baseline; weather comparisons hold the
+scene, robot, sensor, controller, and planned route fixed. Mapping uses the known simulated pose.
 
 To reproduce numerical evidence directly:
 
 ```sh
 python -m lidar_project evaluate
-python -m lidar_project evaluate-navigation-dependencies --seeds 1 2 3 --cases baseline reflectance_dark reflectance_bright target_yaw_45 target_yaw_75 target_short target_tall target_near target_far rain fog
+python -m lidar_project evaluate-navigation-dependencies --seeds 1 2 3 --cases baseline reflectance_dark reflectance_bright target_yaw_45 target_yaw_75 target_short target_tall target_near target_far rain fog noise_high
 python -m lidar_project evaluate-navigation-threshold --trials 1000
+python tools/evaluate_sampling_reflectance.py
 ```
 
 Render and export the saved report evidence:
@@ -92,20 +93,36 @@ only one document format, use `tools/export_report.py --format docx` or
 ```sh
 python tools/generate_environment_video.py
 python tools/generate_sensor_state_video.py
+python tools/generate_target_features_video.py
 ```
 
-Both generators save MP4 videos and source manifests in
-`simulalted_environments/` (the requested folder spelling). They reuse recorded
-scans when available and generate missing video inputs in a separate data
-folder. The environment video compares Normal, Fog, and Rain at the same
-simulation time. The sensor-state video compares the best and worst enabled
-configurations among the tested settings, prioritizing goal completion,
-collision avoidance, and clearance. Its manifest records the selection rule.
+The generators save MP4 videos and source manifests in
+`simulalted_environments/` (the requested folder spelling):
+
+| Video | Comparison |
+| --- | --- |
+| `environment_conditions.mp4` | Normal, Fog and Rain navigation |
+| `sensor_state_best_vs_worst.mp4` | Dense/bright versus sparse/weak target measurements |
+| `sampling_reflectance_factorial.mp4` | All four sampling/reflectance combinations |
+
+The fixed-angle comparisons use 360 or 90 azimuth samples and target diffuse
+coefficients 0.85 or 0.00005. All mounting angles, FOV, obstacle geometry,
+atmosphere and receiver noise stay fixed. Matched-pose replay uses exactly the
+same sensor position and heading at each time; the four-case comparison isolates
+sampling and target effects. The low diffuse coefficient is an illustrative
+weak-return stress setting, not a calibrated material.
+
+Use `--use-saved` to render without simulation, `--regenerate` to rebuild the
+relevant numerical inputs, or `--data-dir PATH` to choose another saved study.
+The controlled study is stored in `data/sampling_reflectance/`; missing baseline
+histories can be regenerated there without replacing report evidence.
 
 The videos display measured scans and accumulating maps alongside faint true
-obstacle geometry. Recorded runs stop at their actual goal or collision time;
-no later scans are invented. Weather models attenuation only. The coefficients
-are illustrative and are not calibrated to a physical device.
+obstacle geometry. Pink points identify detected target returns. The measurement
+replays follow recorded baseline poses; separately labelled closed-loop summaries
+describe navigation outcomes. Future scans never appear early, and terminal
+states create no extra measurement. Weather models attenuation only; physical
+calibration, atmospheric backscatter and SLAM remain outside this model.
 
 ## Files
 
@@ -114,10 +131,11 @@ are illustrative and are not calibrated to a physical device.
 | Offline interactive report | `index.html` |
 | Editable report and course PDF | `outputs/reports/` |
 | Target and weather figures, trajectories, profiles, maps | `outputs/all_case_report/` |
+| Sensor pose and sampling/reflectance figures and tables | `outputs/sensor_dependencies/` |
 | Fixed-scene 3D FOV/LOS geometry and figure | `outputs/weather_report/` |
 | Threshold detection figure | `outputs/navigation_validation/report_threshold_detection.png` |
 | Figure provenance | `outputs/report_figures_manifest.json` |
-| Environment and sensor-state videos | `simulalted_environments/` |
+| Environment and controlled dependency videos | `simulalted_environments/` |
 | Submission archive and inventory | `outputs/submission/` |
 
 ```text
@@ -128,7 +146,7 @@ lidar_project/
   trajectory/                    Route planning, tracking, recorded runs
   navigation/control.py          Steering geometry used by trajectory tracking
   mapping/                       Measured-point accumulation and storage
-  experiments/                   Report checks, fixed-scene studies, metrics
+  experiments/                   Model checks, fixed-scene studies, controlled factorial study
   visualization/                 Report figures, HTML assets, video renderer
   cli.py                         Numerical generation commands
   workflow.py, project_app.py     Deliverables builder and local server

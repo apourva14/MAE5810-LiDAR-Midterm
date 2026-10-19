@@ -1,5 +1,5 @@
 {
-  "format_version": 1,
+  "format_version": 2,
   "video": "environment_conditions.mp4",
   "mode": "environment",
   "frame_size": [
@@ -17,13 +17,13 @@
   "end_hold_s": 3.0,
   "chronology": "scan k at controls_t[k] = states_t[k]; terminal state has no scan; ended runs freeze without new measurements",
   "map_semantics": "first measured endpoint per 0.12 m voxel; observed XY cells are measured-endpoint cells, not free space or true map accuracy",
-  "display": "small endpoint markers; at most 12000 evenly selected recorded map voxels per panel; latest scans are visually cropped to x[-2,21], y[-6,7], z[-0.2,3.2] m; all raw returns retained in metrics; static translucent meshes are truth context",
+  "display": "small endpoint markers; common retained map-voxel fraction 0.438901, at most 12000 displayed voxels per panel, preserving case density ratios; latest scans are visually cropped to x[-2,21], y[-6,7], z[-0.2,3.2] m; all raw returns retained in metrics; static translucent meshes are truth context",
   "limitations": [
     "exact simulator poses, static objects, ideal snapshot scans; no SLAM",
     "illustrative attenuation coefficients; no calibrated real-weather validation",
     "rain/fog attenuation only; no weather particles/backscatter"
   ],
-  "ranking": null,
+  "comparison_design": null,
   "source_files": [
     {
       "path": "data/video_inputs/all/summary.json",
@@ -46,6 +46,10 @@
       "sha256": "83b07c5955916cfc27813a07ff9b851da6cc84294af5750835f89577bef1ce88"
     },
     {
+      "path": "data/video_inputs/all/runs/baseline/seed_1/diagnostics.csv",
+      "sha256": "eef46e17ff2c0784ad182050f4939bf20be3b8b84d94d1485f019188986caff4"
+    },
+    {
       "path": "data/video_inputs/all/runs/fog/seed_1/trajectory.json",
       "sha256": "1b1dd54dce685d3856109232c93be778db3bc8daf7fea40dece09bbeb8ef81dd"
     },
@@ -62,6 +66,10 @@
       "sha256": "9d05c3519cc775575835c51e0ff57cf4a378b2c8c193c1af467f9d147ddcc596"
     },
     {
+      "path": "data/video_inputs/all/runs/fog/seed_1/diagnostics.csv",
+      "sha256": "5687220d109b86e762f7918b2e6f89db14dc60d72a99da84f5d5055d1f396abf"
+    },
+    {
       "path": "data/video_inputs/all/runs/rain/seed_1/trajectory.json",
       "sha256": "9a8f1f26e819ed72fb0ac3744c1e87ce2204981755bcd086c8f0e835f44718bf"
     },
@@ -76,6 +84,10 @@
     {
       "path": "data/video_inputs/all/runs/rain/seed_1/mapping.npz",
       "sha256": "a41585aeb54550ffeaee10ff14efbcbfbca323e7443f6746ab2264474aadfb65"
+    },
+    {
+      "path": "data/video_inputs/all/runs/rain/seed_1/diagnostics.csv",
+      "sha256": "d4e0e0da6c252fcdab1b2acbdf75c809a93f24b5d19be02fbd5fd4342d457965"
     }
   ],
   "cases": [
@@ -123,6 +135,7 @@
         "yaw_deg": 0.0
       },
       "mount_height_m": 0.6,
+      "recording_kind": "runs",
       "aggregate": {
         "runs": 3,
         "goals": 3,
@@ -186,6 +199,25 @@
           "limits": "No rays mark free or traversable space. No unseen interiors or true obstacle coverage are inferred. All measured heights, including above robot body height, are retained unless an explicit z crop is requested.",
           "area": "Observed endpoint cells divided by regular raster ROI cells; this is not traversable area or true surface coverage. For non-grid-aligned crops, the enclosing regular raster extent is recorded separately."
         }
+      },
+      "study_target": {
+        "type": "box",
+        "label": "study_target",
+        "center": [
+          11.0,
+          1.1,
+          0.6
+        ],
+        "size": [
+          0.8,
+          1.6,
+          1.2
+        ],
+        "yaw_deg": 0.0,
+        "material": {
+          "rho_d": 0.3,
+          "rho_s": 0.0
+        }
       }
     },
     {
@@ -232,6 +264,7 @@
         "yaw_deg": 0.0
       },
       "mount_height_m": 0.6,
+      "recording_kind": "runs",
       "aggregate": {
         "runs": 3,
         "goals": 3,
@@ -295,6 +328,25 @@
           "limits": "No rays mark free or traversable space. No unseen interiors or true obstacle coverage are inferred. All measured heights, including above robot body height, are retained unless an explicit z crop is requested.",
           "area": "Observed endpoint cells divided by regular raster ROI cells; this is not traversable area or true surface coverage. For non-grid-aligned crops, the enclosing regular raster extent is recorded separately."
         }
+      },
+      "study_target": {
+        "type": "box",
+        "label": "study_target",
+        "center": [
+          11.0,
+          1.1,
+          0.6
+        ],
+        "size": [
+          0.8,
+          1.6,
+          1.2
+        ],
+        "yaw_deg": 0.0,
+        "material": {
+          "rho_d": 0.3,
+          "rho_s": 0.0
+        }
       }
     },
     {
@@ -341,6 +393,7 @@
         "yaw_deg": 0.0
       },
       "mount_height_m": 0.6,
+      "recording_kind": "runs",
       "aggregate": {
         "runs": 3,
         "goals": 3,
@@ -403,6 +456,25 @@
           "precedence": "Elevated-surface evidence takes precedence only from its own first observed step onward; later ground observations do not erase it.",
           "limits": "No rays mark free or traversable space. No unseen interiors or true obstacle coverage are inferred. All measured heights, including above robot body height, are retained unless an explicit z crop is requested.",
           "area": "Observed endpoint cells divided by regular raster ROI cells; this is not traversable area or true surface coverage. For non-grid-aligned crops, the enclosing regular raster extent is recorded separately."
+        }
+      },
+      "study_target": {
+        "type": "box",
+        "label": "study_target",
+        "center": [
+          11.0,
+          1.1,
+          0.6
+        ],
+        "size": [
+          0.8,
+          1.6,
+          1.2
+        ],
+        "yaw_deg": 0.0,
+        "material": {
+          "rho_d": 0.3,
+          "rho_s": 0.0
         }
       }
     }

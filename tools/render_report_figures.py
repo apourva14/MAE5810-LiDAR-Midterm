@@ -1,4 +1,4 @@
-"""Render the current target/weather report's seven figures from saved results.
+"""Render the report's pose, sensor configuration, target and weather figures.
 
 This stage never reruns sensor scans or navigation. The coverage preparation
 audits geometry at an existing pose in the unchanged primary scene.
@@ -24,6 +24,7 @@ def render_report_figures(data_dir=PROJECT / "data", output_dir=PROJECT / "outpu
     from lidar_project.visualization.all_case_report import render_weather_report
     from lidar_project.visualization.weather_coverage import prepare_weather_coverage, render_weather_coverage
     from lidar_project.visualization.navigation_validation import _threshold
+    from lidar_project.visualization.sensor_dependencies import render_sensor_dependencies
     from lidar_project.visualization import theme
     import matplotlib.pyplot as plt
 
@@ -33,6 +34,7 @@ def render_report_figures(data_dir=PROJECT / "data", output_dir=PROJECT / "outpu
     if not (dependency / "summary.json").is_file() or not summary_path.is_file():
         raise FileNotFoundError("Generate the saved navigation and threshold studies before rendering report figures")
     weather = render_weather_report(dependency, output / "all_case_report")
+    sensor_dependencies = render_sensor_dependencies(data, output / "sensor_dependencies")
     coverage = prepare_weather_coverage(dependency, output / "weather_report")
     render_weather_coverage(coverage, output / "weather_report")
     threshold_output = output / "navigation_validation/report_threshold_detection.png"
@@ -41,13 +43,15 @@ def render_report_figures(data_dir=PROJECT / "data", output_dir=PROJECT / "outpu
     with plt.rc_context({**theme.MATPLOTLIB, "font.size": 8.5}):
         threshold = _threshold(threshold_summary, threshold_output)
     pngs = [output / "all_case_report" / (name + ".png") for name in (
-        "target_characteristics", "weather_measurements", "weather_trajectories", "weather_profiles", "weather_maps")]
-    pngs.extend((output / "weather_report/weather_fov_los.png", threshold_output))
+        "target_characteristics", "weather_trajectories", "weather_profiles", "weather_maps")]
+    pngs.extend((output / "weather_report/weather_fov_los.png", threshold_output,
+                 output / "sensor_dependencies/sensor_dependencies.png",
+                 output / "sensor_dependencies/weather_measurements_compact.png"))
     sources = [dependency / "summary.json", dependency / "manifest.json", summary_path,
-               data / "navigation_threshold/design.json"]
+               data / "navigation_threshold/design.json", data / "sampling_reflectance/summary.json"]
     manifest = dict(
         schema_version=1,
-        scope="Nine target settings and three weather conditions in one unchanged primary scene; shared baseline.",
+        scope="Sensor pose and noise checks; four sampling/reflectance combinations; nine target settings and three fixed-scene weather conditions.",
         prepared_from_saved_results=True,
         figure_count=len(pngs),
         figures=[dict(path=path.relative_to(output).as_posix(), bytes=path.stat().st_size,
@@ -56,6 +60,8 @@ def render_report_figures(data_dir=PROJECT / "data", output_dir=PROJECT / "outpu
         coverage_geometry="weather_report/fov_los.json",
         weather_runs=weather["runs"],
         target_settings=weather["target_characteristics"]["conditions"],
+        sensor_dependencies_manifest="sensor_dependencies/manifest.json",
+        sampling_reflectance_settings=len(sensor_dependencies["cases"]),
         threshold=threshold,
         sources=[dict(path=path.relative_to(data).as_posix(),
                       sha256=hashlib.sha256(path.read_bytes()).hexdigest()) for path in sources],

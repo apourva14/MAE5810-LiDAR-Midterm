@@ -44,7 +44,8 @@ class ReportExport(unittest.TestCase):
             data = Path(directory)/'saved-studies'
             figures = Path(directory)/'saved-figures'
             for relative in ('evaluation/geometry/summary.json', 'evaluation/response/summary.json',
-                             'navigation_dependencies/summary.json', 'navigation_threshold/summary.json'):
+                             'navigation_dependencies/summary.json', 'navigation_threshold/summary.json',
+                             'sampling_reflectance/summary.json'):
                 path = data/relative
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text('{}')
@@ -57,7 +58,7 @@ class ReportExport(unittest.TestCase):
             self.assertIn('Render the required report figures first', result.stderr)
             for name in ('target_characteristics.png', 'weather_measurements.png',
                          'weather_trajectories.png', 'weather_profiles.png', 'weather_maps.png',
-                         'weather_fov_los.png', 'report_threshold_detection.png'):
+                         'weather_fov_los.png', 'report_threshold_detection.png', 'sensor_dependencies.png'):
                 self.assertIn(name, result.stderr)
             self.assertFalse((Path(directory)/'report').exists())
 

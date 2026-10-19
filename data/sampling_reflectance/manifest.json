@@ -1,0 +1,434 @@
+{
+  "study": "sampling_reflectance",
+  "cases": [
+    {
+      "id": "dense_bright",
+      "label": "Dense / bright",
+      "factor": "sampling_reflectance",
+      "sampling": "dense",
+      "reflectance": "bright",
+      "azimuth_samples": 360,
+      "target_diffuse_reflectance": 0.85,
+      "description": "360 azimuths x 8 channels; study-target diffuse coefficient 0.85; fixed mounting.",
+      "comparison_baseline": "dense_bright",
+      "overrides": {
+        "sensor": {
+          "measurements_per_cycle": 360
+        },
+        "target": {
+          "material": {
+            "rho_d": 0.85,
+            "rho_s": 0.0
+          }
+        }
+      }
+    },
+    {
+      "id": "dense_dark",
+      "label": "Dense / dark",
+      "factor": "sampling_reflectance",
+      "sampling": "dense",
+      "reflectance": "dark",
+      "azimuth_samples": 360,
+      "target_diffuse_reflectance": 5e-05,
+      "description": "360 azimuths x 8 channels; study-target diffuse coefficient 5e-05; fixed mounting.",
+      "comparison_baseline": "dense_bright",
+      "overrides": {
+        "sensor": {
+          "measurements_per_cycle": 360
+        },
+        "target": {
+          "material": {
+            "rho_d": 5e-05,
+            "rho_s": 0.0
+          }
+        }
+      }
+    },
+    {
+      "id": "sparse_bright",
+      "label": "Sparse / bright",
+      "factor": "sampling_reflectance",
+      "sampling": "sparse",
+      "reflectance": "bright",
+      "azimuth_samples": 90,
+      "target_diffuse_reflectance": 0.85,
+      "description": "90 azimuths x 8 channels; study-target diffuse coefficient 0.85; fixed mounting.",
+      "comparison_baseline": "dense_bright",
+      "overrides": {
+        "sensor": {
+          "measurements_per_cycle": 90
+        },
+        "target": {
+          "material": {
+            "rho_d": 0.85,
+            "rho_s": 0.0
+          }
+        }
+      }
+    },
+    {
+      "id": "sparse_dark",
+      "label": "Sparse / dark",
+      "factor": "sampling_reflectance",
+      "sampling": "sparse",
+      "reflectance": "dark",
+      "azimuth_samples": 90,
+      "target_diffuse_reflectance": 5e-05,
+      "description": "90 azimuths x 8 channels; study-target diffuse coefficient 5e-05; fixed mounting.",
+      "comparison_baseline": "dense_bright",
+      "overrides": {
+        "sensor": {
+          "measurements_per_cycle": 90
+        },
+        "target": {
+          "material": {
+            "rho_d": 5e-05,
+            "rho_s": 0.0
+          }
+        }
+      }
+    }
+  ],
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "settings": {
+    "azimuth_samples": [
+      360,
+      90
+    ],
+    "channels": 8,
+    "emitted_beams_per_scan": [
+      2880,
+      720
+    ],
+    "diffuse_reflectance": [
+      0.85,
+      5e-05
+    ],
+    "reflectance_power_ratio": 17000.0,
+    "mount_height_m": 0.6,
+    "sensor_mount": {
+      "offset_xy_m": [
+        0.0,
+        0.0
+      ],
+      "roll_deg": 0.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0
+    },
+    "best_case": "dense_bright",
+    "worst_case": "sparse_dark",
+    "pose_source": "Canonical same-seed baseline control-snapshot poses; identical across all four replay cases."
+  },
+  "definitions": {
+    "best_worst": "Favourable/adverse endpoints for measurement availability within this factorial design, not a globally optimal sensor or a navigation success ranking.",
+    "target_opportunities": "Emitted rays intersecting the isolated study-target geometry before LOS/range tests.",
+    "eligible_echoes": "Nearest opaque hit is the target and its range satisfies the inclusive sensor range gate.",
+    "detected_returns": "Observed target detections; denominator for conditional target P_D is eligible_echoes, not all emitted rays.",
+    "mean_eligible_power_w": "Analytical noiseless power over every eligible target echo, avoiding threshold-selection bias.",
+    "mean_power_w": "Measured power conditional on target detection; this average is selection biased near threshold.",
+    "range_rmse_m": "Measured-minus-true target range RMS conditional on detected target returns; undefined when none detected.",
+    "distance_bins": "Whole snapshots grouped by mean eligible target range; sums use all eligible/detected target echoes in those snapshots, not an exact per-ray range histogram.",
+    "observed_fraction": "Common ROI XY cells with measured endpoints; neither map accuracy nor inferred free/traversable space.",
+    "sampling": "Measurements_per_cycle controls angular sampling density (1 versus 4 degrees), not emitted optical power.",
+    "sensor_state": "Known robot position/yaw vary along the same fixed replay trajectory; mount orientation and height are constant.",
+    "paired_seed": "Same seed labels and poses are paired, but changed beam counts change RNG consumption; per-ray noise is not forced identical."
+  },
+  "limitations": [
+    "Diffuse coefficients and receiver optics are illustrative virtual stress settings, not calibrated real paints or a specific LiDAR.",
+    "The dark coefficient 5e-5 is deliberately selected to cross the model's receiver threshold over the recorded approach/departure.",
+    "Only the designated study_target material changes; other objects, geometry, atmosphere, noise, mount angles and FOV stay fixed.",
+    "A high density scan emits four times as many rays; target intersections need not scale by exactly four because of angular alignment.",
+    "Matched replay isolates measurement causes; closed-loop trajectories can subsequently diverge because measurements drive the controller.",
+    "Recorded poses are exact and scans are ideal snapshots; no SLAM, within-sweep motion, atmospheric backscatter or moving targets.",
+    "Three paired seeds are descriptive rather than a population reliability estimate."
+  ],
+  "controlled_invariants": {
+    "mount_height_m": 0.6,
+    "sensor_mount": {
+      "offset_xy_m": [
+        0.0,
+        0.0
+      ],
+      "roll_deg": 0.0,
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0
+    },
+    "sensor_except_azimuth_count": {
+      "n_channels": 8,
+      "vfov_lower_deg": -20.0,
+      "vfov_upper_deg": 10.0,
+      "hfov_start_deg": -180.0,
+      "hfov_end_deg": 180.0,
+      "rotations_per_s": 10.0,
+      "min_range_m": 0.5,
+      "max_range_m": 200.0,
+      "peak_power_w": 75.0,
+      "beam_divergence_mrad": 2.0,
+      "n_beam_samples": 1,
+      "pulse_fwhm_ns": 5.0,
+      "pulse_rise_ns": 1.0,
+      "aperture_diam_m": 0.025,
+      "optical_efficiency": 0.5,
+      "noise_rms_w": 4e-09,
+      "snr_threshold": 10.0,
+      "saturation_power_w": 5e-05,
+      "range_floor_sigma_m": 0.01,
+      "noise_enabled": true,
+      "air_extinction_per_m": 0.0002,
+      "rain_mm_per_h": 0.0,
+      "rain_a": 0.01,
+      "rain_b": 0.6,
+      "return_mode": "strongest"
+    },
+    "world_except_target_reflectance": {
+      "known_objects": [
+        {
+          "type": "box",
+          "label": "known_wall",
+          "center": [
+            6,
+            -0.8,
+            0.6
+          ],
+          "size": [
+            2,
+            3.8,
+            1.2
+          ],
+          "yaw_deg": 0,
+          "material": "concrete"
+        },
+        {
+          "type": "box",
+          "label": "crate_south",
+          "center": [
+            10,
+            -2.3,
+            0.7
+          ],
+          "size": [
+            1.6,
+            1.4,
+            1.4
+          ],
+          "yaw_deg": 0,
+          "material": "wood"
+        },
+        {
+          "type": "box",
+          "label": "stack_east",
+          "center": [
+            15,
+            -0.8,
+            0.8
+          ],
+          "size": [
+            1.1,
+            2.2,
+            1.6
+          ],
+          "yaw_deg": 0,
+          "material": "concrete"
+        },
+        {
+          "type": "box",
+          "label": "pallet_north",
+          "center": [
+            14.5,
+            4.3,
+            0.3
+          ],
+          "size": [
+            2.2,
+            1.0,
+            0.6
+          ],
+          "yaw_deg": -15,
+          "material": "wood"
+        },
+        {
+          "type": "cylinder",
+          "label": "pillar_west",
+          "base": [
+            3,
+            3.5,
+            0
+          ],
+          "radius": 0.3,
+          "height": 2.6,
+          "material": "wood"
+        },
+        {
+          "type": "cylinder",
+          "label": "pillar_midnorth",
+          "base": [
+            8.8,
+            4.1,
+            0
+          ],
+          "radius": 0.4,
+          "height": 2.2,
+          "material": "wood"
+        },
+        {
+          "type": "cylinder",
+          "label": "pillar_eastnorth",
+          "base": [
+            17.2,
+            3.4,
+            0
+          ],
+          "radius": 0.3,
+          "height": 2.5,
+          "material": "wood"
+        },
+        {
+          "type": "box",
+          "label": "rack_southwest",
+          "center": [
+            4,
+            -4,
+            1.0
+          ],
+          "size": [
+            2.8,
+            1,
+            2.0
+          ],
+          "yaw_deg": 0,
+          "material": "concrete"
+        },
+        {
+          "type": "sphere",
+          "label": "metal_sphere",
+          "center": [
+            10,
+            5,
+            0.6
+          ],
+          "radius": 0.6,
+          "material": "aluminium"
+        }
+      ],
+      "unexpected_objects": [
+        {
+          "type": "box",
+          "label": "study_target",
+          "center": [
+            11.0,
+            1.1,
+            0.6
+          ],
+          "size": [
+            0.8,
+            1.6,
+            1.2
+          ],
+          "yaw_deg": 0.0,
+          "material": {
+            "rho_d": 0.85,
+            "rho_s": 0.0
+          }
+        },
+        {
+          "type": "box",
+          "label": "unexpected_bin",
+          "center": [
+            13.2,
+            2.9,
+            0.375
+          ],
+          "size": [
+            0.7,
+            0.8,
+            0.75
+          ],
+          "yaw_deg": 0,
+          "material": "car_paint_black"
+        },
+        {
+          "type": "cylinder",
+          "label": "unexpected_low_barrel",
+          "base": [
+            8.7,
+            -0.7,
+            0
+          ],
+          "radius": 0.4,
+          "height": 0.9,
+          "material": "wood"
+        }
+      ]
+    },
+    "robot": {
+      "start": [
+        0.0,
+        0.0
+      ],
+      "goal": [
+        18.0,
+        0.0
+      ],
+      "start_heading_deg": 0.0,
+      "goal_tolerance_m": 0.35,
+      "radius_m": 0.35,
+      "height_m": 1.0,
+      "v_max": 1.2,
+      "omega_max_deg_s": 90.0,
+      "dt": 0.2,
+      "max_steps": 180
+    },
+    "controller": {
+      "n_headings": 72,
+      "route_lookahead_m": 1.8,
+      "avoidance_lookahead_m": 5.5,
+      "lookahead_m": 6.0,
+      "safety_margin_m": 0.25,
+      "d_stop_m": 0.15,
+      "d_slow_m": 2.2,
+      "w_tracking": 1.0,
+      "w_turn": 0.25,
+      "w_free": 1.5,
+      "k_omega": 2.5,
+      "z_ground_m": 0.12
+    },
+    "planner": {
+      "resolution_m": 0.25,
+      "extent": [
+        -2.0,
+        21.0,
+        -6.0,
+        7.0
+      ],
+      "safety_margin_m": 0.25,
+      "corner_buffer_m": 0.3,
+      "reference_speed_mps": 0.8,
+      "resample_spacing_m": 0.15
+    }
+  },
+  "sources": [
+    {
+      "seed": 1,
+      "directory": "/Users/lianxuyi/Desktop/Cornell/MAE5810_robot_perception/midterm/LIDAR_model/data/navigation_dependencies/runs/baseline/seed_1",
+      "trajectory_json_sha256": "ce1b652248da284b7fdd8cdfb0d37b09cf4eae22ef073911a35567a98474c4ef",
+      "trajectory_npz_sha256": "4f6f44b6d601b39203637423d33897a132af3444e5f14e73df10d3c96f03a01e"
+    },
+    {
+      "seed": 2,
+      "directory": "/Users/lianxuyi/Desktop/Cornell/MAE5810_robot_perception/midterm/LIDAR_model/data/navigation_dependencies/runs/baseline/seed_2",
+      "trajectory_json_sha256": "393518611db8a56753228af580b44b5af0ee4de7ed5a144ea70791f1a2b17f91",
+      "trajectory_npz_sha256": "ac273edf259d30a6ad7d8f43a87d70fd689f20921558b847500bf7cc4bd8eac7"
+    },
+    {
+      "seed": 3,
+      "directory": "/Users/lianxuyi/Desktop/Cornell/MAE5810_robot_perception/midterm/LIDAR_model/data/navigation_dependencies/runs/baseline/seed_3",
+      "trajectory_json_sha256": "34281ff8630d783b81b61eb38e4f6029744d88fc8757836eff2bfdadb762eeb3",
+      "trajectory_npz_sha256": "734cc369d1b511ab7e6386f79a5325103f166dbba112a0d86f5aa7bec6fb39f7"
+    }
+  ]
+}

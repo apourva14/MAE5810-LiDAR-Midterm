@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Generate one synchronized best / worst enabled sensor-configuration video.
+"""Generate fixed-angle dense/bright versus sparse/dark measurement video.
 
 Run from the repository: python tools/generate_sensor_state_video.py
-Ranks all ten tested fixed-scene, clear-air sensor cases by task completion and
-safety before endpoint-cell coverage. Missing inputs are regenerated separately
-in data/video_inputs/sensor_states; frozen report studies are never replaced.
+The two configured endpoints change azimuth sampling and only the study target's
+diffuse reflectance. Mount angles, weather, FOV and all replay poses are fixed.
+Use generate_target_features_video.py for four cases that isolate each factor.
 """
 from pathlib import Path
 import sys

@@ -1,18 +1,13 @@
 {
   "schema_version": 1,
-  "scope": "Nine target settings and three weather conditions in one unchanged primary scene; shared baseline.",
+  "scope": "Sensor pose and noise checks; four sampling/reflectance combinations; nine target settings and three fixed-scene weather conditions.",
   "prepared_from_saved_results": true,
-  "figure_count": 7,
+  "figure_count": 8,
   "figures": [
     {
       "path": "all_case_report/target_characteristics.png",
       "bytes": 176661,
       "sha256": "c98f246564d7bbeee7efe2ad9b984b2bfadeeefaf9f527e391dc5e969783322d"
-    },
-    {
-      "path": "all_case_report/weather_measurements.png",
-      "bytes": 171044,
-      "sha256": "39f152ed1205e07b8643ff95587160b2d82e8e582b088e73d5d762c096ba6e23"
     },
     {
       "path": "all_case_report/weather_trajectories.png",
@@ -38,12 +33,24 @@
       "path": "navigation_validation/report_threshold_detection.png",
       "bytes": 119200,
       "sha256": "26bf141a92772fc610669340675bdf73bc067dceaec6240253444fa204ddbb25"
+    },
+    {
+      "path": "sensor_dependencies/sensor_dependencies.png",
+      "bytes": 220148,
+      "sha256": "e63fdc57bafd027b8b07cd72b0548c69df8e847c9ca7b2000197d18d520b8dd7"
+    },
+    {
+      "path": "sensor_dependencies/weather_measurements_compact.png",
+      "bytes": 96866,
+      "sha256": "5e4a0609cc7864259964d58c6e0394a3b32aec20dd6fe8727f900e49bf1047c6"
     }
   ],
   "weather_manifest": "all_case_report/manifest.json",
   "coverage_geometry": "weather_report/fov_los.json",
   "weather_runs": 9,
   "target_settings": 9,
+  "sensor_dependencies_manifest": "sensor_dependencies/manifest.json",
+  "sampling_reflectance_settings": 4,
   "threshold": {
     "png": "/Users/lianxuyi/Desktop/Cornell/MAE5810_robot_perception/midterm/LIDAR_model/outputs/navigation_validation/report_threshold_detection.png",
     "pose_ids": [
@@ -72,6 +79,10 @@
     {
       "path": "navigation_threshold/design.json",
       "sha256": "5c1861c5c1c66dbf5a73f0127c9d93b47fab61b25b9b8add023ebea40d9e1c1e"
+    },
+    {
+      "path": "sampling_reflectance/summary.json",
+      "sha256": "758758f91ba2b1df43019130e97fd6356b0e89f7ad7dc86aa82a1c6ee9250ae1"
     }
   ]
 }

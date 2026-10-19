@@ -44,12 +44,11 @@ class Task:
 REPORT_CASE_IDS = (
     "baseline", "reflectance_dark", "reflectance_bright", "target_yaw_45",
     "target_yaw_75", "target_short", "target_tall", "target_near", "target_far",
-    "rain", "fog",
+    "rain", "fog", "noise_high",
 )
 
 VIDEO_CASE_IDS = (
-    "baseline", "mount_low", "mount_high", "pitch_up", "pitch_down", "yaw_full",
-    "fov_front", "fov_side", "noise_high", "sampling_sparse", "fog", "rain",
+    "baseline", "fog", "rain",
 )
 
 
@@ -87,21 +86,36 @@ def _tasks() -> tuple[Task, ...]:
              motion + ("lidar_project/experiments/navigation_dependencies.py", "lidar_project/experiments/environments.py",
                        "lidar_project/experiments/trajectory.py"),
              ("data/navigation_dependencies",),
-             "Nine target settings and three weather conditions share a baseline: 11 unique conditions, three seeds each."),
+             "Nine target settings, three weather conditions and a receiver-noise check share a baseline: 12 unique conditions, three seeds each."),
+        Task("sampling_reflectance", "Controlled sampling and target-reflectance study", "data", ("dependencies",),
+             ("tools/evaluate_sampling_reflectance.py", "--source-dir", "data/navigation_dependencies",
+              "--output-dir", "data/sampling_reflectance"),
+             ("data/sampling_reflectance/summary.json", "data/sampling_reflectance/manifest.json",
+              "data/sampling_reflectance/reference_poses_seed_1.npz",
+              "data/sampling_reflectance/reference_poses_seed_2.npz",
+              "data/sampling_reflectance/reference_poses_seed_3.npz"),
+             motion + ("tools/evaluate_sampling_reflectance.py", "lidar_project/experiments/sampling_reflectance.py",
+                       "lidar_project/experiments/navigation_dependencies.py", "lidar_project/experiments/environments.py",
+                       "lidar_project/experiments/trajectory.py"), ("data/sampling_reflectance",),
+             "Four sampling/reflectance combinations at identical replay poses; fixed mounting angles and field of view."),
         Task("threshold", "Near-threshold detection calibration", "data", ("dependencies",),
              ("run.py", "evaluate-navigation-threshold", "--source-dir", "data/navigation_dependencies",
               "--data-dir", "data/navigation_threshold", "--trials", "1000"),
              ("data/navigation_threshold/summary.json", "data/navigation_threshold/design.json", "data/navigation_threshold/settings.csv"),
              sensor + ("lidar_project/experiments/navigation_threshold.py",), ("data/navigation_threshold",),
              "33,000 independent sensor trials at three frozen viewpoints in the primary scene."),
-        Task("weather_figures", "Target, weather and 3D visibility figures", "media", ("dependencies", "threshold"),
+        Task("weather_figures", "Sensor, target, weather and 3D visibility figures", "media", ("dependencies", "threshold", "sampling_reflectance"),
              ("tools/render_report_figures.py", "--data-dir", "data", "--output-dir", "outputs"),
              figures + ("outputs/weather_report/weather_fov_los.png", "outputs/weather_report/weather_fov_los.pdf",
                         "outputs/weather_report/fov_los.json", "outputs/all_case_report/manifest.json",
-                        "outputs/navigation_validation/report_threshold_detection.png", "outputs/report_figures_manifest.json"),
+                        "outputs/navigation_validation/report_threshold_detection.png", "outputs/report_figures_manifest.json",
+                        "outputs/sensor_dependencies/sensor_dependencies.png", "outputs/sensor_dependencies/sensor_dependencies.pdf",
+                        "outputs/sensor_dependencies/weather_measurements_compact.png", "outputs/sensor_dependencies/weather_measurements_compact.pdf",
+                        "outputs/sensor_dependencies/tables.csv", "outputs/sensor_dependencies/manifest.json"),
              ("tools/render_report_figures.py", "lidar_project/visualization/all_case_report.py",
-              "lidar_project/visualization/weather_coverage.py", "lidar_project/visualization/navigation_validation.py"),
-             description="Seven report figures from retained measurements; no navigation or sensor simulation."),
+              "lidar_project/visualization/weather_coverage.py", "lidar_project/visualization/navigation_validation.py",
+              "lidar_project/visualization/sensor_dependencies.py"),
+             description="Eight report figures from retained measurements; no navigation or sensor simulation."),
         Task("report_docx", "Editable course report", "report", ("evaluation", "weather_figures"),
              ("tools/export_report.py", "--output-dir", "outputs/reports", "--format", "docx", "--use-saved-figures"),
              ("outputs/reports/Midterm_Project_Report.docx",), ("tools/build_report.py", "tools/export_report.py")),
@@ -109,33 +123,38 @@ def _tasks() -> tuple[Task, ...]:
              ("tools/export_report.py", "--output-dir", "outputs/reports", "--format", "pdf"),
              ("outputs/reports/Midterm_Project_Report.pdf", "outputs/reports/report_metadata.json"),
              ("tools/export_report.py",)),
-        Task("report_viewer", "Offline interactive report", "media", ("report_pdf", "weather_figures"),
+        Task("report_viewer", "Offline interactive report", "media", ("report_pdf", "weather_figures", "environment_video", "sensor_state_video", "factorial_video"),
              ("tools/build_visual_report.py", "--output", "index.html"), ("index.html",),
              ("tools/build_visual_report.py", "lidar_project/visualization/report_data.py",
               "lidar_project/visualization/report_math.py"),
-             description="The current report's equations, target plots and fixed-scene weather playback."),
-        Task("video_inputs", "Recorded environment and sensor-state comparisons", "data", (),
+             description="All dependency results, equations, fixed-scene weather playback and supporting videos."),
+        Task("video_inputs", "Recorded environment comparison", "data", (),
              ("run.py", "evaluate-navigation-dependencies", "--config", "configs/trajectory.jsonc",
               "--data-dir", "data/video_inputs/all", "--cases", *VIDEO_CASE_IDS),
              ("data/video_inputs/all/summary.json", "data/video_inputs/all/manifest.json",
               "data/video_inputs/all/runs.csv", "data/video_inputs/all/replay.csv"),
              motion + ("lidar_project/experiments/navigation_dependencies.py", "lidar_project/experiments/environments.py",
                        "lidar_project/experiments/trajectory.py"), ("data/video_inputs/all",),
-             "Twelve fixed-scene conditions, three seeds each; separate inputs preserve report evidence."),
+             "Normal, Fog and Rain, three seeds each; separate inputs preserve report evidence."),
         Task("environment_video", "Normal, Fog and Rain video", "media", ("video_inputs",),
              ("tools/generate_environment_video.py", "--data-dir", "data/video_inputs/all", "--use-saved"),
              ("simulalted_environments/environment_conditions.mp4", "simulalted_environments/environment_conditions.json"),
              ("tools/generate_environment_video.py", "lidar_project/visualization/simulation_video.py"),
              description="Synchronized 3D scans and growing maps in identical obstacle geometry."),
-        Task("sensor_state_video", "Best and worst tested sensor-state video", "media", ("video_inputs",),
-             ("tools/generate_sensor_state_video.py", "--data-dir", "data/video_inputs/all", "--use-saved"),
+        Task("sensor_state_video", "Fixed-angle best and worst measurement conditions", "media", ("sampling_reflectance",),
+             ("tools/generate_sensor_state_video.py", "--data-dir", "data/sampling_reflectance", "--use-saved"),
              ("simulalted_environments/sensor_state_best_vs_worst.mp4", "simulalted_environments/sensor_state_best_vs_worst.json"),
              ("tools/generate_sensor_state_video.py", "lidar_project/visualization/simulation_video.py"),
-             description="Rank ten enabled configurations, then replay both extremes at their actual times."),
-        Task("package", "Submission archive", "package", ("report_pdf", "report_viewer", "weather_figures", "environment_video", "sensor_state_video"),
+             description="Dense/bright and sparse/weak target sensing at identical viewpoints and mounting angles."),
+        Task("factorial_video", "Separate sampling and target-feature effects", "media", ("sampling_reflectance",),
+             ("tools/generate_target_features_video.py", "--data-dir", "data/sampling_reflectance", "--use-saved"),
+             ("simulalted_environments/sampling_reflectance_factorial.mp4", "simulalted_environments/sampling_reflectance_factorial.json"),
+             ("tools/generate_target_features_video.py", "lidar_project/visualization/simulation_video.py"),
+             description="All four combinations isolate sampling and reflectance while holding sensor state fixed."),
+        Task("package", "Submission archive", "package", ("report_pdf", "report_viewer", "weather_figures", "environment_video", "sensor_state_video", "factorial_video"),
              ("tools/package_project.py", "--output", "outputs/submission/Midterm_Project_Submission.zip"),
              ("outputs/submission/Midterm_Project_Submission.zip",),
-             ("tools/package_project.py", "README.md", "index.html", "start.py", "pyproject.toml", "tests", "configs", "lidar_project", "simulalted_environments")),
+             ("tools/package_project.py", "README.md", "index.html", "start.py", "pyproject.toml", ".gitattributes", "tests", "configs", "lidar_project", "simulalted_environments")),
     )
 
 TASKS = _tasks()
@@ -260,7 +279,8 @@ class Workflow:
             if not record or record.get("status") != "complete":
                 raise WorkflowError(f"Dependency {name} did not complete")
             dependencies[name] = record["output_fingerprint"]
-        payload = dict(command=[self.python, *task.args], source_files=[(i["path"], i["sha256"]) for i in inventory], dependencies=dependencies)
+        payload = dict(command=[self.python, *task.args], outputs=list(task.outputs),
+                       source_files=[(i["path"], i["sha256"]) for i in inventory], dependencies=dependencies)
         digest = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
         return digest, payload
 
@@ -290,13 +310,13 @@ class Workflow:
             required = set(REPORT_CASE_IDS)
             cases = {row["id"]: row for row in value.get("cases", [])}
             if not required.issubset(cases) or set(value.get("seeds", [])) != {1, 2, 3}:
-                raise WorkflowError("Target/weather study requires all 11 report conditions and seeds 1, 2, 3")
+                raise WorkflowError(f"Report study requires all {len(REPORT_CASE_IDS)} conditions and seeds 1, 2, 3")
             expected_pairs = {(case_id, seed) for case_id in required for seed in (1, 2, 3)}
             for key in ("runs", "replays"):
                 rows = [row for row in value.get(key, []) if row["case_id"] in required]
                 pairs = [(row["case_id"], row["seed"]) for row in rows]
                 if set(pairs) != expected_pairs or len(pairs) != len(expected_pairs):
-                    raise WorkflowError(f"Target/weather study is incomplete: require 33 distinct {key}")
+                    raise WorkflowError(f"Report study is incomplete: require {len(expected_pairs)} distinct {key}")
                 for row in rows:
                     if key == "runs":
                         self._require_run(root, row["run_directory"])
@@ -308,6 +328,23 @@ class Workflow:
                 row = cases[case_id]
                 self._require_run(root, row["representative_run"], mapping=True)
                 self._require_files(root / row["representative_replay"], ("replay.json", "traces.csv"))
+        elif task.id == "sampling_reflectance":
+            root = data / "sampling_reflectance"
+            value = _read(root / "summary.json")
+            required = {"dense_bright", "dense_dark", "sparse_bright", "sparse_dark"}
+            if {c["id"] for c in value.get("cases", [])} != required or set(value.get("seeds", [])) != {1, 2, 3}:
+                raise WorkflowError("Sampling/reflectance study requires all four combinations and seeds 1, 2, 3")
+            expected = {(case_id, seed) for case_id in required for seed in (1, 2, 3)}
+            for key in ("runs", "replays"):
+                rows = value.get(key, [])
+                pairs = [(row["case_id"], row["seed"]) for row in rows]
+                if set(pairs) != expected or len(pairs) != len(expected):
+                    raise WorkflowError(f"Sampling/reflectance study requires twelve distinct {key}")
+                for row in rows:
+                    relative = row["run_directory" if key == "runs" else "replay_directory"]
+                    self._require_run(root, relative, mapping=True)
+                    if key == "replays":
+                        self._require_files(root / relative, ("scan_targets.npz", "traces.csv", "diagnostics.json"))
         elif task.id == "threshold":
             root = data / "navigation_threshold"
             value, design = _read(root / "summary.json"), _read(root / "design.json")
