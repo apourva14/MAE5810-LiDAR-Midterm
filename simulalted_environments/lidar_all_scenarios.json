@@ -1,0 +1,52 @@
+{
+  "video": "lidar_all_scenarios.mp4",
+  "frame_size": [
+    1920,
+    1080
+  ],
+  "fps": 15,
+  "segments": [
+    {
+      "source": "build/all_scenarios/00_intro.png",
+      "seconds": 7
+    },
+    {
+      "source": "build/all_scenarios/01_card.png",
+      "seconds": 8
+    },
+    {
+      "source": "simulalted_environments/environment_conditions.mp4",
+      "seconds": null
+    },
+    {
+      "source": "build/all_scenarios/02_card.png",
+      "seconds": 8
+    },
+    {
+      "source": "simulalted_environments/sensor_state_best_vs_worst.mp4",
+      "seconds": null
+    },
+    {
+      "source": "build/all_scenarios/03_card.png",
+      "seconds": 8
+    },
+    {
+      "source": "simulalted_environments/sampling_reflectance_factorial.mp4",
+      "seconds": null
+    },
+    {
+      "source": "build/all_scenarios/04_card.png",
+      "seconds": 8
+    },
+    {
+      "source": "build/all_scenarios/04_figure.png",
+      "seconds": 14
+    },
+    {
+      "source": "build/all_scenarios/99_outro.png",
+      "seconds": 8
+    }
+  ],
+  "note": "Concatenation of saved media; no simulation is rerun.",
+  "reproduce": "python tools/generate_all_scenarios_video.py"
+}
